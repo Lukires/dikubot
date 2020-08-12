@@ -3,7 +3,9 @@ package com.diku.command.commands;
 import com.diku.command.Command;
 import com.diku.conversation.GuildConversation;
 import com.diku.conversation.conversations.VerificationConversation;
+import com.diku.ku.Bachelors;
 import com.diku.main.Constant;
+import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -39,8 +41,15 @@ public class VerifyCommand implements Command {
                 channel.sendMessage(user.getAsMention()+" du er blevet tilføjet til gruppen: Datalog").queue();
 
             }else {
-                guild.addRoleToMember(guild.getMember(user), guild.getRolesByName("KU", true).get(0)).queue();
-                channel.sendMessage(user.getAsMention()+" du er blevet tilføjet til gruppen: KU").queue();
+                MessageBuilder mb = new MessageBuilder();
+                mb.append(user.getAsMention()+" vælg dit fag med !bachelor [fag]\nHer er en liste af fag:\n");
+
+                String subjects = "";
+                for(Bachelors bachelor : Bachelors.values()) {
+                    subjects+=bachelor.getName()+"\n";
+                }
+                mb.appendCodeLine(subjects);
+                channel.sendMessage(mb.build()).queue();
             }
         }else{
             channel.sendMessage(user.getAsMention()+" forkert koden! Koden er blevet resettet. Du skal skrive !role igen").queue();

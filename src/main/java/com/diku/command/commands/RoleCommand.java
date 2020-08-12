@@ -44,8 +44,8 @@ public class RoleCommand implements Command {
             }
 
             MessageBuilder mb = new MessageBuilder();
-            mb.append(user.getAsMention()+" der er blevet sendt en kode til din KU-email: "+"hidden@" + args[2].split("@")[1]+" ");
-            mb.appendCodeLine("Når du har fundet koden, skal du skrive: !verify [Kode]");
+            mb.append(user.getAsMention()+" der er blevet sendt en kode til din KU-email: "+"hidden@" + args[2].split("@")[1]);
+            mb.appendCodeLine("\nNår du har fundet koden, skal du skrive: !verify [Kode]");
             channel.sendMessage(mb.build()).queue();
 
             String password = Util.generateString();
