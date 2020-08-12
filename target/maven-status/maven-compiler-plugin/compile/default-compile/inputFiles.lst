@@ -1,0 +1,11 @@
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/listeners/CommandListener.java
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/main/Util.java
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/listeners/JoinListener.java
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/command/commands/VerifyCommand.java
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/conversation/GuildConversation.java
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/conversation/conversations/VerificationConversation.java
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/command/Command.java
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/main/Constant.java
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/command/commands/RoleCommand.java
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/main/Main.java
+/home/lukas/projects/ddu/dikubot/src/main/java/com/diku/email/BotEmail.java
