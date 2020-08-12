@@ -1,5 +1,9 @@
 package com.diku.main;
 
+import com.diku.command.Command;
+import com.diku.command.commands.RoleCommand;
+import com.diku.command.commands.VerifyCommand;
+import com.diku.listeners.CommandListener;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -9,15 +13,22 @@ import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.HashMap;
 
 public class Main {
 
     public static JDA jda;
     private static JDABuilder jdaBuilder;
+    public static HashMap<String, Command> commands = new HashMap<String, Command>();
 
     public static void main(String[] args) {
+
+        commands.put("!role", new RoleCommand());
+        commands.put("!verify", new VerifyCommand());
+
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.setActivity(Activity.watching("you"));
+        jdaBuilder.addEventListeners(new CommandListener());
         try {
             jda = jdaBuilder.build();
         } catch (LoginException e) {
