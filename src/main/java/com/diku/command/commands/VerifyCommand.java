@@ -35,14 +35,15 @@ public class VerifyCommand implements Command {
         VerificationConversation conversation = (VerificationConversation) GuildConversation.getConversation(user,channel);
         String password = conversation.getPassword();
         String email = conversation.getEmail();
+
         if (args[1].equals(password)) {
             if(Constant.DIKU_EMAILS.contains(email)) {
                 guild.addRoleToMember(guild.getMember(user), guild.getRolesByName("Datalog", true).get(0)).queue();
-                channel.sendMessage(user.getAsMention()+" du er blevet tilføjet til gruppen: Datalog").queue();
+                channel.sendMessage(user.getAsMention()+" din email er verified og du er blevet tilføjet til gruppen: Datalog").queue();
 
             }else {
                 MessageBuilder mb = new MessageBuilder();
-                mb.append(user.getAsMention()+" vælg dit fag med !bachelor [fag]\nHer er en liste af fag:\n");
+                mb.append(user.getAsMention()+" din email er blevet verified. Vælg dit fag med !bachelor [fag]\nHer er en liste af fag:\n");
 
                 String subjects = "";
                 for(Bachelors bachelor : Bachelors.values()) {
@@ -52,7 +53,7 @@ public class VerifyCommand implements Command {
                 channel.sendMessage(mb.build()).queue();
             }
         }else{
-            channel.sendMessage(user.getAsMention()+" forkert koden! Koden er blevet resettet. Du skal skrive !role igen").queue();
+            channel.sendMessage(user.getAsMention()+" forkert kode! Koden er blevet resettet. Du skal skrive !role igen").queue();
         }
         conversation.end();
 
