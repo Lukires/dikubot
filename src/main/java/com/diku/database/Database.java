@@ -1,33 +1,41 @@
 package com.diku.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+
+import java.net.UnknownHostException;
+
 
 public class Database {
 
-    private final String user = "datalog";
-    private final String dbName = "dikubot";
-    private final String pass = "kudatalogi";
-    private final String ip = "127.0.0.1";
-    private final String port = "3306";
-    private static final Database database = new Database();
-    private Connection connection;
+
+    private static final String hostName = "mongodb://localhost:27017";
+    private static final String dbName = "dikubot";
+
+    private static final Database instance = new Database();
+    private MongoClient mongoClient;
+    private DB database;
 
     private Database() {
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            connection= DriverManager.getConnection("jdbc:mariadb://"+ip+":"+port+"/"+dbName,user,pass);
-        }catch(Exception e) {
+            mongoClient = new MongoClient(new MongoClientURI(hostName));
+            database = mongoClient.getDB(dbName);
+        } catch (UnknownHostException e) {
             e.printStackTrace();
         }
     }
 
-    public static Database getDatabase() {
+    public static Database getInstance() {
+        return instance;
+    }
+
+    public MongoClient getMongoClient() {
+        return mongoClient;
+
+    }
+
+    public DB getDatabase() {
         return database;
     }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
 }
