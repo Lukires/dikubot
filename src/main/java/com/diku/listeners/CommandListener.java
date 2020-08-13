@@ -9,6 +9,8 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.Date;
+
 public class CommandListener extends ListenerAdapter {
 
     @Override
@@ -30,7 +32,7 @@ public class CommandListener extends ListenerAdapter {
         MessageChannel channel = e.getChannel();
         Guild guild;
 
-        System.out.println(System.currentTimeMillis()+" - User "+user.getName()+" ("+user.getAsTag()+") executed "+messageContent);
+        System.out.println(new Date(System.currentTimeMillis()).toString()+" - User "+user.getName()+" ("+user.getAsTag()+") executed "+messageContent);
 
         if(e.getMessage().isFromGuild()) {
             guild = message.getGuild();
