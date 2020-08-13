@@ -30,6 +30,8 @@ public class CommandListener extends ListenerAdapter {
         MessageChannel channel = e.getChannel();
         Guild guild;
 
+        System.out.println(user.getName()+" executed "+messageContent);
+
         if(e.getMessage().isFromGuild()) {
             guild = message.getGuild();
         }else if(GuildConversation.conversationExists(user, channel)) {
