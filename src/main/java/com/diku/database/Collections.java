@@ -2,13 +2,18 @@ package com.diku.database;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 
 public enum Collections {
-    USERS("users");
+
+    USERS("users"),
+    EMAILS("emails");
 
 
-    protected DB database = Database.getInstance().getDatabase();
-    protected DBCollection collection;
+    protected MongoDatabase database = Database.getInstance().getDatabase();
+    protected MongoCollection<Document> collection;
     private String collectionName;
 
     Collections(String collectionName) {
@@ -16,11 +21,11 @@ public enum Collections {
         collection=database.getCollection(collectionName);
     }
 
-    public DB getDatabase() {
+    public MongoDatabase getDatabase() {
         return database;
     }
 
-    public DBCollection getCollection() {
+    public MongoCollection<Document> getCollection() {
         return collection;
     }
 

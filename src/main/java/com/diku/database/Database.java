@@ -3,6 +3,7 @@ package com.diku.database;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoDatabase;
 
 import java.net.UnknownHostException;
 
@@ -15,15 +16,11 @@ public class Database {
 
     private static final Database instance = new Database();
     private MongoClient mongoClient;
-    private DB database;
+    private MongoDatabase database;
 
     private Database() {
-        try {
-            mongoClient = new MongoClient(new MongoClientURI(hostName));
-            database = mongoClient.getDB(dbName);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+        mongoClient = new MongoClient(new MongoClientURI(hostName));
+        database = mongoClient.getDatabase(dbName);
     }
 
     public static Database getInstance() {
@@ -35,7 +32,7 @@ public class Database {
 
     }
 
-    public DB getDatabase() {
+    public MongoDatabase getDatabase() {
         return database;
     }
 }

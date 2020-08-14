@@ -16,7 +16,7 @@ import java.io.IOException;
 public class BotEmail {
 
     private static BotEmail instance;
-    private static final Email email = new Email("lukiwokimc@gmail.com");
+    private static final Email email = new Email("noreply@lukire.tech", "Discord Verification");
     private SendGrid sendGrid = new SendGrid(getSendGridToken());
 
     private BotEmail() {
