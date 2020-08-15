@@ -43,8 +43,8 @@ public class RoleCommand implements Command {
                 channel.sendMessage(user.getAsMention()+" Invalid usage - !role ku [ku-email]").queue();
                 return;
             }
-            if (!args[2].endsWith(".ku.dk") || !args[2].endsWith("@ku.dk")) {
-                channel.sendMessage(user.getAsMention()+" Not a valid ku-email, usage - !role ku [ku-email]").queue();
+            if (!args[2].endsWith(".ku.dk") && !args[2].endsWith("@ku.dk")) {
+                channel.sendMessage(user.getAsMention()+" Ikke en gyldig KU-email, usage - !role ku [ku-email]").queue();
                 return;
             }
 
