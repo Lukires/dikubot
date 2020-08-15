@@ -33,7 +33,7 @@ public class UserModel extends Model {
     }
 
     public void deleteUser() {
-        collection.findOneAndDelete(Filters.eq("_id", userDiscord.getId()));
+        collection.deleteOne(Filters.eq("_id", userDiscord.getId()));
     }
 
     private void updateUser(String key, Object value) {
