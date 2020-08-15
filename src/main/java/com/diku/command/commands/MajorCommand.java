@@ -2,6 +2,7 @@ package com.diku.command.commands;
 
 import com.diku.command.Command;
 import com.diku.ku.Major;
+import com.diku.main.Main;
 import com.diku.models.UserModel;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.*;
@@ -47,6 +48,7 @@ public class MajorCommand implements Command {
                 }
 
                 userModel.setMajor(major.getName());
+
                 guild.addRoleToMember(guild.getMember(user), guild.getRolesByName(major.getRole().getRole(), true).get(0)).queue();
                 return;
             }
