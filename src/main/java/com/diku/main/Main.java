@@ -2,6 +2,7 @@ package com.diku.main;
 
 import com.diku.command.Command;
 import com.diku.command.commands.MajorCommand;
+import com.diku.command.commands.ResetCommand;
 import com.diku.command.commands.RoleCommand;
 import com.diku.command.commands.VerifyCommand;
 import com.diku.listeners.CommandListener;
@@ -28,6 +29,7 @@ public class Main {
         commands.put("!role", new RoleCommand());
         commands.put("!verify", new VerifyCommand());
         commands.put("!major", new MajorCommand());
+        commands.put("!reset", new ResetCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.setActivity(Activity.watching("you"));

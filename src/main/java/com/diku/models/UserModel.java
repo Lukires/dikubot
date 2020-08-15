@@ -32,6 +32,10 @@ public class UserModel extends Model {
         }
     }
 
+    public void deleteUser() {
+        collection.findOneAndDelete(Filters.eq("_id", userDiscord.getId()));
+    }
+
     private void updateUser(String key, Object value) {
         userDB.append(key, value);
         collection.updateOne(Filters.eq("_id", userDiscord.getId()), new Document("$set", new Document(key, value)));

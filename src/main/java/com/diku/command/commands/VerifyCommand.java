@@ -46,11 +46,6 @@ public class VerifyCommand implements Command {
 
 
         if (args[1].equals(password)) {
-
-            UserModel userModel = UserModel.getUserModel(user);
-            userModel.setEmail(email);
-            userModel.setVerified(true);
-
             if(Constant.DIKU_EMAILS.contains(email)) {
                 guild.addRoleToMember(guild.getMember(user), guild.getRolesByName("Datalog", true).get(0)).queue();
                 channel.sendMessage(user.getAsMention()+" din email er verified og du er blevet tilføjet til gruppen: Datalog").queue();
@@ -66,6 +61,11 @@ public class VerifyCommand implements Command {
                 mb.appendCodeLine(subjects);
                 channel.sendMessage(mb.build()).queue();
             }
+
+            UserModel userModel = UserModel.getUserModel(user);
+            userModel.setEmail(email);
+            userModel.setVerified(true);
+
         }else{
             channel.sendMessage(user.getAsMention()+" forkert kode! Koden er blevet resettet. Du skal skrive !role igen").queue();
         }
