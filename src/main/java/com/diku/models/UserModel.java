@@ -50,7 +50,7 @@ public class UserModel extends Model {
     }
 
     public static boolean isEmailVerified(String email) {
-        return Collections.USERS.getCollection().find(Filters.and(Filters.eq("email", email), Filters.eq("verified", true))).limit(1).first() == null;
+        return Collections.USERS.getCollection().find(Filters.and(Filters.eq("email", email), Filters.eq("verified", true))).limit(1).first() != null;
     }
 
     public User getUserDiscord() {
