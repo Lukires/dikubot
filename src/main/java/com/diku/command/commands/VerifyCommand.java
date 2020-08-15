@@ -47,7 +47,8 @@ public class VerifyCommand implements Command {
 
         if (args[1].equals(password)) {
             if(Constant.DIKU_EMAILS.contains(email)) {
-                guild.addRoleToMember(guild.getMember(user), guild.getRolesByName("Datalog", true).get(0)).queue();
+
+                guild.addRoleToMember(guild.getMemberById(user.getId()), guild.getRolesByName("Datalog", true).get(0)).queue();
                 channel.sendMessage(user.getAsMention()+" din email er verified og du er blevet tilføjet til gruppen: Datalog").queue();
 
             }else {

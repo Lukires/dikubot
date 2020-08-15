@@ -43,7 +43,7 @@ public class CommandListener extends ListenerAdapter {
             return;
         }
 
-        Main.commands.get(command).onCommand(e.getAuthor(), guild, e.getChannel(), e.getMessage());
+        Main.commands.get(command).onCommand(user, guild, e.getChannel(), e.getMessage());
 
     }
 }

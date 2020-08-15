@@ -40,6 +40,9 @@ public class MajorCommand implements Command {
 
                 //I know this is stupid but I can't be bothered to do it right
                 for(Major majorin : Major.values()) {
+                    if (major==majorin) {
+                        continue;
+                    }
                     guild.removeRoleFromMember(guild.getMember(user), guild.getRolesByName(majorin.getRole().getRole(), true).get(0)).queue();
                 }
 
