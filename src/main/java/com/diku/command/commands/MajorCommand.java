@@ -34,6 +34,7 @@ public class MajorCommand implements Command {
             return;
         }
 
+
         String majorInput = args[1];
         for(Major major : Major.values()) {
             if(major.getName().equalsIgnoreCase(majorInput)) {
@@ -44,18 +45,18 @@ public class MajorCommand implements Command {
                     if (major==majorin) {
                         continue;
                     }
-                    guild.removeRoleFromMember(guild.getMember(user), guild.getRolesByName(majorin.getRole().getRole(), true).get(0)).queue();
+                    guild.removeRoleFromMember(user.getId(), guild.getRolesByName(majorin.getRole().getRole(), true).get(0)).queue();
                 }
 
                 userModel.setMajor(major.getName());
 
-                guild.addRoleToMember(guild.getMember(user), guild.getRolesByName(major.getRole().getRole(), true).get(0)).queue();
+                guild.addRoleToMember(user.getId(), guild.getRolesByName(major.getRole().getRole(), true).get(0)).queue();
                 return;
             }
         }
 
         MessageBuilder mb = new MessageBuilder();
-        mb.append(user.getAsMention()+" Det indtastet fag findes ikke - !major [fag]\"\n");
+        mb.append(user.getAsMention()+" Det indtastede fag findes ikke - !major [fag]\"\n");
 
         String subjects = "Fag:\n";
         for(Major major : Major.values()) {

@@ -10,7 +10,8 @@ import net.dv8tion.jda.api.entities.User;
 public class ResetCommand implements Command {
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
-        UserModel.getUserModel(user).deleteUser();
-        channel.sendMessage(user.getAsMention()+" you reset yourself!").queue();
+
+        /*UserModel.getUserModel(user).deleteUser();
+        channel.sendMessage(user.getAsMention()+" you reset yourself!").queue();*/
     }
 }
