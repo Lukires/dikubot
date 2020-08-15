@@ -3,8 +3,11 @@ package com.diku.command.commands;
 import com.diku.command.Command;
 import com.diku.conversation.GuildConversation;
 import com.diku.conversation.conversations.VerificationConversation;
-import com.diku.ku.Bachelors;
+import com.diku.database.Collections;
+import com.diku.ku.Major;
 import com.diku.main.Constant;
+import com.diku.models.UserModel;
+import com.mongodb.client.model.Filters;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -36,18 +39,29 @@ public class VerifyCommand implements Command {
         String password = conversation.getPassword();
         String email = conversation.getEmail();
 
+        if (UserModel.isEmailVerified(email)) {
+            channel.sendMessage(user.getAsMention()+" denne email er allerede blevet verified").queue();
+            return;
+        }
+
+
         if (args[1].equals(password)) {
+
+            UserModel userModel = UserModel.getUserModel(user);
+            userModel.setEmail(email);
+            userModel.setVerified(true);
+
             if(Constant.DIKU_EMAILS.contains(email)) {
                 guild.addRoleToMember(guild.getMember(user), guild.getRolesByName("Datalog", true).get(0)).queue();
                 channel.sendMessage(user.getAsMention()+" din email er verified og du er blevet tilføjet til gruppen: Datalog").queue();
 
             }else {
                 MessageBuilder mb = new MessageBuilder();
-                mb.append(user.getAsMention()+" din email er blevet verified. Vælg dit fag med !bachelor [fag]\nHer er en liste af fag:\n");
+                mb.append(user.getAsMention()+" din email er blevet verified. Vælg dit fag med !major [fag]\nHer er en liste af fag:\n");
 
                 String subjects = "";
-                for(Bachelors bachelor : Bachelors.values()) {
-                    subjects+=bachelor.getName()+"\n";
+                for(Major major : Major.values()) {
+                    subjects+=major.getName()+"\n";
                 }
                 mb.appendCodeLine(subjects);
                 channel.sendMessage(mb.build()).queue();

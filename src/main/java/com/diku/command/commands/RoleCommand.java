@@ -5,6 +5,7 @@ import com.diku.conversation.GuildConversation;
 import com.diku.conversation.conversations.VerificationConversation;
 import com.diku.email.BotEmail;
 import com.diku.main.Util;
+import com.diku.models.UserModel;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import net.dv8tion.jda.api.MessageBuilder;
@@ -22,6 +23,16 @@ public class RoleCommand implements Command {
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         String[] args = getArgs(message);
 
+        UserModel userModel = UserModel.getUserModel(user);
+        if (userModel.isVerified()) {
+            if (userModel.getMajor().equals("")) {
+                channel.sendMessage(user.getAsMention()+" din email er allerede verified. Du kan vælge dit fag med kommandoen **!major** ").queue();
+            }else{
+                channel.sendMessage(user.getAsMention()+" din email er allerede verified. ").queue();
+            }
+            return;
+        }
+
         if(args.length < 2) {
             channel.sendMessage(user.getAsMention()+" Invalid usage - !role ku [ku-email] OR !role guest").queue();
             return;
@@ -32,8 +43,13 @@ public class RoleCommand implements Command {
                 channel.sendMessage(user.getAsMention()+" Invalid usage - !role ku [ku-email]").queue();
                 return;
             }
-            if (!args[2].endsWith(".ku.dk")) {
+            if (!args[2].endsWith(".ku.dk") || !args[2].endsWith("@ku.dk")) {
                 channel.sendMessage(user.getAsMention()+" Not a valid ku-email, usage - !role ku [ku-email]").queue();
+                return;
+            }
+
+            if (UserModel.isEmailVerified(args[2])) {
+                channel.sendMessage(user.getAsMention()+" denne email er allerede blevet verified").queue();
                 return;
             }
 

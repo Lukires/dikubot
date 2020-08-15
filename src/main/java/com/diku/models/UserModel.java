@@ -19,14 +19,15 @@ public class UserModel extends Model {
     private User userDiscord;
     private UserModel(User user) {
         this.userDiscord=user;
-        cache.put(user,this);
+        cache.put(user,this, 600);
         userDB = collection.find(Filters.eq("_id", user.getId())).first();
 
-        if (userDB.isEmpty()) {
+        if (userDB==null) {
             userDB = new Document();
             userDB.append("_id", user.getId());
             userDB.append("email", "");
             userDB.append("verified", false);
+            userDB.append("major", "");
             collection.insertOne(userDB);
         }
     }
@@ -40,11 +41,16 @@ public class UserModel extends Model {
         return getUserModel(Main.jda.getUserById(userDiscordID));
     }
 
+
     public static UserModel getUserModel(User user) {
         if (cache.containsKey(user)) {
             return cache.get(user);
         }
         return new UserModel(user);
+    }
+
+    public static boolean isEmailVerified(String email) {
+        return Collections.USERS.getCollection().find(Filters.and(Filters.eq("email", email), Filters.eq("verified", true))).limit(1).first() == null;
     }
 
     public User getUserDiscord() {
@@ -59,12 +65,20 @@ public class UserModel extends Model {
         return userDB.getString("email");
     }
 
+    public String getMajor() {
+        return userDB.getString("major");
+    }
+
     public void setVerified(boolean verified) {
         updateUser("verified", verified);
     }
 
     public void setEmail(String email) {
         updateUser("email", email);
+    }
+
+    public void setMajor(String major) {
+        updateUser("major", major);
     }
 
 

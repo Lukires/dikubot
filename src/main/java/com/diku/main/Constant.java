@@ -255,7 +255,7 @@ public class Constant {
             "tnc197@alumni.ku.dk",
             "lrj456@alumni.ku.dk",
             "snz302@alumni.ku.dk",
-            "fzw981@alumni.ku.dk",
+            //"fzw981@alumni.ku.dk",
             "jxs535@alumni.ku.dk",
             "dtb797@alumni.ku.dk",
             "jkd427@alumni.ku.dk",

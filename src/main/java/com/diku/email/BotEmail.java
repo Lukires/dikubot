@@ -38,11 +38,9 @@ public class BotEmail {
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
             Response response = sendGrid.api(request);
-            System.out.println("######## SENDING EMAIL ########");
-            System.out.println("From: "+email.getEmail()+" to: "+to.getEmail());
-            System.out.println(response.getStatusCode());
-            System.out.println(response.getBody());
-            System.out.println(response.getHeaders());
+            System.out.print("Email From: "+email.getEmail()+" to: "+to.getEmail() + " ");
+            System.out.print(response.getStatusCode() + " ");
+            System.out.print(response.getHeaders() + " ");
         } catch (IOException e) {
             e.printStackTrace();
         }

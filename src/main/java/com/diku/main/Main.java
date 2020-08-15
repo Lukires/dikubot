@@ -1,9 +1,11 @@
 package com.diku.main;
 
 import com.diku.command.Command;
+import com.diku.command.commands.MajorCommand;
 import com.diku.command.commands.RoleCommand;
 import com.diku.command.commands.VerifyCommand;
 import com.diku.listeners.CommandListener;
+import com.diku.listeners.JoinListener;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -25,10 +27,12 @@ public class Main {
 
         commands.put("!role", new RoleCommand());
         commands.put("!verify", new VerifyCommand());
+        commands.put("!major", new MajorCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.setActivity(Activity.watching("you"));
         jdaBuilder.addEventListeners(new CommandListener());
+        jdaBuilder.addEventListeners(new JoinListener());
         try {
             jda = jdaBuilder.build();
         } catch (LoginException e) {

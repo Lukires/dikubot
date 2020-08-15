@@ -14,6 +14,6 @@ public class Cache<K, T> extends HashMap<K, T> {
             public void run() {
                 remove(key);
             }
-        }, expires - System.currentTimeMillis()/1000);
+        }, expires*1000);
     }
 }

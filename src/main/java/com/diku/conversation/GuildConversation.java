@@ -9,6 +9,13 @@ import java.util.HashMap;
 
 public class GuildConversation {
 
+
+    /*
+
+    The whole GuildConversation concept is pretty bad, will probably improve it or something in the future
+
+     */
+
     private static HashMap<User, HashMap<MessageChannel, GuildConversation>> conversations = new HashMap<User, HashMap<MessageChannel, GuildConversation>>();
 
     protected User user;

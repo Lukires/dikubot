@@ -1,8 +1,8 @@
 package com.diku.ku;
 
-public enum Bachelors {
+public enum Major {
 
-    DATALOGI(Roles.DATALOG, "Datalogi"),
+    DATALOGI(Roles.DIKU, "Datalogi"),
     MACHINELEARNING(Roles.DIKU, "Machine Learning"),
     DATALOGI_ECONOMICS(Roles.DIKU, "Datalogi-Økonomi"),
     OTHER(Roles.KU, "Andet");
@@ -11,7 +11,7 @@ public enum Bachelors {
 
     Roles role;
     String name;
-    Bachelors(Roles role, String name) {
+    Major(Roles role, String name) {
         this.role=role;
         this.name=name;
     }
