@@ -2,6 +2,7 @@ package com.diku.command.commands;
 
 import com.diku.command.Command;
 import com.diku.ku.Major;
+import com.diku.main.Constant;
 import com.diku.main.Main;
 import com.diku.models.UserModel;
 import net.dv8tion.jda.api.MessageBuilder;
@@ -34,6 +35,12 @@ public class MajorCommand implements Command {
             return;
         }
 
+        if(Constant.DIKU_EMAILS.contains(userModel.getEmail())) {
+            guild.addRoleToMember(user.getId(), guild.getRolesByName("Datalog", true).get(0)).queue();
+            channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-2020, og er derfor blevet tilføjet til gruppen: Datalog").queue();
+            UserModel.getUserModel(user).setMajor("Datalogi-2020");
+            return;
+        }
 
         String majorInput = args[1];
         for(Major major : Major.values()) {
@@ -49,7 +56,6 @@ public class MajorCommand implements Command {
                 }
 
                 userModel.setMajor(major.getName());
-
                 guild.addRoleToMember(user.getId(), guild.getRolesByName(major.getRole().getRole(), true).get(0)).queue();
                 return;
             }
