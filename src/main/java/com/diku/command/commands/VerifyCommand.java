@@ -45,33 +45,46 @@ public class VerifyCommand implements Command {
         }
 
 
-        if (args[1].equals(password)) {
-            if(Constant.DIKU_EMAILS.contains(email)) {
-
-                guild.addRoleToMember(user.getId(), guild.getRolesByName("Datalog", true).get(0)).queue();
-                channel.sendMessage(user.getAsMention()+" din email er verified og du er blevet tilføjet til gruppen: Datalog").queue();
-                UserModel.getUserModel(user).setMajor("Datalogi-2020");
-
-            }else {
-                MessageBuilder mb = new MessageBuilder();
-                mb.append(user.getAsMention()+" din email er blevet verified. Vælg dit fag med !major [fag]\nHer er en liste af fag:\n");
-
-                String subjects = "";
-                for(Major major : Major.values()) {
-                    subjects+=major.getName()+"\n";
-                }
-                mb.appendCodeLine(subjects);
-                channel.sendMessage(mb.build()).queue();
-            }
-
-            UserModel userModel = UserModel.getUserModel(user);
-            userModel.setEmail(email);
-            userModel.setVerified(true);
-
-        }else{
+        if (!args[1].equals(password)) {
             channel.sendMessage(user.getAsMention()+" forkert kode! Koden er blevet resettet. Du skal skrive !role igen").queue();
+            conversation.end();
+            return;
         }
-        conversation.end();
+
+        UserModel userModel = UserModel.getUserModel(user);
+        userModel.setEmail(email);
+        userModel.setVerified(true);
+
+        boolean datalogiEmail = Constant.DIKU_EMAILS.contains(email);
+        boolean machineLearningEmail = Constant.MACHINE_LEARNING_EMAILS.contains(email);
+
+        if(!machineLearningEmail && !datalogiEmail) {
+            MessageBuilder mb = new MessageBuilder();
+            mb.append(user.getAsMention()+" din email er blevet verified. Vælg dit fag med !major [fag]\nHer er en liste af fag:\n");
+
+            String subjects = "";
+            for(Major major : Major.values()) {
+                subjects+=major.getName()+"\n";
+            }
+            mb.appendCodeLine(subjects);
+            channel.sendMessage(mb.build()).queue();
+            return;
+        }
+
+        if(datalogiEmail) {
+
+            guild.addRoleToMember(user.getId(), guild.getRolesByName("Datalog", true).get(0)).queue();
+            channel.sendMessage(user.getAsMention()+" din email er verified og du er blevet tilføjet til gruppen: Datalog").queue();
+            UserModel.getUserModel(user).setMajor("Datalogi-2020");
+
+        }
+        if(machineLearningEmail) {
+
+            guild.addRoleToMember(user.getId(), guild.getRolesByName("MachineTeacher", true).get(0)).queue();
+            channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: MachineTeacher").queue();
+            UserModel.getUserModel(user).setMajor("MachineLearning-2020");
+
+        }
 
     }
 }

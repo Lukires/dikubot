@@ -42,6 +42,13 @@ public class MajorCommand implements Command {
             return;
         }
 
+        if(Constant.MACHINE_LEARNING_EMAILS.contains(userModel.getEmail())) {
+            guild.addRoleToMember(user.getId(), guild.getRolesByName("MachineTeacher", true).get(0)).queue();
+            channel.sendMessage(user.getAsMention()+" du går på holdet MachineLearning-2020, og er derfor blevet tilføjet til gruppen: MachineTeacher").queue();
+            UserModel.getUserModel(user).setMajor("MachineLearning-2020");
+            return;
+        }
+
         String majorInput = args[1];
         for(Major major : Major.values()) {
             if(major.getName().equalsIgnoreCase(majorInput)) {
