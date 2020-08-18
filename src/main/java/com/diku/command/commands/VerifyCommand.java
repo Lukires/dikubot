@@ -57,8 +57,9 @@ public class VerifyCommand implements Command {
 
         boolean datalogiEmail = Constant.DIKU_EMAILS.contains(email);
         boolean machineLearningEmail = Constant.MACHINE_LEARNING_EMAILS.contains(email);
+        boolean datalogiEconomicsEmail = Constant.DATALOGI_ECONOMICS_EMAILS.contains(email);
 
-        if(!machineLearningEmail && !datalogiEmail) {
+        if(!machineLearningEmail && !datalogiEmail && !datalogiEconomicsEmail) {
             MessageBuilder mb = new MessageBuilder();
             mb.append(user.getAsMention()+" din email er blevet verified. Vælg dit fag med !major [fag]\nHer er en liste af fag:\n");
 
@@ -83,7 +84,12 @@ public class VerifyCommand implements Command {
             guild.addRoleToMember(user.getId(), guild.getRolesByName("MachineTeacher", true).get(0)).queue();
             channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: MachineTeacher").queue();
             UserModel.getUserModel(user).setMajor("MachineLearning-2020");
+        }
 
+        if(datalogiEconomicsEmail) {
+            guild.addRoleToMember(user.getId(), guild.getRolesByName("CBS-Programmering", true).get(0)).queue();
+            channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: CBS-Programmering").queue();
+            UserModel.getUserModel(user).setMajor("Datalogi-Økonomi-2020");
         }
 
     }

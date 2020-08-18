@@ -2,9 +2,9 @@ package com.diku.ku;
 
 public enum Major {
 
-    DATALOGI(Roles.DIKU, "Datalogi"),
-    MACHINELEARNING(Roles.DIKU, "Machine-Learning"),
-    DATALOGI_ECONOMICS(Roles.DIKU, "Datalogi-Økonomi"),
+    DATALOGI(Roles.KU, "Datalogi"),
+    MACHINELEARNING(Roles.KU, "Machine-Learning"),
+    DATALOGI_ECONOMICS(Roles.KU, "Datalogi-Økonomi"),
     OTHER(Roles.KU, "Andet");
 
 

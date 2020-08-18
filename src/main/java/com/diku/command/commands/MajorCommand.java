@@ -49,6 +49,13 @@ public class MajorCommand implements Command {
             return;
         }
 
+        if(Constant.DATALOGI_ECONOMICS_EMAILS.contains(userModel.getEmail())) {
+            guild.addRoleToMember(user.getId(), guild.getRolesByName("CBS-Programmering", true).get(0)).queue();
+            channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-Økonomi-2020, og er derfor blevet tilføjet til gruppen: CBS-Programmering").queue();
+            UserModel.getUserModel(user).setMajor("Datalogi-Økonomi-2020");
+            return;
+        }
+
         String majorInput = args[1];
         for(Major major : Major.values()) {
             if(major.getName().equalsIgnoreCase(majorInput)) {
