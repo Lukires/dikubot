@@ -90,7 +90,7 @@ public class UserModel extends Model {
     public double getProdigyPercentile() {
         Double percentile = userDB.getDouble("percentile");
         if(percentile == null) {
-            setProdigyPercentile(new Random().nextDouble() * 100);
+            setProdigyPercentile(new Random().nextGaussian() * 100);
             return getProdigyPercentile();
         }
         return percentile;
