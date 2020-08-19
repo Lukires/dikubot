@@ -40,7 +40,7 @@ public class BotEmail {
             Response response = sendGrid.api(request);
             System.out.print("Email From: "+email.getEmail()+" to: "+to.getEmail() + " ");
             System.out.print(response.getStatusCode() + " ");
-            System.out.print(response.getHeaders() + " ");
+            System.out.println(response.getHeaders() + " ");
         } catch (IOException e) {
             e.printStackTrace();
         }
