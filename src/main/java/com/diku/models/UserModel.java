@@ -25,8 +25,14 @@ public class UserModel extends Model {
         userDB = collection.find(Filters.eq("_id", user.getId())).first();
 
         if (userDB==null) {
+            init();
+        }
+    }
+
+    private void init() {
+        if (userDB==null) {
             userDB = new Document();
-            userDB.append("_id", user.getId());
+            userDB.append("_id", userDiscord.getId());
             userDB.append("email", "");
             userDB.append("verified", false);
             userDB.append("major", "");
@@ -35,7 +41,8 @@ public class UserModel extends Model {
     }
 
     public void deleteUser() {
-        collection.findOneAndDelete(Filters.eq("_id", userDiscord.getId()));
+        collection.deleteOne(Filters.eq("_id", userDiscord.getId()));
+        init();
     }
 
     private void updateUser(String key, Object value) {

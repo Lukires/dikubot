@@ -1,20 +1,19 @@
 package com.diku.command.commands;
 
 import com.diku.command.Command;
+import com.diku.ku.Roles;
 import com.diku.models.UserModel;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 
 public class ResetCommand implements Command {
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
 
-        for (Role role : guild.getRoles()) {
-            if(role.getName().equalsIgnoreCase("mod")) {
-                continue;
-            }
+        for (Roles role : Roles.values()) {
             try{
-                guild.removeRoleFromMember(user.getId(), role).queue();
-            }catch(Exception e) {
+                guild.removeRoleFromMember(user.getId(), guild.getRolesByName(role.getRole(), true).get(0)).queue();
+            }catch(ErrorResponseException e) {
                 continue;
             }
         }
