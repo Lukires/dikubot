@@ -12,7 +12,11 @@ public class ResetCommand implements Command {
             if(role.getName().equalsIgnoreCase("mod")) {
                 continue;
             }
-            guild.removeRoleFromMember(user.getId(), role).queue();
+            try{
+                guild.removeRoleFromMember(user.getId(), role).queue();
+            }catch(Exception e) {
+                continue;
+            }
         }
         UserModel.getUserModel(user).deleteUser();
         channel.sendMessage(user.getAsMention()+" din profil er blevet resettet").queue();
