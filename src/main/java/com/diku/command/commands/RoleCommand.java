@@ -83,4 +83,9 @@ public class RoleCommand implements Command {
         return "Vælg din rolle";
     }
 
+    @Override
+    public String getUsage() {
+        return "!role [KU | Guest] (Email)";
+    }
+
 }

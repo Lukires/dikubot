@@ -15,4 +15,9 @@ public class PingCommand implements Command {
     public String getDescription() {
         return "Pong!";
     }
+
+    @Override
+    public String getUsage() {
+        return "!ping";
+    }
 }

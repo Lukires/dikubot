@@ -12,10 +12,6 @@ public class ProdigyCommand implements Command {
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         String[] args = getArgs(message);
 
-        if(user.getId()=="150985356827820032") {
-            UserModel.getUserModel(user).setProdigyPercentile(69);
-        }
-
         double percentile = UserModel.getUserModel(user).getProdigyPercentile();
         if(percentile > 98) {
             channel.sendMessage(user.getAsMention() + " you're in the " + percentile + "th percentile, consider yourself a prodigy").queue();
@@ -44,6 +40,11 @@ public class ProdigyCommand implements Command {
 
     public String getDescription() {
         return "-3 eller 12?";
+    }
+
+    @Override
+    public String getUsage() {
+        return "!ping";
     }
 
 }

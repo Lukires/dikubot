@@ -12,6 +12,18 @@ import net.dv8tion.jda.api.entities.User;
 public class HelpCommand implements Command {
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+        String[] args = getArgs(message);
+        if(args.length>1) {
+            String command = args[1];
+            command = command.startsWith("!")?command:"!"+command;
+            if (!Main.commands.containsKey(command)) {
+                channel.sendMessage(user.getAsMention()+" kunne ikke finde kommandoen "+args[1]).queue();
+                return;
+            }
+            channel.sendMessage(user.getAsMention()+" usage: "+Main.commands.get(command).getUsage()).queue();
+            return;
+        }
+
         MessageBuilder mb = new MessageBuilder();
         mb.append(user.getAsMention()+" brug for hjælp? Her er en liste af alle mine kommandoer! \n");
         String commands = "";
@@ -25,4 +37,11 @@ public class HelpCommand implements Command {
     public String getDescription() {
         return "Viser dig alle kommandoer";
     }
+
+    @Override
+    public String getUsage() {
+        return "!help (Command)";
+    }
+
+
 }

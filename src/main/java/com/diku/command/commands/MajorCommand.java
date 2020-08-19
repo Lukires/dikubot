@@ -91,4 +91,9 @@ public class MajorCommand implements Command {
         return "Vælg dit fag. Kræver at du verified";
     }
 
+    @Override
+    public String getUsage() {
+        return "!major [Fag]";
+    }
+
 }

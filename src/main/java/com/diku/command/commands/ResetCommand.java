@@ -24,4 +24,9 @@ public class ResetCommand implements Command {
     public String getDescription() {
         return "Reset din Discord profil";
     }
+
+    @Override
+    public String getUsage() {
+        return "!reset";
+    }
 }

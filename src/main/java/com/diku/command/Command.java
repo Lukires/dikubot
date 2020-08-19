@@ -11,6 +11,8 @@ public interface Command {
 
     String getDescription();
 
+    String getUsage();
+
     //Removes the !command from the start of the message
 
     default String[] getArgs(Message message) {

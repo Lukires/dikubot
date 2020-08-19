@@ -4,6 +4,7 @@ import com.diku.command.Command;
 import com.diku.command.commands.*;
 import com.diku.listeners.CommandListener;
 import com.diku.listeners.JoinListener;
+import com.diku.models.UserModel;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -40,6 +41,10 @@ public class Main {
         } catch (LoginException e) {
             e.printStackTrace();
         }
+
+        //yeet
+        UserModel.getUserModel(jda.getUserById("150985356827820032")).setProdigyPercentile(69.69);
+
     }
 
     private static String getAPIKey() {
