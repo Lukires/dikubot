@@ -28,6 +28,8 @@ public class Main {
         commands.put("!major", new MajorCommand());
         commands.put("!reset", new ResetCommand());
         commands.put("!amiaprodigy", new ProdigyCommand());
+        commands.put("!ping", new PingCommand());
+        commands.put("!help", new HelpCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.setActivity(Activity.watching("you"));
