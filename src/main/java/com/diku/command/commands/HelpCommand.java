@@ -16,9 +16,13 @@ public class HelpCommand implements Command {
         mb.append(user.getAsMention()+" brug for hjælp? Her er en liste af alle mine kommandoer! \n");
         String commands = "";
         for(String command : Main.commands.keySet()) {
-            commands+=command+"\n";
+            commands+=command+" - "+Main.commands.get(command).getDescription()+"\n";
         }
         mb.appendCodeLine(commands);
         channel.sendMessage(mb.build()).queue();
+    }
+
+    public String getDescription() {
+        return "Viser dig alle kommandoer";
     }
 }

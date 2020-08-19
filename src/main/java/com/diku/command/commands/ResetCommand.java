@@ -17,4 +17,8 @@ public class ResetCommand implements Command {
         UserModel.getUserModel(user).deleteUser();
         channel.sendMessage(user.getAsMention()+" din profil er blevet resettet").queue();
     }
+
+    public String getDescription() {
+        return "Reset din Discord profil";
+    }
 }

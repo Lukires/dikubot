@@ -78,4 +78,9 @@ public class RoleCommand implements Command {
         return;
 
     }
+
+    public String getDescription() {
+        return "Vælg din rolle";
+    }
+
 }

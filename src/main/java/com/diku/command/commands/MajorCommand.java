@@ -85,8 +85,10 @@ public class MajorCommand implements Command {
         mb.appendCodeLine(subjects);
         channel.sendMessage(mb.build()).queue();
         return;
-
-
-
     }
+
+    public String getDescription() {
+        return "Vælg dit fag. Kræver at du verified";
+    }
+
 }

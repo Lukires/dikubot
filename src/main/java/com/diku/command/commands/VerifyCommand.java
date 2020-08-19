@@ -93,4 +93,8 @@ public class VerifyCommand implements Command {
         }
 
     }
+
+    public String getDescription() {
+        return "Verify din KU email";
+    }
 }

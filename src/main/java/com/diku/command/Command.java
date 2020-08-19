@@ -9,6 +9,8 @@ public interface Command {
 
     void onCommand(User user, Guild guild, MessageChannel channel, Message message);
 
+    String getDescription();
+
     //Removes the !command from the start of the message
 
     default String[] getArgs(Message message) {

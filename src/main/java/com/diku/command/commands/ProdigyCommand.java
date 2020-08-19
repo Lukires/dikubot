@@ -34,7 +34,10 @@ public class ProdigyCommand implements Command {
         }else{
             channel.sendMessage(user.getAsMention()+" you're in the "+percentile+"th percentile").queue();
         }
-
-
     }
+
+    public String getDescription() {
+        return "-3 eller 12?";
+    }
+
 }
