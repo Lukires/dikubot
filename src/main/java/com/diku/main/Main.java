@@ -27,7 +27,7 @@ public class Main {
         commands.put("!verify", new VerifyCommand());
         commands.put("!major", new MajorCommand());
         commands.put("!reset", new ResetCommand());
-        commands.put("!prodigy", new ProdigyCommand());
+        commands.put("!amiaprodigy", new ProdigyCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.setActivity(Activity.watching("you"));
