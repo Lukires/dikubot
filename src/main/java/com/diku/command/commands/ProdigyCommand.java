@@ -31,6 +31,8 @@ public class ProdigyCommand implements Command {
             channel.sendMessage(user.getAsMention()+" you're in the "+percentile+"th percentile, how did you even make it this far").queue();
         }else if(percentile > 1) {
             channel.sendMessage(user.getAsMention()+" you're in the "+percentile+"th percentile... I'm sorry...").queue();
+        }else{
+            channel.sendMessage(user.getAsMention()+" you're in the "+percentile+"th percentile").queue();
         }
 
 
