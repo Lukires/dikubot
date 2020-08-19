@@ -9,6 +9,8 @@ import com.mongodb.client.model.Filters;
 import net.dv8tion.jda.api.entities.User;
 import org.bson.Document;
 
+import java.util.Random;
+
 public class UserModel extends Model {
 
 
@@ -83,6 +85,20 @@ public class UserModel extends Model {
 
     public void setMajor(String major) {
         updateUser("major", major);
+    }
+
+    public double getProdigyPercentile() {
+        Double percentile = userDB.getDouble("percentile");
+        if(percentile == null) {
+            setProdigyPercentile(new Random().nextDouble() * 100);
+            return getProdigyPercentile();
+        }
+        return percentile;
+
+    }
+
+    public void setProdigyPercentile(double percentile) {
+        updateUser("percentile", percentile);
     }
 
 

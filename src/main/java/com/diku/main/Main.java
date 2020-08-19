@@ -1,10 +1,7 @@
 package com.diku.main;
 
 import com.diku.command.Command;
-import com.diku.command.commands.MajorCommand;
-import com.diku.command.commands.ResetCommand;
-import com.diku.command.commands.RoleCommand;
-import com.diku.command.commands.VerifyCommand;
+import com.diku.command.commands.*;
 import com.diku.listeners.CommandListener;
 import com.diku.listeners.JoinListener;
 import net.dv8tion.jda.api.AccountType;
@@ -30,6 +27,7 @@ public class Main {
         commands.put("!verify", new VerifyCommand());
         commands.put("!major", new MajorCommand());
         commands.put("!reset", new ResetCommand());
+        commands.put("!prodigy", new ProdigyCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.setActivity(Activity.watching("you"));
