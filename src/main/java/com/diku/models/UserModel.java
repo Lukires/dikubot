@@ -89,9 +89,9 @@ public class UserModel extends Model {
 
     public double getProdigyPercentile() {
         Double percentile = userDB.getDouble("prodigypercentile");
-        if(percentile == null || percentile >= 100 || percentile <= 0) {
-            percentile = (new Random().nextGaussian()*50)+50;
-            percentile = percentile>=100?99.999999:percentile<=0?0.00000001:percentile;
+        if(percentile == null || percentile >= 99.9 || percentile <= 0.001) {
+            percentile = (new Random().nextGaussian()*16)+50;
+            percentile = percentile>=99.9?(new Random().nextGaussian()*16)+50:percentile<=0.1?0.001:(new Random().nextGaussian()*16)+50;
             setProdigyPercentile(percentile);
             return getProdigyPercentile();
         }
