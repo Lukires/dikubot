@@ -35,26 +35,31 @@ public class MajorCommand implements Command {
             return;
         }
 
-        if(Constant.DIKU_EMAILS.contains(userModel.getEmail())) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName("Datalog", true).get(0)).queue();
-            channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-2020, og er derfor blevet tilføjet til gruppen: Datalog").queue();
-            UserModel.getUserModel(user).setMajor("Datalogi-2020");
+        boolean dikuEmail = Constant.DIKU_EMAILS.contains(userModel.getEmail());
+        boolean machineLearningEmail = Constant.MACHINE_LEARNING_EMAILS.contains(userModel.getEmail());
+        boolean datalogiEconomicsEmail = Constant.MACHINE_LEARNING_EMAILS.contains(userModel.getEmail());
+
+        if(dikuEmail || machineLearningEmail || datalogiEconomicsEmail) {
+            if(dikuEmail) {
+                guild.addRoleToMember(user.getId(), guild.getRolesByName("Datalog", true).get(0)).queue();
+                channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-2020, og er derfor blevet tilføjet til gruppen: Datalog").queue();
+                UserModel.getUserModel(user).setMajor("Datalogi-2020");
+            }
+
+            if(machineLearningEmail) {
+                guild.addRoleToMember(user.getId(), guild.getRolesByName("MachineTeacher", true).get(0)).queue();
+                channel.sendMessage(user.getAsMention()+" du går på holdet MachineLearning-2020, og er derfor blevet tilføjet til gruppen: MachineTeacher").queue();
+                UserModel.getUserModel(user).setMajor("MachineLearning-2020");
+            }
+
+            if(datalogiEconomicsEmail) {
+                guild.addRoleToMember(user.getId(), guild.getRolesByName("CBS-Programmering", true).get(0)).queue();
+                channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-Økonomi-2020, og er derfor blevet tilføjet til gruppen: CBS-Programmering").queue();
+                UserModel.getUserModel(user).setMajor("Datalogi-Økonomi-2020");
+            }
             return;
         }
 
-        if(Constant.MACHINE_LEARNING_EMAILS.contains(userModel.getEmail())) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName("MachineTeacher", true).get(0)).queue();
-            channel.sendMessage(user.getAsMention()+" du går på holdet MachineLearning-2020, og er derfor blevet tilføjet til gruppen: MachineTeacher").queue();
-            UserModel.getUserModel(user).setMajor("MachineLearning-2020");
-            return;
-        }
-
-        if(Constant.DATALOGI_ECONOMICS_EMAILS.contains(userModel.getEmail())) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName("CBS-Programmering", true).get(0)).queue();
-            channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-Økonomi-2020, og er derfor blevet tilføjet til gruppen: CBS-Programmering").queue();
-            UserModel.getUserModel(user).setMajor("Datalogi-Økonomi-2020");
-            return;
-        }
 
         String majorInput = args[1];
         for(Major major : Major.values()) {
@@ -93,7 +98,7 @@ public class MajorCommand implements Command {
 
     @Override
     public String getUsage() {
-        return "!major [Fag]";
+        return "!major (Fag)";
     }
 
 }
