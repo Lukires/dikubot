@@ -20,7 +20,7 @@ public class PrimeCommand implements Command {
         if(isPrime(prime+2)) {
             return prime;
         }
-        while(!isPrime(+2)) {
+        while(!isPrime(prime+2)) {
             prime+=6;
         }
         return prime;
