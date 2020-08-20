@@ -55,9 +55,17 @@ public class VerifyCommand implements Command {
         userModel.setEmail(email);
         userModel.setVerified(true);
 
-        boolean datalogiEmail = Constant.DIKU_EMAILS.contains(email);
+        boolean datalogiEmail = Constant.DATALOGI_EMAILS.contains(email);
         boolean machineLearningEmail = Constant.MACHINE_LEARNING_EMAILS.contains(email);
         boolean datalogiEconomicsEmail = Constant.DATALOGI_ECONOMICS_EMAILS.contains(email);
+        boolean dikuEmail = Constant.DIKU_EMAILS.contains(email);
+
+        if(dikuEmail) {
+            guild.addRoleToMember(user.getId(), guild.getRolesByName("DIKU", true).get(0)).queue();
+            channel.sendMessage(user.getAsMention()+" din email er verified og du er blevet tilføjet til gruppen: DIKU").queue();
+            UserModel.getUserModel(user).setMajor("DIKU");
+            return;
+        }
 
         if(!machineLearningEmail && !datalogiEmail && !datalogiEconomicsEmail) {
             MessageBuilder mb = new MessageBuilder();

@@ -35,12 +35,20 @@ public class MajorCommand implements Command {
             return;
         }
 
-        boolean dikuEmail = Constant.DIKU_EMAILS.contains(userModel.getEmail());
+        boolean datalogiEmails = Constant.DATALOGI_EMAILS.contains(userModel.getEmail());
         boolean machineLearningEmail = Constant.MACHINE_LEARNING_EMAILS.contains(userModel.getEmail());
         boolean datalogiEconomicsEmail = Constant.MACHINE_LEARNING_EMAILS.contains(userModel.getEmail());
+        boolean dikuEmail = Constant.DIKU_EMAILS.contains(userModel.getEmail());
 
-        if(dikuEmail || machineLearningEmail || datalogiEconomicsEmail) {
-            if(dikuEmail) {
+        if(dikuEmail) {
+            guild.addRoleToMember(user.getId(), guild.getRolesByName("DIKU", true).get(0)).queue();
+            channel.sendMessage(user.getAsMention()+" du er enten mentor, rusvejlder, lærer eller ledelse og er derfor blevet tilføjet til gruppen: DIKU").queue();
+            UserModel.getUserModel(user).setMajor("DIKU");
+            return;
+        }
+
+        if(datalogiEmails || machineLearningEmail || datalogiEconomicsEmail) {
+            if(datalogiEmails) {
                 guild.addRoleToMember(user.getId(), guild.getRolesByName("Datalog", true).get(0)).queue();
                 channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-2020, og er derfor blevet tilføjet til gruppen: Datalog").queue();
                 UserModel.getUserModel(user).setMajor("Datalogi-2020");
