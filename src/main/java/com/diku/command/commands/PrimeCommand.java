@@ -11,11 +11,11 @@ import java.util.Random;
 public class PrimeCommand implements Command {
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
-        long twinPrime = getRandomTwinPrime();
-        channel.sendMessage("Her er et primtal "+getRandomTwinPrime()+ " og her er dens tvilling "+twinPrime+2).queue();
+        long prime = getRandomPrime();
+        channel.sendMessage("Her er et primtal! "+prime).queue();
     }
 
-    private long getRandomTwinPrime() {
+    /*private long getRandomTwinPrime() {
         long prime = getRandomPrime();
         if(isPrime(prime+2)) {
             return prime;
@@ -24,13 +24,18 @@ public class PrimeCommand implements Command {
             prime+=6;
         }
         return prime;
-    }
+    }*/
 
     private long getRandomPrime() {
         Random random = new Random();
-        long i = random.nextInt(1000000);
+        long i = random.nextLong();
         if (!isPrime(i)) {
-            i = getRandomPrime();
+            if(i % 2 == 0) {
+                i+=1;
+            }
+            while(!isPrime(i)) {
+                i+=6;
+            }
         }
         return i;
     }
@@ -39,8 +44,6 @@ public class PrimeCommand implements Command {
         if (n <= 1) return false;
         if (n <= 3) return true;
 
-        // This is checked so that we can skip
-        // middle five numbers in below loop
         if (n % 2 == 0 || n % 3 == 0)
             return false;
 
@@ -56,7 +59,7 @@ public class PrimeCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Returns a prime - and its twin!";
+        return "Primtal til dig!";
     }
 
     @Override
