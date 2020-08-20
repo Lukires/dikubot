@@ -67,12 +67,12 @@ public class MajorCommand implements Command {
                 channel.sendMessage(user.getAsMention()+" dit fag er blevet sat til "+major.getName()).queue();
 
                 //I know this is stupid but I can't be bothered to do it right
-                for(Major majorin : Major.values()) {
+                /*for(Major majorin : Major.values()) {
                     if (major==majorin) {
                         continue;
                     }
                     guild.removeRoleFromMember(user.getId(), guild.getRolesByName(majorin.getRole().getRole(), true).get(0)).queue();
-                }
+                }*/
 
                 userModel.setMajor(major.getName());
                 guild.addRoleToMember(user.getId(), guild.getRolesByName(major.getRole().getRole(), true).get(0)).queue();
