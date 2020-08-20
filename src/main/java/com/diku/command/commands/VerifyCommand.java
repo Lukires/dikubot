@@ -80,15 +80,14 @@ public class VerifyCommand implements Command {
 
         }
         if(machineLearningEmail) {
-
             guild.addRoleToMember(user.getId(), guild.getRolesByName("MachineTeacher", true).get(0)).queue();
             channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: MachineTeacher").queue();
             UserModel.getUserModel(user).setMajor("MachineLearning-2020");
         }
 
         if(datalogiEconomicsEmail) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName("CBS-Programmering", true).get(0)).queue();
-            channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: CBS-Programmering").queue();
+            guild.addRoleToMember(user.getId(), guild.getRolesByName("CBS-Programming", true).get(0)).queue();
+            channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: CBS-Programming").queue();
             UserModel.getUserModel(user).setMajor("Datalogi-Økonomi-2020");
         }
 

@@ -53,8 +53,8 @@ public class MajorCommand implements Command {
             }
 
             if(datalogiEconomicsEmail) {
-                guild.addRoleToMember(user.getId(), guild.getRolesByName("CBS-Programmering", true).get(0)).queue();
-                channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-Økonomi-2020, og er derfor blevet tilføjet til gruppen: CBS-Programmering").queue();
+                guild.addRoleToMember(user.getId(), guild.getRolesByName("CBS-Programming", true).get(0)).queue();
+                channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-Økonomi-2020, og er derfor blevet tilføjet til gruppen: CBS-Programming").queue();
                 UserModel.getUserModel(user).setMajor("Datalogi-Økonomi-2020");
             }
             return;
