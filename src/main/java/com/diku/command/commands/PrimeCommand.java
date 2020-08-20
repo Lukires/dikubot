@@ -15,7 +15,7 @@ public class PrimeCommand implements Command {
         channel.sendMessage("Her er et primtal! "+prime).queue();
     }
 
-    /*private long getRandomTwinPrime() {
+    private long getRandomTwinPrime() {
         long prime = getRandomPrime();
         if(isPrime(prime+2)) {
             return prime;
@@ -24,7 +24,7 @@ public class PrimeCommand implements Command {
             prime+=6;
         }
         return prime;
-    }*/
+    }
 
     private long getRandomPrime() {
         Random random = new Random();
