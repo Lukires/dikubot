@@ -41,10 +41,6 @@ public class Main {
         } catch (LoginException e) {
             e.printStackTrace();
         }
-
-        //yeet
-        UserModel.getUserModel(jda.getUserById("150985356827820032")).setProdigyPercentile(69.69);
-
     }
 
     private static String getAPIKey() {
