@@ -28,7 +28,7 @@ public class PrimeCommand implements Command {
 
     private long getRandomPrime() {
         Random random = new Random();
-        long i = random.nextLong();
+        long i = random.nextInt(1000000);
         if (!isPrime(i)) {
             i = getRandomPrime();
         }
