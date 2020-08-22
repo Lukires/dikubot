@@ -8,8 +8,7 @@ import org.bson.Document;
 
 public enum Collections {
 
-    USERS("users"),
-    EMAILS("emails");
+    USERS("users");
 
 
     protected MongoDatabase database = Database.getInstance().getDatabase();
