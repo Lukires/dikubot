@@ -37,7 +37,6 @@ public class Magic8BallCommand implements Command {
 
         if (getArgs(message).length > 1) {
             Random rand = new Random();
-            rand.setSeed(System.currentTimeMillis());
             channel.sendMessage(answers[rand.nextInt(answers.length)] + "").queue();
         }
         return;
