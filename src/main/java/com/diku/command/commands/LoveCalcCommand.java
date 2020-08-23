@@ -43,7 +43,7 @@ public class LoveCalcCommand implements Command {
         // Generate a random percentage which is always the same.
         Random rand = new Random();
         rand.setSeed(sum);
-        int p = (int) (rand.nextFloat() * 100.0f);
+        int p = rand.nextInt(101);
         channel.sendMessage("\"" + strings[0] + "\" og \"" + strings[1] + "\" har en kærligheds procent på " + p + "%").queue();
         return;
     }
