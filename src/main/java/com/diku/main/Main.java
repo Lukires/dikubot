@@ -31,6 +31,7 @@ public class Main {
         commands.put("!amiaprodigy", new ProdigyCommand());
         commands.put("!ping", new PingCommand());
         commands.put("!help", new HelpCommand());
+        commands.put("!lovecalc", new LoveCalcCommand());
         //commands.put("!prime", new PrimeCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
