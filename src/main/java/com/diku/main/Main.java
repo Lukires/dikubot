@@ -32,6 +32,7 @@ public class Main {
         commands.put("!ping", new PingCommand());
         commands.put("!help", new HelpCommand());
         commands.put("!lovecalc", new LoveCalcCommand());
+        commands.put("!magic8ball", new Magic8BallCommand());
         //commands.put("!prime", new PrimeCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());

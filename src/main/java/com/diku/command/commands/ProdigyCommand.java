@@ -10,8 +10,6 @@ import net.dv8tion.jda.api.entities.User;
 public class ProdigyCommand implements Command {
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
-        String[] args = getArgs(message);
-
         double percentile = UserModel.getUserModel(user).getProdigyPercentile();
         if(percentile > 98) {
             channel.sendMessage(user.getAsMention() + " you're in the " + percentile + "th percentile, consider yourself a prodigy").queue();
@@ -44,7 +42,7 @@ public class ProdigyCommand implements Command {
 
     @Override
     public String getUsage() {
-        return "!ping";
+        return "!amiaprodigy";
     }
 
 }

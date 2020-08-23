@@ -6,6 +6,8 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class LoveCalcCommand implements Command {
@@ -27,8 +29,20 @@ public class LoveCalcCommand implements Command {
             channel.sendMessage("Der må kun være et semikolon til af separerer de to strenge.").queue();
             return;
         }
-        if (strings[1].charAt(0) == ' ') {
-            strings[1] = strings[1].substring(1);
+
+        // Regex to remove spaces/tabs in front or in the end of the message.
+        String pattern = "([ \\t]+$)|(^[ \\t]+)";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m;
+        StringBuffer temp;
+        for (int i = 0; i < strings.length; i++) {
+            m = r.matcher(strings[i]);
+            temp = new StringBuffer();
+            while (m.find()) {
+                m.appendReplacement(temp, "");
+            }
+            m.appendTail(temp);
+            strings[i] = temp.toString();
         }
 
         // Sums over numerical values from input.
