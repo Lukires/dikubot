@@ -1,0 +1,53 @@
+package com.diku.command.commands;
+
+import com.diku.command.Command;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
+
+import java.util.Random;
+
+public class Magic8BallCommand implements Command {
+
+    final static String[] answers = new String[] {
+            "Det er sikkert.",
+            "Det er bestemt.",
+            "Uden tvivl.",
+            "Ja helt sikkert.",
+            "Det kan du tro på.",
+            "Som jeg ser det, ja.",
+            "Højst sandsynlig.",
+            "Det lover godt.",
+            "Ja.",
+            "Skiltene peger mod et ja.",
+            "Svar uklar, prøv igen.",
+            "Spørg igen senere.",
+            "Bedre ikke at fortælle dig nu.",
+            "Kan ikke forudsiges nu.",
+            "Koncentrer dig og spørg igen.",
+            "Regn ikke med det.",
+            "Mit svar er nej.",
+            "Mine kilder siger nej.",
+            "Ser ikke for godt ud.",
+            "Meget tvivlsomt."};
+
+    @Override
+    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+
+        if (getArgs(message).length > 1) {
+            Random rand = new Random();
+            channel.sendMessage(answers[rand.nextInt(answers.length)] + "").queue();
+        }
+        return;
+    }
+
+    public String getDescription() {
+        return "Magic 8 Ball kan svarer dig på spørgsmål om fremtiden eller give dig råd.";
+    }
+
+    @Override
+    public String getUsage() {
+        return "!magic8ball spørgsmål";
+    }
+}
