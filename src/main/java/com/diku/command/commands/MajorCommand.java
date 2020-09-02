@@ -2,6 +2,7 @@ package com.diku.command.commands;
 
 import com.diku.command.Command;
 import com.diku.ku.Major;
+import com.diku.ku.Roles;
 import com.diku.main.Constant;
 import com.diku.main.Main;
 import com.diku.models.UserModel;
@@ -41,7 +42,7 @@ public class MajorCommand implements Command {
         boolean dikuEmail = Constant.DIKU_EMAILS.contains(userModel.getEmail());
 
         if(dikuEmail) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName("DIKU", true).get(0)).queue();
+            guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.DIKU.getRole(), true).get(0)).queue();
             channel.sendMessage(user.getAsMention()+" du er enten mentor, rusvejlder, lærer eller ledelse og er derfor blevet tilføjet til gruppen: DIKU").queue();
             UserModel.getUserModel(user).setMajor("DIKU");
             return;
@@ -49,19 +50,19 @@ public class MajorCommand implements Command {
 
         if(datalogiEmails || machineLearningEmail || datalogiEconomicsEmail) {
             if(datalogiEmails) {
-                guild.addRoleToMember(user.getId(), guild.getRolesByName("Datalog", true).get(0)).queue();
+                guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.DATALOG.getRole(), true).get(0)).queue();
                 channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-2020, og er derfor blevet tilføjet til gruppen: Datalog").queue();
                 UserModel.getUserModel(user).setMajor("Datalogi-2020");
             }
 
             if(machineLearningEmail) {
-                guild.addRoleToMember(user.getId(), guild.getRolesByName("MachineTeacher", true).get(0)).queue();
-                channel.sendMessage(user.getAsMention()+" du går på holdet MachineLearning-2020, og er derfor blevet tilføjet til gruppen: MachineTeacher").queue();
+                guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.MACHINETEACHER.getRole(), true).get(0)).queue();
+                channel.sendMessage(user.getAsMention()+" du går på holdet MachineLearning-2020, og er derfor blevet tilføjet til gruppen: Machine Teachers").queue();
                 UserModel.getUserModel(user).setMajor("MachineLearning-2020");
             }
 
             if(datalogiEconomicsEmail) {
-                guild.addRoleToMember(user.getId(), guild.getRolesByName("CBS-Programming", true).get(0)).queue();
+                guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.CBS_PROGRAMMING.getRole(), true).get(0)).queue();
                 channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-Økonomi-2020, og er derfor blevet tilføjet til gruppen: CBS-Programming").queue();
                 UserModel.getUserModel(user).setMajor("Datalogi-Økonomi-2020");
             }

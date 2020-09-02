@@ -5,6 +5,7 @@ import com.diku.conversation.GuildConversation;
 import com.diku.conversation.conversations.VerificationConversation;
 import com.diku.database.Collections;
 import com.diku.ku.Major;
+import com.diku.ku.Roles;
 import com.diku.main.Constant;
 import com.diku.models.UserModel;
 import com.mongodb.client.model.Filters;
@@ -82,19 +83,19 @@ public class VerifyCommand implements Command {
 
         if(datalogiEmail) {
 
-            guild.addRoleToMember(user.getId(), guild.getRolesByName("Datalog", true).get(0)).queue();
+            guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.DATALOG.getRole(), true).get(0)).queue();
             channel.sendMessage(user.getAsMention()+" din email er verified og du er blevet tilføjet til gruppen: Datalog").queue();
             UserModel.getUserModel(user).setMajor("Datalogi-2020");
 
         }
         if(machineLearningEmail) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName("MachineTeacher", true).get(0)).queue();
-            channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: MachineTeacher").queue();
+            guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.MACHINETEACHER.getRole(), true).get(0)).queue();
+            channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: Machine Teachers").queue();
             UserModel.getUserModel(user).setMajor("MachineLearning-2020");
         }
 
         if(datalogiEconomicsEmail) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName("CBS-Programming", true).get(0)).queue();
+            guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.CBS_PROGRAMMING.getRole(), true).get(0)).queue();
             channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: CBS-Programming").queue();
             UserModel.getUserModel(user).setMajor("Datalogi-Økonomi-2020");
         }
