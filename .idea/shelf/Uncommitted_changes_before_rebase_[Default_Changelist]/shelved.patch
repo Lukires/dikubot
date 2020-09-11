@@ -1,0 +1,136 @@
+Index: src/main/java/com/diku/main/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.diku.main;\n\nimport com.diku.command.Command;\nimport com.diku.command.commands.*;\nimport com.diku.listeners.CommandListener;\nimport com.diku.listeners.JoinListener;\nimport com.diku.models.UserModel;\nimport net.dv8tion.jda.api.AccountType;\nimport net.dv8tion.jda.api.JDA;\nimport net.dv8tion.jda.api.JDABuilder;\nimport net.dv8tion.jda.api.entities.Activity;\n\nimport javax.security.auth.login.LoginException;\nimport java.io.BufferedReader;\nimport java.io.File;\nimport java.io.FileReader;\nimport java.util.HashMap;\n\npublic class Main {\n\n    public static JDA jda;\n    private static JDABuilder jdaBuilder;\n    public static HashMap<String, Command> commands = new HashMap<String, Command>();\n\n    public static void main(String[] args) {\n\n        commands.put(\"!role\", new RoleCommand());\n        commands.put(\"!verify\", new VerifyCommand());\n        commands.put(\"!major\", new MajorCommand());\n        commands.put(\"!reset\", new ResetCommand());\n        commands.put(\"!amiaprodigy\", new ProdigyCommand());\n        commands.put(\"!ping\", new PingCommand());\n        commands.put(\"!help\", new HelpCommand());\n        commands.put(\"!lovecalc\", new LoveCalcCommand());\n        commands.put(\"!magic8ball\", new Magic8BallCommand());\n        commands.put(\"!rpn\", new RPNCommand());\n        //commands.put(\"!prime\", new PrimeCommand());\n\n        jdaBuilder = JDABuilder.createDefault(getAPIKey());\n        jdaBuilder.setActivity(Activity.watching(\"you\"));\n        jdaBuilder.addEventListeners(new CommandListener());\n        jdaBuilder.addEventListeners(new JoinListener());\n        try {\n            jda = jdaBuilder.build();\n        } catch (LoginException e) {\n            e.printStackTrace();\n        }\n    }\n\n    private static String getAPIKey() {\n        File file = new File(\"src/main/resources/apitoken.txt\");\n        try {\n            BufferedReader br = new BufferedReader(new FileReader(file));\n            return br.readLine();\n        }catch(Exception e) {\n            e.printStackTrace();\n        }\n        return null;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/diku/main/Main.java	(revision 52b377b3bbbd6d28df8826235d5b893ae88ff125)
++++ src/main/java/com/diku/main/Main.java	(date 1599825076055)
+@@ -34,6 +34,7 @@
+         commands.put("!lovecalc", new LoveCalcCommand());
+         commands.put("!magic8ball", new Magic8BallCommand());
+         commands.put("!rpn", new RPNCommand());
++        commands.put("!roll", new RollCommand());
+         //commands.put("!prime", new PrimeCommand());
+ 
+         jdaBuilder = JDABuilder.createDefault(getAPIKey());
+Index: src/main/java/com/diku/command/commands/MajorCommand.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.diku.command.commands;\n\nimport com.diku.command.Command;\nimport com.diku.ku.Major;\nimport com.diku.ku.Roles;\nimport com.diku.main.Constant;\nimport com.diku.main.Main;\nimport com.diku.models.UserModel;\nimport net.dv8tion.jda.api.MessageBuilder;\nimport net.dv8tion.jda.api.entities.*;\n\nimport java.util.List;\n\npublic class MajorCommand implements Command {\n    @Override\n    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {\n        String[] args = getArgs(message);\n\n\n        if(args.length < 2) {\n            MessageBuilder mb = new MessageBuilder();\n            mb.append(user.getAsMention()+\" Invalid usage - !major [fag]\\\"\\n\");\n\n            String subjects = \"Fag:\\n\";\n            for(Major major : Major.values()) {\n                subjects+=major.getName()+\"\\n\";\n            }\n            mb.appendCodeLine(subjects);\n            channel.sendMessage(mb.build()).queue();\n            return;\n        }\n\n        UserModel userModel = UserModel.getUserModel(user);\n        if (!userModel.isVerified()) {\n            channel.sendMessage(user.getAsMention()+\" din email er ikke verified. Brug !verify [kode] for at blive verified\").queue();\n            return;\n        }\n\n        boolean datalogiEmails = Constant.DATALOGI_EMAILS.contains(userModel.getEmail());\n        boolean machineLearningEmail = Constant.MACHINE_LEARNING_EMAILS.contains(userModel.getEmail());\n        boolean datalogiEconomicsEmail = Constant.MACHINE_LEARNING_EMAILS.contains(userModel.getEmail());\n        boolean dikuEmail = Constant.DIKU_EMAILS.contains(userModel.getEmail());\n\n        if(dikuEmail) {\n            guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.DIKU.getRole(), true).get(0)).queue();\n            channel.sendMessage(user.getAsMention()+\" du er enten mentor, rusvejlder, lærer eller ledelse og er derfor blevet tilføjet til gruppen: DIKU\").queue();\n            UserModel.getUserModel(user).setMajor(\"DIKU\");\n            return;\n        }\n\n        if(datalogiEmails || machineLearningEmail || datalogiEconomicsEmail) {\n            if(datalogiEmails) {\n                guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.DATALOG.getRole(), true).get(0)).queue();\n                channel.sendMessage(user.getAsMention()+\" du går på holdet Datalogi-2020, og er derfor blevet tilføjet til gruppen: Datalog\").queue();\n                UserModel.getUserModel(user).setMajor(\"Datalogi-2020\");\n            }\n\n            if(machineLearningEmail) {\n                guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.MACHINETEACHER.getRole(), true).get(0)).queue();\n                channel.sendMessage(user.getAsMention()+\" du går på holdet MachineLearning-2020, og er derfor blevet tilføjet til gruppen: Machine Teachers\").queue();\n                UserModel.getUserModel(user).setMajor(\"MachineLearning-2020\");\n            }\n\n            if(datalogiEconomicsEmail) {\n                guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.CBS_PROGRAMMING.getRole(), true).get(0)).queue();\n                channel.sendMessage(user.getAsMention()+\" du går på holdet Datalogi-Økonomi-2020, og er derfor blevet tilføjet til gruppen: CBS-Programming\").queue();\n                UserModel.getUserModel(user).setMajor(\"Datalogi-Økonomi-2020\");\n            }\n            return;\n        }\n\n\n        String majorInput = args[1];\n        for(Major major : Major.values()) {\n            if(major.getName().equalsIgnoreCase(majorInput)) {\n                channel.sendMessage(user.getAsMention()+\" dit fag er blevet sat til \"+major.getName()).queue();\n\n                //I know this is stupid but I can't be bothered to do it right\n                /*for(Major majorin : Major.values()) {\n                    if (major==majorin) {\n                        continue;\n                    }\n                    guild.removeRoleFromMember(user.getId(), guild.getRolesByName(majorin.getRole().getRole(), true).get(0)).queue();\n                }*/\n\n                userModel.setMajor(major.getName());\n                guild.addRoleToMember(user.getId(), guild.getRolesByName(major.getRole().getRole(), true).get(0)).queue();\n                return;\n            }\n        }\n\n        MessageBuilder mb = new MessageBuilder();\n        mb.append(user.getAsMention()+\" Det indtastede fag findes ikke - !major [fag]\\\"\\n\");\n\n        String subjects = \"Fag:\\n\";\n        for(Major major : Major.values()) {\n            subjects+=major.getName()+\"\\n\";\n        }\n        mb.appendCodeLine(subjects);\n        channel.sendMessage(mb.build()).queue();\n        return;\n    }\n\n    public String getDescription() {\n        return \"Vælg dit fag. Kræver at du verified\";\n    }\n\n    @Override\n    public String getUsage() {\n        return \"!major (Fag)\";\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/diku/command/commands/MajorCommand.java	(revision 52b377b3bbbd6d28df8826235d5b893ae88ff125)
++++ src/main/java/com/diku/command/commands/MajorCommand.java	(date 1599825003285)
+@@ -19,13 +19,13 @@
+ 
+         if(args.length < 2) {
+             MessageBuilder mb = new MessageBuilder();
+-            mb.append(user.getAsMention()+" Invalid usage - !major [fag]\"\n");
++            mb.append(user.getAsMention()).append(" Invalid usage - !major [fag]\"\n");
+ 
+-            String subjects = "Fag:\n";
++            StringBuilder subjects = new StringBuilder("Fag:\n");
+             for(Major major : Major.values()) {
+-                subjects+=major.getName()+"\n";
++                subjects.append(major.getName()).append("\n");
+             }
+-            mb.appendCodeLine(subjects);
++            mb.appendCodeLine(subjects.toString());
+             channel.sendMessage(mb.build()).queue();
+             return;
+         }
+@@ -90,15 +90,14 @@
+         }
+ 
+         MessageBuilder mb = new MessageBuilder();
+-        mb.append(user.getAsMention()+" Det indtastede fag findes ikke - !major [fag]\"\n");
++        mb.append(user.getAsMention()).append(" Det indtastede fag findes ikke - !major [fag]\"\n");
+ 
+-        String subjects = "Fag:\n";
++        StringBuilder subjects = new StringBuilder("Fag:\n");
+         for(Major major : Major.values()) {
+-            subjects+=major.getName()+"\n";
++            subjects.append(major.getName()).append("\n");
+         }
+-        mb.appendCodeLine(subjects);
++        mb.appendCodeLine(subjects.toString());
+         channel.sendMessage(mb.build()).queue();
+-        return;
+     }
+ 
+     public String getDescription() {
+Index: src/main/java/com/diku/command/commands/RollCommand.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/diku/command/commands/RollCommand.java	(date 1599825058985)
++++ src/main/java/com/diku/command/commands/RollCommand.java	(date 1599825058985)
+@@ -0,0 +1,34 @@
++package com.diku.command.commands;
++
++import com.diku.command.Command;
++import net.dv8tion.jda.api.entities.Guild;
++import net.dv8tion.jda.api.entities.Message;
++import net.dv8tion.jda.api.entities.MessageChannel;
++import net.dv8tion.jda.api.entities.User;
++
++import java.util.Random;
++
++public class RollCommand implements Command {
++    @Override
++    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
++        String[] args = getArgs(message);
++        try {
++            Random random = new Random();
++            int number = Integer.parseInt(args[1]);
++            int rolled = random.nextInt(number)+1;
++            channel.sendMessage(user.getAsMention()+" du slog "+rolled).queue();
++        }catch(NumberFormatException e) {
++            channel.sendMessage("Jeg forstod ikke dit input. !roll [number]").queue();
++        }
++    }
++
++    @Override
++    public String getDescription() {
++        return "Smid en terning mellem 1 og dit tal";
++    }
++
++    @Override
++    public String getUsage() {
++        return "!role [number]";
++    }
++}
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\n  <component name=\"MavenProjectsManager\">\n    <option name=\"originalFiles\">\n      <list>\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"false\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/out\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 52b377b3bbbd6d28df8826235d5b893ae88ff125)
++++ .idea/misc.xml	(date 1599824714311)
+@@ -8,7 +8,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="14" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/dikubot.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/dikubot.iml	(date 1599824722988)
++++ .idea/dikubot.iml	(date 1599824722988)
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4" />
+\ No newline at end of file
