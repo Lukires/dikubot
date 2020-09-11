@@ -19,13 +19,13 @@ public class MajorCommand implements Command {
 
         if(args.length < 2) {
             MessageBuilder mb = new MessageBuilder();
-            mb.append(user.getAsMention()+" Invalid usage - !major [fag]\"\n");
+            mb.append(user.getAsMention()).append(" Invalid usage - !major [fag]\"\n");
 
-            String subjects = "Fag:\n";
+            StringBuilder subjects = new StringBuilder("Fag:\n");
             for(Major major : Major.values()) {
-                subjects+=major.getName()+"\n";
+                subjects.append(major.getName()).append("\n");
             }
-            mb.appendCodeLine(subjects);
+            mb.appendCodeLine(subjects.toString());
             channel.sendMessage(mb.build()).queue();
             return;
         }
@@ -90,15 +90,14 @@ public class MajorCommand implements Command {
         }
 
         MessageBuilder mb = new MessageBuilder();
-        mb.append(user.getAsMention()+" Det indtastede fag findes ikke - !major [fag]\"\n");
+        mb.append(user.getAsMention()).append(" Det indtastede fag findes ikke - !major [fag]\"\n");
 
-        String subjects = "Fag:\n";
+        StringBuilder subjects = new StringBuilder("Fag:\n");
         for(Major major : Major.values()) {
-            subjects+=major.getName()+"\n";
+            subjects.append(major.getName()).append("\n");
         }
-        mb.appendCodeLine(subjects);
+        mb.appendCodeLine(subjects.toString());
         channel.sendMessage(mb.build()).queue();
-        return;
     }
 
     public String getDescription() {
