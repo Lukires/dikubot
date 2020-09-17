@@ -68,11 +68,8 @@ public class GroupCommand implements Command {
         mb.append("Liste af vores grupper\n");
         StringBuilder roles = new StringBuilder();
         for(Roles role : Roles.values()) {
-            if(roles.toString().contains(role.getRole().toUpperCase())) {
-                continue;
-            }
             if (role.isSelectable()) {
-                roles.append(roles).append(" - ").append(role.getRole().toUpperCase()).append("\n");
+                roles.append(" - ").append(role.getRole().toUpperCase()).append("\n");
             }
         }
         mb.appendCodeLine(roles.toString());
