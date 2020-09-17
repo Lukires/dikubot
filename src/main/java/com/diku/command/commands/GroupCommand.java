@@ -57,6 +57,10 @@ public class GroupCommand implements Command {
             guild.addRoleToMember(user.getId(), guild.getRolesByName(role.getRole(), true).get(0)).queue();
             channel.sendMessage(user.getAsMention() + " du er blevet tilføjet til "+args[2]).queue();
         }else{
+            if (role.equals(Roles.WEEB)) {
+                channel.sendMessage(user.getAsMention() + " du kan ikke forlade weeb gruppen. Once a weeb, always a weeb").queue();
+                return;
+            }
             guild.removeRoleFromMember(user.getId(), guild.getRolesByName(role.getRole(), true).get(0)).queue();
             channel.sendMessage(user.getAsMention() + " du er blevet fjernet fra "+args[2]).queue();
         }
