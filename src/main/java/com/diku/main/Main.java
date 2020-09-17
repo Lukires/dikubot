@@ -35,6 +35,7 @@ public class Main {
         commands.put("!magic8ball", new Magic8BallCommand());
         commands.put("!rpn", new RPNCommand());
         commands.put("!roll", new RollCommand());
+        commands.put("!group", new GroupCommand());
         //commands.put("!prime", new PrimeCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
