@@ -13,8 +13,7 @@ public enum Roles {
 
     static {
         for (Roles role : Roles.values()) {
-            System.out.println(role.getRole());
-            nameIndex.put(role.getRole(),role);
+            nameIndex.put(role.getRole().toUpperCase(),role);
         }
     }
 

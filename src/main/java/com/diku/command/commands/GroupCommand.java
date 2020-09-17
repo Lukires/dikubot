@@ -65,9 +65,12 @@ public class GroupCommand implements Command {
 
     private void sendGroups(User user, MessageChannel channel) {
         MessageBuilder mb = new MessageBuilder();
-        mb.append("Liste af vores roller \n");
+        mb.append("Liste af vores grupper\n");
         StringBuilder roles = new StringBuilder();
         for(Roles role : Roles.values()) {
+            if(roles.toString().contains(" - "+(role.getRole().toLowerCase())+"\n")) {
+                continue;
+            }
             if (role.isSelectable()) {
                 roles.append(roles).append(" - ").append(role.getRole().toLowerCase()).append("\n");
             }
