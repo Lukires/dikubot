@@ -7,7 +7,7 @@ public enum Roles {
 
     DATALOG("Datalog", false), DIKU("DIKU", false), KU("KU", false),
     MACHINETEACHER("Machine Teachers",false), CBS_PROGRAMMING("CBS-Programming", false),
-    WEEB("Weeb", true), GAMER("Gamer", true), DND("DND", true);
+    WEEB("Weeb", true), GAMER("Gamer", true), DND("DND", true), RUS("Rus", true);
 
     public static final Map<String, Roles> nameIndex = new HashMap<>(Roles.values().length);
 
@@ -16,7 +16,7 @@ public enum Roles {
             nameIndex.put(role.getRole().toUpperCase(),role);
         }
     }
-
+    
     public static boolean containsRoleName(String name) {
         return nameIndex.containsKey(name.toUpperCase());
     }
