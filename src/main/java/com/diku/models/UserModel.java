@@ -14,7 +14,7 @@ import java.util.Random;
 public class UserModel extends Model<User> {
 
     private final User userDiscord;
-    private UserModel(User user) {
+    public UserModel(User user) {
         super(user);
         this.userDiscord=user;
     }
@@ -26,7 +26,7 @@ public class UserModel extends Model<User> {
 
     @Override
     public String getID() {
-        return userDiscord.getId();
+        return ((User)object).getId();
     }
 
     protected Document init() {
