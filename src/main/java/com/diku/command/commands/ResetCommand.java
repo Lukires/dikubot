@@ -17,7 +17,7 @@ public class ResetCommand implements Command {
                 continue;
             }
         }
-        UserModel.getUserModel(user).deleteUser();
+        UserModel.getUserModel(user).delete();
         channel.sendMessage(user.getAsMention()+" din profil er blevet resettet").queue();
     }
 
