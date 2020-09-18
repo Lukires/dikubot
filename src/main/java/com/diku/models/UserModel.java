@@ -11,43 +11,33 @@ import org.bson.Document;
 
 import java.util.Random;
 
-public class UserModel extends Model {
+public class UserModel extends Model<User> {
 
-
-    private static Cache<User, UserModel> cache = new Cache<User, UserModel>();
-    private static final MongoCollection<Document> collection = Collections.USERS.getCollection();
-    private Document userDB;
-
-    private User userDiscord;
+    private final User userDiscord;
     private UserModel(User user) {
+        super(user);
         this.userDiscord=user;
-        cache.put(user,this, 600);
-        userDB = collection.find(Filters.eq("_id", user.getId())).first();
+    }
 
-        if (userDB==null) {
-            init();
+    @Override
+    public MongoCollection<Document> getCollection() {
+        return Collections.USERS.getCollection();
+    }
+
+    @Override
+    public String getID() {
+        return null;
+    }
+
+    protected Document init() {
+        if (document==null) {
+            document = new Document();
+            document.append("_id", userDiscord.getId());
+            document.append("email", "");
+            document.append("verified", false);
+            document.append("major", "");
         }
-    }
-
-    private void init() {
-        if (userDB==null) {
-            userDB = new Document();
-            userDB.append("_id", userDiscord.getId());
-            userDB.append("email", "");
-            userDB.append("verified", false);
-            userDB.append("major", "");
-            collection.insertOne(userDB);
-        }
-    }
-
-    public void deleteUser() {
-        collection.deleteOne(Filters.eq("_id", userDiscord.getId()));
-        init();
-    }
-
-    private void updateUser(String key, Object value) {
-        userDB.append(key, value);
-        collection.updateOne(Filters.eq("_id", userDiscord.getId()), new Document("$set", new Document(key, value)));
+        return document;
     }
 
     public static UserModel getUserModel(String userDiscordID) {
@@ -55,10 +45,8 @@ public class UserModel extends Model {
     }
 
 
+    @Deprecated
     public static UserModel getUserModel(User user) {
-        if (cache.containsKey(user)) {
-            return cache.get(user);
-        }
         return new UserModel(user);
     }
 
@@ -71,31 +59,31 @@ public class UserModel extends Model {
     }
 
     public boolean isVerified() {
-        return userDB.getBoolean("verified");
+        return document.getBoolean("verified");
     }
 
     public String getEmail() {
-        return userDB.getString("email");
+        return document.getString("email");
     }
 
     public String getMajor() {
-        return userDB.getString("major");
+        return document.getString("major");
     }
 
     public void setVerified(boolean verified) {
-        updateUser("verified", verified);
+        update("verified", verified);
     }
 
     public void setEmail(String email) {
-        updateUser("email", email);
+        update("email", email);
     }
 
     public void setMajor(String major) {
-        updateUser("major", major);
+        update("major", major);
     }
 
     public double getProdigyPercentile() {
-        Double percentile = userDB.getDouble("prodigypercentile");
+        Double percentile = document.getDouble("prodigypercentile");
         if(percentile == null || percentile >= 99.9 || percentile <= 0.001) {
             percentile = (new Random().nextGaussian()*16)+50;
             percentile = percentile>=99.9?(new Random().nextGaussian()*16)+50:percentile<=0.1?0.001:(new Random().nextGaussian()*16)+50;
@@ -107,7 +95,7 @@ public class UserModel extends Model {
     }
 
     public void setProdigyPercentile(double percentile) {
-        updateUser("prodigypercentile", percentile);
+        update("prodigypercentile", percentile);
     }
 
 

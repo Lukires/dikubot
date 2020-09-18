@@ -11,7 +11,7 @@ public enum Collections {
     USERS("users");
 
 
-    protected MongoDatabase database = Database.getInstance().getDatabase();
+    protected final MongoDatabase database = Database.getInstance().getDatabase();
     protected MongoCollection<Document> collection;
     private String collectionName;
 
