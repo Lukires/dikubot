@@ -26,7 +26,7 @@ public class UserModel extends Model<User> {
 
     @Override
     public String getID() {
-        return null;
+        return userDiscord.getId();
     }
 
     protected Document init() {
