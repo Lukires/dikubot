@@ -13,10 +13,8 @@ import java.util.Random;
 
 public class UserModel extends Model<User> {
 
-    private final User userDiscord;
     public UserModel(User user) {
         super(user);
-        this.userDiscord=user;
     }
 
     @Override
@@ -26,13 +24,13 @@ public class UserModel extends Model<User> {
 
     @Override
     public String getID() {
-        return ((User)object).getId();
+        return object.getId();
     }
 
     protected Document init() {
         if (document==null) {
             document = new Document();
-            document.append("_id", userDiscord.getId());
+            document.append("_id", object.getId());
             document.append("email", "");
             document.append("verified", false);
             document.append("major", "");
@@ -55,7 +53,7 @@ public class UserModel extends Model<User> {
     }
 
     public User getUserDiscord() {
-        return userDiscord;
+        return object;
     }
 
     public boolean isVerified() {
