@@ -42,10 +42,10 @@ public class MajorCommand implements Command {
         String majorInput = args[1];
         for(Major major : Major.values()) {
             if(major.getName().equalsIgnoreCase(majorInput)) {
-                channel.sendMessage(user.getAsMention()+" dit fag er blevet sat til "+major.getName()).queue();
+                channel.sendMessage(user.getAsMention()+" du har anmodet om at få sat din major til  "+major.getName()+ ". En moderator vil tage et kig på din anmodning").queue();
 
-                userModel.setMajor(major.getName());
-                guild.addRoleToMember(user.getId(), guild.getRolesByName(major.getRole().getRole(), true).get(0)).queue();
+                //userModel.setMajor(major.getName());
+                //guild.addRoleToMember(user.getId(), guild.getRolesByName(major.getRole().getRole(), true).get(0)).queue();
 
                 //THIS IS TESTING
                 UUID uuid = UUID.randomUUID();
