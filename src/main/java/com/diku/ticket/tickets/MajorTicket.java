@@ -49,8 +49,8 @@ public class MajorTicket extends Ticket {
     @Override
     public TicketDisplay getDisplay() {
         TicketDisplay.Builder builder = new TicketDisplay.Builder();
-        builder.addAction(Main.jda.getEmotesByName(":white_check_mark:", true).get(0), new AcceptMajorTicketAction());
-        builder.addAction(Main.jda.getEmotesByName(":x:", true).get(0), new RejectMajorTicketAction());
+        builder.addAction("U+2705", new AcceptMajorTicketAction());
+        builder.addAction("U+274C", new RejectMajorTicketAction());
         builder.setUser(getUser());
 
         MessageBuilder mb = new MessageBuilder();

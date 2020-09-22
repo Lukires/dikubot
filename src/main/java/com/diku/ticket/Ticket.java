@@ -87,7 +87,7 @@ public abstract class Ticket {
         messageBuilder.append(display.getMessage().getContentRaw());
         Message message = messageBuilder.build();
 
-        for(Emote emote : display.getActions().keySet()) {
+        for(String emote : display.getActions().keySet()) {
             message.addReaction(emote).queue();
         }
 

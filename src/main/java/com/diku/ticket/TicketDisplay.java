@@ -13,8 +13,8 @@ public class TicketDisplay {
         private User user;
         private Message message;
 
-        private HashMap<Emote, TicketAction> actions = new HashMap<Emote, TicketAction>();
-        public void addAction(Emote emote, TicketAction action) {
+        private HashMap<String, TicketAction> actions = new HashMap<String, TicketAction>();
+        public void addAction(String emote, TicketAction action) {
             actions.put(emote, action);
         }
 
@@ -34,7 +34,7 @@ public class TicketDisplay {
             return message;
         }
 
-        public HashMap<Emote, TicketAction> getActions() {
+        public HashMap<String, TicketAction> getActions() {
             return actions;
         }
 
@@ -45,7 +45,7 @@ public class TicketDisplay {
 
     private User user;
     private Message message;
-    private HashMap<Emote, TicketAction> actions = new HashMap<Emote, TicketAction>();
+    private HashMap<String, TicketAction> actions = new HashMap<String, TicketAction>();
 
 
     protected TicketDisplay(Builder builder) {
@@ -62,7 +62,7 @@ public class TicketDisplay {
         return message;
     }
 
-    public HashMap<Emote, TicketAction> getActions() {
+    public HashMap<String, TicketAction> getActions() {
         return actions;
     }
 }
