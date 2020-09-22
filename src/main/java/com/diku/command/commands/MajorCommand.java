@@ -6,10 +6,12 @@ import com.diku.ku.Roles;
 import com.diku.main.Constant;
 import com.diku.main.Main;
 import com.diku.models.UserModel;
+import com.diku.ticket.tickets.MajorTicket;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.*;
 
 import java.util.List;
+import java.util.UUID;
 
 public class MajorCommand implements Command {
     @Override
@@ -36,55 +38,19 @@ public class MajorCommand implements Command {
             return;
         }
 
-        boolean datalogiEmails = Constant.DATALOGI_EMAILS.contains(userModel.getEmail());
-        boolean machineLearningEmail = Constant.MACHINE_LEARNING_EMAILS.contains(userModel.getEmail());
-        boolean datalogiEconomicsEmail = Constant.MACHINE_LEARNING_EMAILS.contains(userModel.getEmail());
-        boolean dikuEmail = Constant.DIKU_EMAILS.contains(userModel.getEmail());
-
-        if(dikuEmail) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.DIKU.getRole(), true).get(0)).queue();
-            channel.sendMessage(user.getAsMention()+" du er enten mentor, rusvejlder, lærer eller ledelse og er derfor blevet tilføjet til gruppen: DIKU").queue();
-            UserModel.getUserModel(user).setMajor("DIKU");
-            return;
-        }
-
-        if(datalogiEmails || machineLearningEmail || datalogiEconomicsEmail) {
-            if(datalogiEmails) {
-                guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.DATALOG.getRole(), true).get(0)).queue();
-                channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-2020, og er derfor blevet tilføjet til gruppen: Datalog").queue();
-                UserModel.getUserModel(user).setMajor("Datalogi-2020");
-            }
-
-            if(machineLearningEmail) {
-                guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.MACHINETEACHER.getRole(), true).get(0)).queue();
-                channel.sendMessage(user.getAsMention()+" du går på holdet MachineLearning-2020, og er derfor blevet tilføjet til gruppen: Machine Teachers").queue();
-                UserModel.getUserModel(user).setMajor("MachineLearning-2020");
-            }
-
-            if(datalogiEconomicsEmail) {
-                guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.CBS_PROGRAMMING.getRole(), true).get(0)).queue();
-                channel.sendMessage(user.getAsMention()+" du går på holdet Datalogi-Økonomi-2020, og er derfor blevet tilføjet til gruppen: CBS-Programming").queue();
-                UserModel.getUserModel(user).setMajor("Datalogi-Økonomi-2020");
-            }
-            return;
-        }
-
 
         String majorInput = args[1];
         for(Major major : Major.values()) {
             if(major.getName().equalsIgnoreCase(majorInput)) {
                 channel.sendMessage(user.getAsMention()+" dit fag er blevet sat til "+major.getName()).queue();
 
-                //I know this is stupid but I can't be bothered to do it right
-                /*for(Major majorin : Major.values()) {
-                    if (major==majorin) {
-                        continue;
-                    }
-                    guild.removeRoleFromMember(user.getId(), guild.getRolesByName(majorin.getRole().getRole(), true).get(0)).queue();
-                }*/
-
                 userModel.setMajor(major.getName());
                 guild.addRoleToMember(user.getId(), guild.getRolesByName(major.getRole().getRole(), true).get(0)).queue();
+
+                //THIS IS TESTING
+                UUID uuid = UUID.randomUUID();
+                new MajorTicket(guild, user, uuid, major).activate();
+                System.out.printf("%s %s %s %s%n", guild.toString(), user.getId(), uuid.toString(), major.name());
                 return;
             }
         }
