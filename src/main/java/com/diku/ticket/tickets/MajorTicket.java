@@ -55,7 +55,7 @@ public class MajorTicket extends Ticket {
 
         MessageBuilder mb = new MessageBuilder();
         mb.append(user.getAsTag()).append(" ").append(user.getName()).append(" har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
-        mb.append("\nAccepter: ").append(String.valueOf(Main.jda.getEmotesByName("x", true).get(0))).append(" Afvis: ").append(String.valueOf(Main.jda.getEmotesByName("x", true).get(0)));
+        mb.append("\nAccepter: ").append(":white_check_mark:").append(" Afvis: ").append(":x:");
         builder.setMessage(mb.build());
         return builder.build();
     }
