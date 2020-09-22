@@ -54,7 +54,7 @@ public class MajorTicket extends Ticket {
         builder.setUser(getUser());
 
         MessageBuilder mb = new MessageBuilder();
-        mb.append(user.getAsTag()).append(" ").append(user.getName()).append(" har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
+        mb.append(guild.getMemberById(user.getId()).getNickname()).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
         mb.append("\nAccepter: ").append(":white_check_mark:").append(" Afvis: ").append(":x:");
         builder.setMessage(mb.build());
         return builder.build();
