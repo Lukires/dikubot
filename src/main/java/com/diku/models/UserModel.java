@@ -38,6 +38,7 @@ public class UserModel extends Model<User> {
         return document;
     }
 
+    @Deprecated
     public static UserModel getUserModel(String userDiscordID) {
         return getUserModel(Main.jda.getUserById(userDiscordID));
     }

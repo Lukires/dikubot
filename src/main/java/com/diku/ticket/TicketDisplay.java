@@ -13,10 +13,11 @@ public class TicketDisplay {
         private User user;
         private Message message;
 
-        public HashMap<Emote, TicketAction> actions = new HashMap<Emote, TicketAction>();
+        private HashMap<Emote, TicketAction> actions = new HashMap<Emote, TicketAction>();
         public void addAction(Emote emote, TicketAction action) {
             actions.put(emote, action);
         }
+
         public void setUser(User user) {
             this.user=user;
         }
@@ -25,15 +26,43 @@ public class TicketDisplay {
             this.message=message;
         }
 
+        public User getUser() {
+            return user;
+        }
 
+        public Message getMessage() {
+            return message;
+        }
+
+        public HashMap<Emote, TicketAction> getActions() {
+            return actions;
+        }
 
         public TicketDisplay build() {
             return new TicketDisplay(this);
         }
     }
 
+    private User user;
+    private Message message;
+    private HashMap<Emote, TicketAction> actions = new HashMap<Emote, TicketAction>();
+
 
     protected TicketDisplay(Builder builder) {
+        this.user=builder.user;
+        this.actions=builder.getActions();
+        this.message=builder.getMessage();
+    }
 
+    public User getUser() {
+        return user;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public HashMap<Emote, TicketAction> getActions() {
+        return actions;
     }
 }

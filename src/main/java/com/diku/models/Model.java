@@ -34,7 +34,6 @@ public abstract class Model<T> {
         }else{
             document = cache.get(this);
         }
-
     }
 
     public T getObject() {

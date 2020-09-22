@@ -4,8 +4,11 @@ import com.diku.database.Collections;
 import com.diku.main.Main;
 import com.diku.models.exceptions.TicketNotFoundException;
 import com.diku.ticket.Ticket;
+import com.diku.ticket.TicketFactory;
+import com.diku.ticket.tickets.GenericTicket;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import org.bson.Document;
 
@@ -24,7 +27,9 @@ public class TicketModel extends Model<Ticket> {
         if (document == null) {
             throw new TicketNotFoundException(uuid);
         }
-        return null;
+
+        //This is hacky and dumb, but I couldn't be bothered to do it properly right now
+        return new TicketModel(new GenericTicket(Main.jda.getGuildById(document.getString("guild")), Main.jda.getUserById(document.getString("user")), uuid));
     }
 
     @Override
@@ -35,6 +40,7 @@ public class TicketModel extends Model<Ticket> {
         document.append("type", object.getType().name());
         document.append("context", object.getContext());
         document.append("open", true);
+        document.append("guild", object.getGuild().getId());
         return new Document();
     }
 
@@ -50,12 +56,20 @@ public class TicketModel extends Model<Ticket> {
         return document.getString("context");
     }
 
+    public Guild getGuild() {
+        return Main.jda.getGuildById(document.getString("guild"));
+    }
+
     public boolean isOpen() {
         return document.getBoolean("open");
     }
 
     public void setOpen(boolean open) {
         update("open", open);
+    }
+
+    public Ticket getTicket() {
+        return TicketFactory.getTicket(this);
     }
 
     @Override

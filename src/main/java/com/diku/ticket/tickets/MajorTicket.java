@@ -7,6 +7,8 @@ import com.diku.ticket.TicketDisplay;
 import com.diku.ticket.ticketactions.AcceptMajorTicketAction;
 import com.diku.ticket.ticketactions.RejectMajorTicketAction;
 import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.UUID;
@@ -16,8 +18,8 @@ public class MajorTicket extends Ticket {
 
     private Major major;
 
-    public MajorTicket(User user, java.util.UUID UUID, Major major) {
-        super(user, UUID);
+    public MajorTicket(Guild guild, User user, java.util.UUID UUID, Major major) {
+        super(guild, user, UUID);
         this.major=major;
     }
 
@@ -32,6 +34,16 @@ public class MajorTicket extends Ticket {
 
     public String getContext() {
         return major.name();
+    }
+
+    @Override
+    public MessageChannel getClosedTicketChannel() {
+        return guild.getTextChannelById("756470614323101736");
+    }
+
+    @Override
+    public MessageChannel getOpenTicketChannel() {
+        return guild.getTextChannelById("756603513177374771");
     }
 
     @Override

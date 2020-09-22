@@ -78,6 +78,7 @@ public class VerifyCommand implements Command {
             }
             mb.appendCodeLine(subjects);
             channel.sendMessage(mb.build()).queue();
+            guild.addRoleToMember(user.getId(), guild.getRolesByName("KU", true).get(0)).queue();
             return;
         }
 
