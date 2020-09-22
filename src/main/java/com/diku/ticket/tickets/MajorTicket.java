@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class MajorTicket extends Ticket {
@@ -54,7 +55,11 @@ public class MajorTicket extends Ticket {
         builder.setUser(getUser());
 
         MessageBuilder mb = new MessageBuilder();
-        String name = guild.getMemberById(user.getId()).getNickname();
+        String name = null;
+        try{
+            name = Objects.requireNonNull(guild.getMemberById(user.getId())).getNickname();
+        }catch(Exception ignored) {
+        }
         name = name==null? user.getName() : name;
         mb.append(name).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
         mb.append("\nAccepter: ").append(":white_check_mark:").append(" Afvis: ").append(":x:");
