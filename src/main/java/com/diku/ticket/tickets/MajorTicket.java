@@ -38,12 +38,12 @@ public class MajorTicket extends Ticket {
 
     @Override
     public MessageChannel getClosedTicketChannel() {
-        return guild.getTextChannelById("756470614323101736");
+        return guild.getTextChannelById("756603513177374771");
     }
 
     @Override
     public MessageChannel getOpenTicketChannel() {
-        return guild.getTextChannelById("756603513177374771");
+        return guild.getTextChannelById("756470614323101736");
     }
 
     @Override
