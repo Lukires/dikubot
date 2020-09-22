@@ -87,11 +87,13 @@ public abstract class Ticket {
         messageBuilder.append(display.getMessage().getContentRaw());
         Message message = messageBuilder.build();
 
-        for(String emote : display.getActions().keySet()) {
-            message.addReaction(emote).queue();
-        }
+        getOpenTicketChannel().sendMessage(message).queue((sentMessage) ->
+        {
+            for(String emote : display.getActions().keySet()) {
+                sentMessage.addReaction(emote).queue();
+            }
 
-        getOpenTicketChannel().sendMessage(message).queue();
+        });
 
     }
 
