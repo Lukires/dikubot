@@ -32,17 +32,21 @@ public class ResetCommand implements Command {
 
         if(Util.isMod(user, guild)) {
             try {
-                UserModel.resetUserByID(args[1]);
-                User tagged = message.getMentionedUsers().size()==0?Main.jda.getUserByTag(args[1]):message.getMentionedUsers().get(0);
-                for (Roles role : Roles.values()) {
-                    try{
-                        assert tagged != null;
-                        guild.removeRoleFromMember(tagged.getId(), guild.getRolesByName(role.getRole(), true).get(0)).queue();
-                    }catch(ErrorResponseException ignored) {
+                try{
+                    Long id = Long.parseLong(args[1]);
+                    UserModel.resetUserByID(args[1]);
+                }catch (Exception e) {
+                    User tagged = message.getMentionedUsers().size()==0?Main.jda.getUserByTag(args[1]):message.getMentionedUsers().get(0);
+                    for (Roles role : Roles.values()) {
+                        try{
+                            assert tagged != null;
+                            guild.removeRoleFromMember(tagged.getId(), guild.getRolesByName(role.getRole(), true).get(0)).queue();
+                        }catch(ErrorResponseException ignored) {
+                        }
                     }
+                    UserModel.getUserModel(tagged).delete();
+                    assert tagged != null;
                 }
-                UserModel.getUserModel(tagged).delete();
-                assert tagged != null;
             } catch (Exception ignored) {
             }
             channel.sendMessage(args[1]+" er blevet resettet").queue();
