@@ -64,7 +64,7 @@ public abstract class Model<T> {
     /**
      * Equals checks whether or not the object stems from the same class path. It also checks if the two objects have the same ID and Collection (Database Table)
      * @param o
-     * @return
+     * @return boolean
      */
     @Override
     public boolean equals(Object o) {
