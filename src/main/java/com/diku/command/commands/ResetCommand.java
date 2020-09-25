@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ResetCommand implements Command {
     @Override
@@ -24,9 +25,10 @@ public class ResetCommand implements Command {
             }
             UserModel.getUserModel(user).delete();
             channel.sendMessage(user.getAsMention()+" din profil er blevet resettet").queue();
+            return;
         }
 
-        List<Role> roles = guild.getMemberById(user.getId()).getRoles();
+        List<Role> roles = Objects.requireNonNull(guild.getMemberById(user.getId())).getRoles();
         Role modRole = guild.getRolesByName("mod", true).get(0);
         if(roles.contains(modRole)) {
             try {
