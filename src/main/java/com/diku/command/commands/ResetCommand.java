@@ -28,7 +28,7 @@ public class ResetCommand implements Command {
             return;
         }
 
-        List<Role> roles = Objects.requireNonNull(guild.getMemberById(user.getId())).getRoles();
+        List<Role> roles = user.getJDA().getRoles();
         Role modRole = guild.getRolesByName("mod", true).get(0);
         if(roles.contains(modRole)) {
             try {
