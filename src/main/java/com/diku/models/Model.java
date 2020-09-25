@@ -11,7 +11,7 @@ import java.util.Objects;
 public abstract class Model<T> {
 
 
-    private static final Cache<Model<Object>, Document> cache = new Cache<Model<Object>, Document>();
+    protected static final Cache<Model<Object>, Document> cache = new Cache<Model<Object>, Document>();
 
     protected final T object;
     protected Document document;

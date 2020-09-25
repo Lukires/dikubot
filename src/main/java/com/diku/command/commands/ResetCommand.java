@@ -29,10 +29,11 @@ public class ResetCommand implements Command {
             return;
         }
 
+
         if(Util.isMod(user, guild)) {
             try {
+                UserModel.resetUserByID(args[1]);
                 User tagged = message.getMentionedUsers().size()==0?Main.jda.getUserByTag(args[1]):message.getMentionedUsers().get(0);
-
                 for (Roles role : Roles.values()) {
                     try{
                         assert tagged != null;
@@ -42,10 +43,9 @@ public class ResetCommand implements Command {
                 }
                 UserModel.getUserModel(tagged).delete();
                 assert tagged != null;
-                channel.sendMessage(tagged.getName()+" er blevet resettet").queue();
             } catch (Exception ignored) {
-                channel.sendMessage(user.getAsMention()+" kunne ikke finde "+args[1]).queue();
             }
+            channel.sendMessage(args[1]+" er blevet resettet").queue();
         }
 
     }
