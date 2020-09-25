@@ -49,7 +49,8 @@ public abstract class Model<T> {
      */
     public void delete() {
         collection.deleteOne(Filters.eq("_id", getID()));
-        init();
+        document = init();
+        cache.put((Model<Object>) this, document,600);
     }
 
     /**
