@@ -32,7 +32,7 @@ public class ResetCommand implements Command {
         Role modRole = guild.getRolesByName("mod", true).get(0);
         if(roles.contains(modRole)) {
             try {
-                User tagged = Main.jda.getUserByTag(args[1]);
+                User tagged = message.getMentionedUsers().get(0);
                 for (Roles role : Roles.values()) {
                     try{
                         assert tagged != null;
