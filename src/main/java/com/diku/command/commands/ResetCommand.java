@@ -31,13 +31,8 @@ public class ResetCommand implements Command {
 
         if(Util.isMod(user, guild)) {
             try {
-                User tagged;
-                if (message.getMentionedUsers() != null && message.getMentionedUsers().size() > 0)
-                {
-                    tagged = message.getMentionedUsers().get(0);
-                }else {
-                    tagged = Main.jda.getUserById(args[1]);
-                }
+                User tagged = message.getMentionedUsers().get(0);
+
                 for (Roles role : Roles.values()) {
                     try{
                         assert tagged != null;
