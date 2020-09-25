@@ -1,7 +1,6 @@
-package com.diku.listeners;
+package com.diku.greeting;
 
 import com.diku.conversation.GuildConversation;
-import com.diku.conversation.conversations.VerificationConversation;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;

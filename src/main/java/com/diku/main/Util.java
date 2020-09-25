@@ -1,6 +1,11 @@
 package com.diku.main;
 
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
+
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Random;
 
 public class Util {
@@ -13,5 +18,11 @@ public class Util {
             salt.append(SALTCHARS.charAt(index));
         }
         return salt.toString();
+    }
+
+    public static boolean isMod(User user, Guild guild) {
+        List<Role> roles = user.getJDA().getRoles();
+        Role modRole = guild.getRolesByName("mod", true).get(0);
+        return roles.contains(modRole);
     }
 }

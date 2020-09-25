@@ -2,10 +2,8 @@ package com.diku.main;
 
 import com.diku.command.Command;
 import com.diku.command.commands.*;
-import com.diku.listeners.CommandListener;
-import com.diku.listeners.JoinListener;
-import com.diku.models.UserModel;
-import net.dv8tion.jda.api.AccountType;
+import com.diku.command.CommandListener;
+import com.diku.greeting.JoinListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;

@@ -1,4 +1,4 @@
-package com.diku.listeners;
+package com.diku.command;
 
 import com.diku.conversation.GuildConversation;
 import com.diku.main.Main;

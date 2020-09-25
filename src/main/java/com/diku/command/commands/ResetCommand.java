@@ -3,6 +3,7 @@ package com.diku.command.commands;
 import com.diku.command.Command;
 import com.diku.ku.Roles;
 import com.diku.main.Main;
+import com.diku.main.Util;
 import com.diku.models.UserModel;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
@@ -28,11 +29,9 @@ public class ResetCommand implements Command {
             return;
         }
 
-        List<Role> roles = user.getJDA().getRoles();
-        Role modRole = guild.getRolesByName("mod", true).get(0);
-        if(roles.contains(modRole)) {
+        if(Util.isMod(user, guild)) {
             try {
-                User tagged = message.getMentionedUsers().get(0);
+                User tagged = message.getMentionedUsers().size()==0?Main.jda.getUserById(args[1]):message.getMentionedUsers().get(0);
                 for (Roles role : Roles.values()) {
                     try{
                         assert tagged != null;
