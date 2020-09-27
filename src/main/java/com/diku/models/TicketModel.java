@@ -34,8 +34,8 @@ public class TicketModel extends Model<Ticket> {
         return new TicketModel(new GenericTicket(Main.jda.getGuildById(document.getString("guild")), Main.jda.getUserById(document.getString("user")), uuid));
     }
 
-    public static TicketModel getTicketModelByMessage(Message message) throws TicketNotFoundException {
-        Document document = Collections.TICKETS.getCollection().find(Filters.eq("message", message.getId())).first();
+    public static TicketModel getTicketModelByMessageID(String messageID) throws TicketNotFoundException {
+        Document document = Collections.TICKETS.getCollection().find(Filters.eq("message", messageID)).first();
         assert document != null;
         return getTicketModel(UUID.fromString(document.getString("_id")));
     }

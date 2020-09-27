@@ -51,7 +51,7 @@ public class MajorTicket extends Ticket {
     public TicketDisplay getDisplay() {
         TicketDisplay.Builder builder = new TicketDisplay.Builder();
         builder.addAction("U+2705", new AcceptMajorTicketAction());
-        builder.addAction("U+274C", new RejectMajorTicketAction());
+        builder.addAction("U+274c", new RejectMajorTicketAction());
         builder.setUser(getUser());
 
         MessageBuilder mb = new MessageBuilder();

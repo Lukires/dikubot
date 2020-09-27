@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.entities.User;
 
 public class RejectMajorTicketAction implements TicketAction {
     @Override
-    public void click(Ticket ticket, User clickedBy) {
+    public void execute(Ticket ticket, User executedBy) {
 
     }
 
