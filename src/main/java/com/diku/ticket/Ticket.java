@@ -80,6 +80,7 @@ public abstract class Ticket {
             for(String emote : display.getActions().keySet()) {
                 sentMessage.addReaction(emote).queue();
             }
+            System.out.println("Success!");
             ticketModel.setMessage(sentMessage);
         });
 
