@@ -4,6 +4,7 @@ import com.diku.command.Command;
 import com.diku.command.commands.*;
 import com.diku.command.CommandListener;
 import com.diku.greeting.JoinListener;
+import com.diku.ticket.TicketListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -40,6 +41,7 @@ public class Main {
         jdaBuilder.setActivity(Activity.watching("you"));
         jdaBuilder.addEventListeners(new CommandListener());
         jdaBuilder.addEventListeners(new JoinListener());
+        jdaBuilder.addEventListeners(new TicketListener());
         try {
             jda = jdaBuilder.build();
         } catch (LoginException e) {
