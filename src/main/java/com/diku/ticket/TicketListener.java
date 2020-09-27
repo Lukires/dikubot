@@ -17,7 +17,7 @@ public class TicketListener extends ListenerAdapter {
             return;
         }
 
-        e.getChannel().sendMessage("toString " + e.getReactionEmote().getAsReactionCode().substring(0,)e.getReactionEmote().getAsReactionCode().length()-2).queue();
+        e.getChannel().sendMessage("toString " + e.getReactionEmote().getAsReactionCode().substring(0,e.getReactionEmote().getAsReactionCode().length()-2)).queue();
 
 
     }
