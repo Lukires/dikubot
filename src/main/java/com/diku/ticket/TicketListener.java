@@ -13,6 +13,10 @@ public class TicketListener extends ListenerAdapter {
         User user = e.getUser();
         Guild guild = e.getGuild();
 
+        e.getChannel().sendMessage("ID "+e.getReactionEmote().getId()).queue();
+        e.getChannel().sendMessage("toString " + e.getReaction().toString()).queue();
+        e.getChannel().sendMessage("asMention " + e.getReactionEmote().getEmote().getAsMention()).queue();
+        e.getChannel().sendMessage("name "+e.getReactionEmote().getName()).queue();
         if(!Util.isMod(user, guild)) {
             return;
         }
