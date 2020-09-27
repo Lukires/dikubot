@@ -17,41 +17,35 @@ public class ResetCommand implements Command {
         String[] args = getArgs(message);
 
         if (args.length<=1) {
-            for (Roles role : Roles.values()) {
-                try{
-                    guild.removeRoleFromMember(user.getId(), guild.getRolesByName(role.getRole(), true).get(0)).queue();
-                }catch(ErrorResponseException e) {
-                    continue;
-                }
-            }
-            UserModel.getUserModel(user).delete();
+            resetUser(user, guild);
             channel.sendMessage(user.getAsMention()+" din profil er blevet resettet").queue();
             return;
         }
 
 
         if(Util.isMod(user, guild)) {
-            try {
-                try{
-                    Long id = Long.parseLong(args[1]);
-                    UserModel.resetUserByID(args[1]);
-                }catch (Exception e) {
-                    User tagged = message.getMentionedUsers().size()==0?Main.jda.getUserByTag(args[1]):message.getMentionedUsers().get(0);
-                    for (Roles role : Roles.values()) {
-                        try{
-                            assert tagged != null;
-                            guild.removeRoleFromMember(tagged.getId(), guild.getRolesByName(role.getRole(), true).get(0)).queue();
-                        }catch(ErrorResponseException ignored) {
-                        }
-                    }
-                    UserModel.getUserModel(tagged).delete();
-                    assert tagged != null;
-                }
-            } catch (Exception ignored) {
+            User tagged = message.getMentionedUsers().size()==0?Main.jda.getUserById(args[1]):message.getMentionedUsers().get(0);
+            if (tagged == null) {
+                Main.jda.retrieveUserById(args[1]).queue((target -> {
+                    resetUser(target, guild);
+                }), (failure) -> {
+                    channel.sendMessage(user.getAsMention()+" kunne ikke finde "+args[1]).queue();
+                });
+            }else {
+                resetUser(tagged, guild);
             }
-            channel.sendMessage(args[1]+" er blevet resettet").queue();
+            channel.sendMessage(args[0]+" er blevet resettet").queue();
         }
+    }
 
+    private void resetUser(User user, Guild guild) {
+        for (Roles role : Roles.values()) {
+            try{
+                guild.removeRoleFromMember(user.getId(), guild.getRolesByName(role.getRole(), true).get(0)).queue();
+            }catch(ErrorResponseException ignored) {
+            }
+        }
+        UserModel.getUserModel(user).delete();
     }
 
 

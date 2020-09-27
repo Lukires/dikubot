@@ -9,6 +9,8 @@ import com.diku.ticket.tickets.GenericTicket;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 import org.bson.Document;
 
@@ -32,6 +34,12 @@ public class TicketModel extends Model<Ticket> {
         return new TicketModel(new GenericTicket(Main.jda.getGuildById(document.getString("guild")), Main.jda.getUserById(document.getString("user")), uuid));
     }
 
+    public static TicketModel getTicketModelByMessage(Message message) throws TicketNotFoundException {
+        Document document = Collections.TICKETS.getCollection().find(Filters.eq("message", message.getId())).first();
+        assert document != null;
+        return getTicketModel(UUID.fromString(document.getString("_id")));
+    }
+
     @Override
     protected Document init() {
         Document document = new Document();
@@ -41,7 +49,17 @@ public class TicketModel extends Model<Ticket> {
         document.append("context", object.getContext());
         document.append("open", true);
         document.append("guild", object.getGuild().getId());
+        document.append("message", "");
         return new Document();
+    }
+
+    public void setMessage(Message message) {
+        update("message", message.getId());
+    }
+
+    public Message getMessage() {
+        MessageChannel channel = isOpen()?object.getOpenTicketChannel():object.getClosedTicketChannel();
+        return channel.retrieveMessageById(document.getString("message")).complete();
     }
 
     public User getUser() {
