@@ -16,8 +16,5 @@ public class TicketListener extends ListenerAdapter {
         if(!Util.isMod(user, guild)) {
             return;
         }
-
-
-
     }
 }

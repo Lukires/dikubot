@@ -1,0 +1,17 @@
+com.diku.command
+com.diku.command.commands
+com.diku.conversation
+com.diku.conversation.conversations
+com.diku.cronjob
+com.diku.cronjob.cronjobs
+com.diku.database
+com.diku.email
+com.diku.greeting
+com.diku.ku
+com.diku.main
+com.diku.models
+com.diku.models.exceptions
+com.diku.ticket
+com.diku.ticket.exceptions
+com.diku.ticket.ticketactions
+com.diku.ticket.tickets
