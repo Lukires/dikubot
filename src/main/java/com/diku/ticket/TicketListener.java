@@ -23,7 +23,7 @@ public class TicketListener extends ListenerAdapter {
             return;
         }
 
-        if (!Main.jda.getSelfUser().getId().equals(user.getId())) {
+        if (Main.jda.getSelfUser().getId().equals(user.getId())) {
             return;
         }
 
