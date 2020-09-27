@@ -27,7 +27,7 @@ public class TicketModel extends Model<Ticket> {
     public static TicketModel getTicketModel(UUID uuid) throws TicketNotFoundException {
         Document document = Collections.TICKETS.getCollection().find(Filters.eq("_id", uuid.toString())).first();
         if (document == null) {
-            throw new TicketNotFoundException(uuid);
+            throw new TicketNotFoundException(uuid.toString());
         }
 
         //This is hacky and dumb, but I couldn't be bothered to do it properly right now
@@ -36,7 +36,9 @@ public class TicketModel extends Model<Ticket> {
 
     public static TicketModel getTicketModelByMessageID(String messageID) throws TicketNotFoundException {
         Document document = Collections.TICKETS.getCollection().find(Filters.eq("message", messageID)).first();
-        assert document != null;
+        if(document == null) {
+            throw new TicketNotFoundException(messageID);
+        }
         return getTicketModel(UUID.fromString(document.getString("_id")));
     }
 
