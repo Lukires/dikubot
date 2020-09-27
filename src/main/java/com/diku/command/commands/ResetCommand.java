@@ -22,6 +22,7 @@ public class ResetCommand implements Command {
             return;
         }
 
+
         if(Util.isMod(user, guild)) {
             User tagged = message.getMentionedUsers().size()==0?Main.jda.getUserById(args[1]):message.getMentionedUsers().get(0);
             if (tagged == null) {
