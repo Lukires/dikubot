@@ -47,20 +47,8 @@ public abstract class Ticket {
         return TicketFactory.getTicket(TicketModel.getTicketModel(uuid));
     }
 
-    public static Message getMessageFromUUID(UUID uuid) throws TicketNotFoundException, MessageNotFoundException {
-        MessagePaginationAction messages = getTicket(uuid).getOpenTicketChannel().getIterableHistory();
-        for(Message message : messages) {
-            if(!Objects.requireNonNull(message.getMember()).getId().equals("742743929459572766")) {
-                continue;
-            }
-            String content = message.getContentRaw();
-
-            if (!content.startsWith("UUID: "+uuid.toString())) {
-                continue;
-            }
-            return message;
-        }
-        throw new MessageNotFoundException();
+    public static Message getMessageFromUUID(UUID uuid) throws TicketNotFoundException {
+        return TicketModel.getTicketModel(uuid).getMessage();
     }
 
     public Guild getGuild() {
@@ -92,7 +80,7 @@ public abstract class Ticket {
             for(String emote : display.getActions().keySet()) {
                 sentMessage.addReaction(emote).queue();
             }
-
+            ticketModel.setMessage(sentMessage);
         });
 
     }
