@@ -35,6 +35,8 @@ public class Main {
         commands.put("!rpn", new RPNCommand());
         commands.put("!roll", new RollCommand());
         commands.put("!group", new GroupCommand());
+        commands.put("!citat", new QuoteCommand());
+        commands.put("!quote", new QuoteCommand());
         //commands.put("!prime", new PrimeCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
