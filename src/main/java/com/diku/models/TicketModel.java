@@ -35,10 +35,8 @@ public class TicketModel extends Model<Ticket> {
     }
 
     public static TicketModel getTicketModelByMessageID(String messageID) throws TicketNotFoundException {
-        System.out.println(messageID);
         Document document = Collections.TICKETS.getCollection().find(Filters.eq("message", messageID)).first();
         if(document == null) {
-            System.out.println("oof");
             throw new TicketNotFoundException(messageID);
         }
         return getTicketModel(UUID.fromString(document.getString("_id")));
@@ -58,7 +56,6 @@ public class TicketModel extends Model<Ticket> {
     }
 
     public void setMessage(Message message) {
-        System.out.println(message.getId());
         update("message", message.getId());
     }
 

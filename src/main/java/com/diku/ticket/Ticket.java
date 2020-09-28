@@ -67,11 +67,21 @@ public abstract class Ticket {
     abstract public MessageChannel getOpenTicketChannel();
     abstract public MessageChannel getClosedTicketChannel();
 
+    public void close(String comment) {
+        TicketModel ticketModel = new TicketModel(this);
+        Message message = ticketModel.getMessage();
+        message.delete().queue();
+        ticketModel.setOpen(false);
+        MessageBuilder messageBuilder = new MessageBuilder();
+        messageBuilder.append(comment).append("\n");
+        messageBuilder.append(getDisplay().getMessage().getContentRaw());
+        getClosedTicketChannel().sendMessage(messageBuilder.build()).queue();
+    }
+
     public void activate() {
         TicketDisplay display = getDisplay();
         TicketModel ticketModel = new TicketModel(this);
         MessageBuilder messageBuilder = new MessageBuilder();
-        messageBuilder.append("UUID: ").append(getUUID().toString()).append("\n");
         messageBuilder.append(display.getMessage().getContentRaw());
         Message message = messageBuilder.build();
 
@@ -80,7 +90,6 @@ public abstract class Ticket {
             for(String emote : display.getActions().keySet()) {
                 sentMessage.addReaction(emote).queue();
             }
-            System.out.println("Success!");
             ticketModel.setMessage(sentMessage);
         });
 
