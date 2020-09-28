@@ -72,15 +72,12 @@ public class MajorTicket extends Ticket {
         builder.setUser(getUser());
 
         MessageBuilder mb = new MessageBuilder();
-        String name = null;
-        try{
-            name = Objects.requireNonNull(guild.getMemberById(user.getId())).getNickname();
-        }catch(Exception ignored) {
-        }
-        name = name==null? user.getName() : name;
-        mb.append(name).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
-        mb.append("\nAccepter: ").append(":white_check_mark:").append(" Afvis: ").append(":x:");
-        builder.setMessage(mb.build());
+        guild.retrieveMember(user).queue((member -> {
+            String name = member.getNickname();
+            mb.append(name).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
+            mb.append("\nAccepter: ").append(":white_check_mark:").append(" Afvis: ").append(":x:");
+            builder.setMessage(mb.build());
+        }));
         return builder.build();
     }
 }
