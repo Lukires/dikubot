@@ -54,7 +54,7 @@ public class TicketModel extends Model<Ticket> {
         document.append("open", true);
         document.append("guild", object.getGuild().getId());
         document.append("message", "");
-        return new Document();
+        return document;
     }
 
     public void setMessage(Message message) {
