@@ -24,6 +24,11 @@ public class GenericTicket extends Ticket {
     }
 
     @Override
+    public TicketDisplay getCloseDisplay() {
+        return null;
+    }
+
+    @Override
     public String getContext() {
         return "";
     }

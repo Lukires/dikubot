@@ -34,6 +34,10 @@ public class TicketListener extends ListenerAdapter {
             return;
         }
 
+        if (!ticketModel.isOpen()) {
+            return;
+        }
+
         Ticket ticket = ticketModel.getTicket();
 
         if (!(ticket instanceof MajorTicket)) {

@@ -48,6 +48,23 @@ public class MajorTicket extends Ticket {
     }
 
     @Override
+    public TicketDisplay getCloseDisplay() {
+        TicketDisplay.Builder builder = new TicketDisplay.Builder();
+        builder.setUser(getUser());
+
+        MessageBuilder mb = new MessageBuilder();
+        String name = null;
+        try{
+            name = Objects.requireNonNull(guild.getMemberById(user.getId())).getNickname();
+        }catch(Exception ignored) {
+        }
+        name = name==null? user.getName() : name;
+        mb.append(name).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
+        builder.setMessage(mb.build());
+        return builder.build();
+    }
+
+    @Override
     public TicketDisplay getDisplay() {
         TicketDisplay.Builder builder = new TicketDisplay.Builder();
         builder.addAction("U+2705", new AcceptMajorTicketAction());

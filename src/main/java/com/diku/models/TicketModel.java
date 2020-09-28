@@ -59,9 +59,8 @@ public class TicketModel extends Model<Ticket> {
         update("message", message.getId());
     }
 
-    public Message getMessage() {
-        MessageChannel channel = isOpen()?object.getOpenTicketChannel():object.getClosedTicketChannel();
-        return channel.retrieveMessageById(document.getString("message")).complete();
+    public String getMessageId() {
+        return document.getString("message");
     }
 
     public User getUser() {
