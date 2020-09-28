@@ -8,6 +8,7 @@ import com.diku.ticket.ticketactions.AcceptMajorTicketAction;
 import com.diku.ticket.ticketactions.RejectMajorTicketAction;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
@@ -72,12 +73,11 @@ public class MajorTicket extends Ticket {
         builder.setUser(getUser());
 
         MessageBuilder mb = new MessageBuilder();
-        guild.retrieveMember(user).queue((member -> {
-            String name = member.getNickname();
-            mb.append(name).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
-            mb.append("\nAccepter: ").append(":white_check_mark:").append(" Afvis: ").append(":x:");
-            builder.setMessage(mb.build());
-        }));
+        Member member = guild.retrieveMember(user).complete();
+        String name = member.getNickname();
+        mb.append(name).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
+        mb.append("\nAccepter: ").append(":white_check_mark:").append(" Afvis: ").append(":x:");
+        builder.setMessage(mb.build());
         return builder.build();
     }
 }
