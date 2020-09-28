@@ -68,7 +68,7 @@ public class TicketModel extends Model<Ticket> {
     }
 
     public User getUser() {
-        return Main.jda.getUserById(document.getString("user"));
+        return Main.jda.retrieveUserById(document.getString("user")).complete();
     }
 
     public Ticket.Type getType() {
