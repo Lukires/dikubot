@@ -46,7 +46,7 @@ public abstract class Ticket {
     public static Ticket getTicket(UUID uuid) throws TicketNotFoundException {
         return TicketFactory.getTicket(TicketModel.getTicketModel(uuid));
     }
-    
+
     public Guild getGuild() {
         return guild;
     }
@@ -69,15 +69,15 @@ public abstract class Ticket {
         String messageID = ticketModel.getMessageId();
         ticketModel.setOpen(false);
 
-        MessageChannel channel = getClosedTicketChannel();
+        MessageChannel channel = getOpenTicketChannel();
         channel.retrieveMessageById(messageID).queue((message -> {
             message.delete().queue();
         }));
 
         MessageBuilder messageBuilder = new MessageBuilder();
-        messageBuilder.append("=====================");
+        messageBuilder.append("=====================\n");
         messageBuilder.append(comment).append("\n");
-        messageBuilder.append(getCloseDisplay().getMessage().getContentRaw());
+        messageBuilder.append(getCloseDisplay().getMessage().getContentRaw()).append("\n");
         messageBuilder.append("=====================");
         getClosedTicketChannel().sendMessage(messageBuilder.build()).queue();
     }
