@@ -17,7 +17,7 @@ public class RollCommand implements Command {
             int number = Integer.parseInt(args[1]);
             int rolled = random.nextInt(number)+1;
             channel.sendMessage(user.getAsMention()+" du slog "+rolled).queue();
-        }catch(NumberFormatException e) {
+        }catch(Exception e) {
             channel.sendMessage("Jeg forstod ikke dit input. !roll [number]").queue();
         }
     }
