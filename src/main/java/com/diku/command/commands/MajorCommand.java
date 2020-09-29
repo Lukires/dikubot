@@ -27,7 +27,7 @@ public class MajorCommand implements Command {
             for(Major major : Major.values()) {
                 subjects.append(major.getName()).append("\n");
             }
-            mb.appendCodeLine(subjects.toString());
+            mb.append("```").append(subjects.toString()).append("```");
             channel.sendMessage(mb.build()).queue();
             return;
         }

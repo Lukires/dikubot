@@ -25,12 +25,12 @@ public class HelpCommand implements Command {
         }
 
         MessageBuilder mb = new MessageBuilder();
-        mb.append(user.getAsMention()+" brug for hjælp? Her er en liste af alle mine kommandoer! \n");
-        String commands = "";
+        mb.append(user.getAsMention()).append(" brug for hjælp? Her er en liste af alle mine kommandoer! \n");
+        StringBuilder commands = new StringBuilder();
         for(String command : Main.commands.keySet()) {
-            commands+=command+" - "+Main.commands.get(command).getDescription()+"\n";
+            commands.append(command).append(" - ").append(Main.commands.get(command).getDescription()).append("\n");
         }
-        mb.appendCodeLine(commands);
+        mb.append("```").append(String.valueOf(commands)).append("```");
         channel.sendMessage(mb.build()).queue();
     }
 
