@@ -18,7 +18,7 @@ public class JoinListener extends ListenerAdapter {
         {
             MessageBuilder mb = new MessageBuilder();
             mb.append(member.getAsMention()).append(" hej og velkommen til DIKU's uofficielle Discord Server!\n");
-            mb.append("For at få adgang til hele vores Discord server, kan du bruge kommandoen **!role ku [email]**");
+            mb.append("For at få adgang til hele vores Discord server, kan du bruge kommandoen **!role ku [email]**\n");
             mb.append("Du bedes også ændre dit navn på Discord serveren til dit fulde navn.");
             channel.sendMessage(mb.build()).queue();
             GuildConversation.addConversation(new GuildConversation(member.getUser(), channel, e.getGuild()));
