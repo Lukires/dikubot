@@ -8,6 +8,7 @@ import com.diku.ticket.TicketListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -40,6 +41,7 @@ public class Main {
         commands.put("!prime", new PrimeCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
+        jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
         jdaBuilder.setActivity(Activity.watching("you"));
         jdaBuilder.addEventListeners(new CommandListener());
         jdaBuilder.addEventListeners(new JoinListener());
