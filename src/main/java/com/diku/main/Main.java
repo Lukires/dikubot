@@ -37,7 +37,7 @@ public class Main {
         commands.put("!group", new GroupCommand());
         commands.put("!citat", new QuoteCommand());
         commands.put("!quote", new QuoteCommand());
-        //commands.put("!prime", new PrimeCommand());
+        commands.put("!prime", new PrimeCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.setActivity(Activity.watching("you"));

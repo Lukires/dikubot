@@ -12,9 +12,11 @@ public class JoinListener extends ListenerAdapter {
 
     //When a user joins a server
     public void onGuildMemberJoin(GuildMemberJoinEvent e) {
+        System.out.println(e.getUser().getId());
         Member member = e.getMember();
         member.getUser().openPrivateChannel().queue((channel) ->
         {
+            System.out.println(channel.getId());
             MessageBuilder mb = new MessageBuilder();
             mb.append(member.getAsMention()).append(" hej og velkommen til DIKU's uofficielle Discord Server!\n");
             mb.append("For at få adgang til hele vores Discord server, kan du bruge kommandoen **!role**");
