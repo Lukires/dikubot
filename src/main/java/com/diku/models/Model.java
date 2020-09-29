@@ -11,7 +11,7 @@ import java.util.Objects;
 public abstract class Model<T> {
 
 
-    protected static final Cache<Model<Object>, Document> cache = new Cache<Model<Object>, Document>();
+    //protected static final Cache<Model<Object>, Document> cache = new Cache<Model<Object>, Document>();
 
     protected final T object;
     protected Document document;
@@ -24,16 +24,16 @@ public abstract class Model<T> {
         this.object=object;
         this.collection=getCollection();
 
-        if (!cache.containsKey(this)) {
+        //if (!cache.containsKey(this)) {
             document = collection.find(Filters.eq("_id", getID())).first();
             if(document==null) {
                 document = init();
                 collection.insertOne(document);
             }
-            cache.put((Model<Object>) this, document,600);
-        }else{
-            document = cache.get(this);
-        }
+            //cache.put((Model<Object>) this, document,600);
+        //}else{
+            //document = cache.get(this);
+        //}
     }
 
     public T getObject() {
@@ -50,7 +50,7 @@ public abstract class Model<T> {
     public void delete() {
         collection.deleteOne(Filters.eq("_id", getID()));
         document = init();
-        cache.put((Model<Object>) this, document,600);
+        //cache.put((Model<Object>) this, document,600);
     }
 
     /**
