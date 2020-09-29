@@ -46,6 +46,8 @@ public class VerifyCommand implements Command {
         }
 
 
+        args[1] = args[1].replace("[","").replace("]","");
+
         if (!args[1].equals(password)) {
             channel.sendMessage(user.getAsMention()+" forkert kode! Koden er blevet resettet. Du skal skrive !role igen").queue();
             conversation.end();
