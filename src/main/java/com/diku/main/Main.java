@@ -41,7 +41,7 @@ public class Main {
         commands.put("!prime", new PrimeCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
-        //jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
+        jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
         jdaBuilder.setActivity(Activity.watching("you"));
         jdaBuilder.addEventListeners(new CommandListener());
         jdaBuilder.addEventListeners(new JoinListener());
