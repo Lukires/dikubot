@@ -22,6 +22,15 @@ public class Main {
     private static JDABuilder jdaBuilder;
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
 
+    /**
+     * This is the main method. When adding new commands the command string and command object needs to be added to the
+     * hash map here. The main method is also were eventListener is added, the bot activity is set and the bot is
+     * initialized.
+     *
+     * @param  String[]     Arguments on boot
+     * @return      void
+     */
+
     public static void main(String[] args) {
 
         commands.put("!role", new RoleCommand());
@@ -39,6 +48,7 @@ public class Main {
         commands.put("!citat", new QuoteCommand());
         commands.put("!quote", new QuoteCommand());
         commands.put("!prime", new PrimeCommand());
+        commands.put("!clear", new ClearCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
@@ -52,6 +62,13 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    /**
+     * This method will return the API key. So when using the bot give insert an API key in
+     * src/main/resources/apitoken.txt".
+     *
+     * @return      string      API Key
+     */
 
     private static String getAPIKey() {
         File file = new File("src/main/resources/apitoken.txt");
