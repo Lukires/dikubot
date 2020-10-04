@@ -27,16 +27,18 @@ public class TicketModel extends Model<Ticket> {
     public static TicketModel getTicketModel(UUID uuid) throws TicketNotFoundException {
         Document document = Collections.TICKETS.getCollection().find(Filters.eq("_id", uuid.toString())).first();
         if (document == null) {
-            throw new TicketNotFoundException(uuid);
+            throw new TicketNotFoundException(uuid.toString());
         }
 
         //This is hacky and dumb, but I couldn't be bothered to do it properly right now
         return new TicketModel(new GenericTicket(Main.jda.getGuildById(document.getString("guild")), Main.jda.getUserById(document.getString("user")), uuid));
     }
 
-    public static TicketModel getTicketModelByMessage(Message message) throws TicketNotFoundException {
-        Document document = Collections.TICKETS.getCollection().find(Filters.eq("message", message.getId())).first();
-        assert document != null;
+    public static TicketModel getTicketModelByMessageID(String messageID) throws TicketNotFoundException {
+        Document document = Collections.TICKETS.getCollection().find(Filters.eq("message", messageID)).first();
+        if(document == null) {
+            throw new TicketNotFoundException(messageID);
+        }
         return getTicketModel(UUID.fromString(document.getString("_id")));
     }
 
@@ -50,20 +52,19 @@ public class TicketModel extends Model<Ticket> {
         document.append("open", true);
         document.append("guild", object.getGuild().getId());
         document.append("message", "");
-        return new Document();
+        return document;
     }
 
     public void setMessage(Message message) {
         update("message", message.getId());
     }
 
-    public Message getMessage() {
-        MessageChannel channel = isOpen()?object.getOpenTicketChannel():object.getClosedTicketChannel();
-        return channel.retrieveMessageById(document.getString("message")).complete();
+    public String getMessageId() {
+        return document.getString("message");
     }
 
     public User getUser() {
-        return Main.jda.getUserById(document.getString("user"));
+        return Main.jda.retrieveUserById(document.getString("user")).complete();
     }
 
     public Ticket.Type getType() {

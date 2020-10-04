@@ -29,6 +29,11 @@ public class CommandListener extends ListenerAdapter {
         }
 
         User user = e.getAuthor();
+
+        if (user.isBot()) {
+            return;
+        }
+
         MessageChannel channel = e.getChannel();
         Guild guild;
 

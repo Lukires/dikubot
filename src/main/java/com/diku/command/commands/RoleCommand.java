@@ -38,6 +38,8 @@ public class RoleCommand implements Command {
             return;
         }
 
+        args[2] = args[2].replace("[","").replace("]","");
+
         if(args[1].equalsIgnoreCase("ku")) {
             if(args.length < 3) {
                 channel.sendMessage(user.getAsMention()+" Invalid usage - !role ku [ku-email]").queue();

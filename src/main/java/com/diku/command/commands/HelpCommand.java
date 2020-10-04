@@ -10,6 +10,19 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class HelpCommand implements Command {
+
+    /**
+     * The help command can be used like so "!help !command" where "!command" is some command. If no command is
+     * given then it will return a list of all the commands.
+     *
+     * @param  user     The user object.
+     * @param  guild    The guild object, the user belongs to.
+     * @param  channel  The channel object, the message was written in.
+     * @param  message  The message object, the user wrote.
+     * @return      void
+     * @see         Command
+     */
+
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         String[] args = getArgs(message);
@@ -25,12 +38,12 @@ public class HelpCommand implements Command {
         }
 
         MessageBuilder mb = new MessageBuilder();
-        mb.append(user.getAsMention()+" brug for hjælp? Her er en liste af alle mine kommandoer! \n");
-        String commands = "";
+        mb.append(user.getAsMention()).append(" brug for hjælp? Her er en liste af alle mine kommandoer! \n");
+        StringBuilder commands = new StringBuilder();
         for(String command : Main.commands.keySet()) {
-            commands+=command+" - "+Main.commands.get(command).getDescription()+"\n";
+            commands.append(command).append(" - ").append(Main.commands.get(command).getDescription()).append("\n");
         }
-        mb.appendCodeLine(commands);
+        mb.append("```").append(String.valueOf(commands)).append("```");
         channel.sendMessage(mb.build()).queue();
     }
 

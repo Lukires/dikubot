@@ -27,7 +27,7 @@ public class MajorCommand implements Command {
             for(Major major : Major.values()) {
                 subjects.append(major.getName()).append("\n");
             }
-            mb.appendCodeLine(subjects.toString());
+            mb.append("```").append(subjects.toString()).append("```");
             channel.sendMessage(mb.build()).queue();
             return;
         }
@@ -39,7 +39,7 @@ public class MajorCommand implements Command {
         }
 
 
-        String majorInput = args[1];
+        String majorInput = args[1].replace("[","").replace("]","");;
         for(Major major : Major.values()) {
             if(major.getName().equalsIgnoreCase(majorInput)) {
                 channel.sendMessage(user.getAsMention()+" du har anmodet om at få sat din major til  "+major.getName()+ ". En moderator vil tage et kig på din anmodning").queue();

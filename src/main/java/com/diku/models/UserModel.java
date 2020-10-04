@@ -46,8 +46,6 @@ public class UserModel extends Model<User> {
     public static void resetUserByID(String id) {
         Collections.USERS.getCollection().deleteOne(Filters.eq("_id", id));
 
-        //This is very dumb, but it is the quickest way to solve a problem that I needed a quick fix for
-        cache.clear();
     }
 
 

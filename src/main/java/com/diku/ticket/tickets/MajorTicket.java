@@ -8,6 +8,7 @@ import com.diku.ticket.ticketactions.AcceptMajorTicketAction;
 import com.diku.ticket.ticketactions.RejectMajorTicketAction;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
@@ -48,19 +49,34 @@ public class MajorTicket extends Ticket {
     }
 
     @Override
-    public TicketDisplay getDisplay() {
+    public TicketDisplay getCloseDisplay() {
         TicketDisplay.Builder builder = new TicketDisplay.Builder();
-        builder.addAction("U+2705", new AcceptMajorTicketAction());
-        builder.addAction("U+274C", new RejectMajorTicketAction());
         builder.setUser(getUser());
 
         MessageBuilder mb = new MessageBuilder();
-        String name = null;
-        try{
-            name = Objects.requireNonNull(guild.getMemberById(user.getId())).getNickname();
-        }catch(Exception ignored) {
+        Member member = guild.retrieveMember(user).complete();
+        String name = member.getNickname();
+        if(name==null) {
+            name = member.getEffectiveName();
         }
-        name = name==null? user.getName() : name;
+        mb.append(name).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
+        builder.setMessage(mb.build());
+        return builder.build();
+    }
+
+    @Override
+    public TicketDisplay getDisplay() {
+        TicketDisplay.Builder builder = new TicketDisplay.Builder();
+        builder.addAction("U+2705", new AcceptMajorTicketAction());
+        builder.addAction("U+274c", new RejectMajorTicketAction());
+        builder.setUser(getUser());
+
+        MessageBuilder mb = new MessageBuilder();
+        Member member = guild.retrieveMember(user).complete();
+        String name = member.getNickname();
+        if(name==null) {
+            name = member.getEffectiveName();
+        }
         mb.append(name).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
         mb.append("\nAccepter: ").append(":white_check_mark:").append(" Afvis: ").append(":x:");
         builder.setMessage(mb.build());

@@ -47,10 +47,6 @@ public abstract class Ticket {
         return TicketFactory.getTicket(TicketModel.getTicketModel(uuid));
     }
 
-    public static Message getMessageFromUUID(UUID uuid) throws TicketNotFoundException {
-        return TicketModel.getTicketModel(uuid).getMessage();
-    }
-
     public Guild getGuild() {
         return guild;
     }
@@ -63,15 +59,33 @@ public abstract class Ticket {
     }
     abstract public Type getType();
     abstract public TicketDisplay getDisplay();
+    abstract public TicketDisplay getCloseDisplay();
     abstract public String getContext();
     abstract public MessageChannel getOpenTicketChannel();
     abstract public MessageChannel getClosedTicketChannel();
+
+    public void close(String comment) {
+        TicketModel ticketModel = new TicketModel(this);
+        String messageID = ticketModel.getMessageId();
+        ticketModel.setOpen(false);
+
+        MessageChannel channel = getOpenTicketChannel();
+        channel.retrieveMessageById(messageID).queue((message -> {
+            message.delete().queue();
+        }));
+
+        MessageBuilder messageBuilder = new MessageBuilder();
+        messageBuilder.append("==========================================\n");
+        messageBuilder.append(comment).append("\n");
+        messageBuilder.append(getCloseDisplay().getMessage().getContentRaw()).append("\n");
+        messageBuilder.append("==========================================");
+        getClosedTicketChannel().sendMessage(messageBuilder.build()).queue();
+    }
 
     public void activate() {
         TicketDisplay display = getDisplay();
         TicketModel ticketModel = new TicketModel(this);
         MessageBuilder messageBuilder = new MessageBuilder();
-        messageBuilder.append("UUID: ").append(getUUID().toString()).append("\n");
         messageBuilder.append(display.getMessage().getContentRaw());
         Message message = messageBuilder.build();
 

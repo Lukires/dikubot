@@ -4,12 +4,12 @@ import java.util.UUID;
 
 public class TicketNotFoundException extends Exception {
 
-    private UUID uuid;
-    public TicketNotFoundException(UUID uuid) {
+    private String uuid;
+    public TicketNotFoundException(String uuid) {
         this.uuid=uuid;
     }
 
     public String toString() {
-        return String.format("There is no ticket with UUID %s", uuid.toString());
+        return String.format("There is no ticket with UUID %s", uuid);
     }
 }

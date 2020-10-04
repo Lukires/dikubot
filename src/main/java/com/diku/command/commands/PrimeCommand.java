@@ -9,33 +9,36 @@ import net.dv8tion.jda.api.entities.User;
 import java.util.Random;
 
 public class PrimeCommand implements Command {
+
+    /**
+     * This command will return a prime.
+     *
+     * @param  user     The user object.
+     * @param  guild    The guild object, the user belongs to.
+     * @param  channel  The channel object, the message was written in.
+     * @param  message  The message object, the user wrote.
+     * @return      void
+     * @see         Command
+     */
+
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         long prime = getRandomPrime();
         channel.sendMessage("Her er et primtal! "+prime).queue();
     }
 
-    private long getRandomTwinPrime() {
-        long prime = getRandomPrime();
-        if(isPrime(prime+2)) {
-            return prime;
-        }
-        while(!isPrime(prime+2)) {
-            prime+=6;
-        }
-        return prime;
-    }
-
     private long getRandomPrime() {
+        long i = 0;
         Random random = new Random();
-        long i = random.nextLong();
-        if (!isPrime(i)) {
+        while(!isPrime(i)) {
+            i = random.nextLong();
+            if(i < 0) {
+                i*=-1;
+            }
             if(i % 2 == 0) {
                 i+=1;
             }
-            while(!isPrime(i)) {
-                i+=6;
-            }
+            i = (long) Math.sqrt((double)(i));
         }
         return i;
     }
@@ -47,10 +50,16 @@ public class PrimeCommand implements Command {
         if (n % 2 == 0 || n % 3 == 0)
             return false;
 
-        for (int i = 5; i * i <= n; i = i + 6)
-            if (n % i == 0 || n % (i + 2) == 0)
+        int count = 0;
+        for (int i = 5; i * i <= n; i = i + 6) {
+            if (n % i == 0 || n % (i + 2) == 0) {
                 return false;
-
+            }
+            if(count > 10000) {
+                return false;
+            }
+            count++;
+        }
         return true;
     }
 

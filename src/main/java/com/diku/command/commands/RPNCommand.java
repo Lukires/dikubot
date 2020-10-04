@@ -11,6 +11,17 @@ import java.util.Stack;
 
 public class RPNCommand implements Command {
 
+    /**
+     * This command can be used to do calculations via reverse polish notation.
+     *
+     * @param  user     The user object.
+     * @param  guild    The guild object, the user belongs to.
+     * @param  channel  The channel object, the message was written in.
+     * @param  message  The message object, the user wrote.
+     * @return      void
+     * @see         Command
+     */
+
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         Double result = calculate(removeCommand(message));
