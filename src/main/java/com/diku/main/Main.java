@@ -23,8 +23,8 @@ public class Main {
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
 
     /**
-     * This is the main method. When adding new commands the command string and command object needs to be added to the
-     * hash map here. The main method is also were eventListener is added, the bot activity is set and the bot is
+     * This is the main method. When adding a new commands, the command object and command string needs to be added to
+     * the hash map here. The main method is also were eventListeners is added, the bot activity is set and the bot is
      * initialized.
      *
      * @param  String[]     Arguments on boot
@@ -64,8 +64,7 @@ public class Main {
     }
 
     /**
-     * This method will return the API key. So when using the bot give insert an API key in
-     * src/main/resources/apitoken.txt".
+     * This method will return the API key. So when using the bot insert an API key in src/main/resources/apitoken.txt".
      *
      * @return      string      API Key
      */

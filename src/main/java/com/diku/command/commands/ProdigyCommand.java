@@ -10,8 +10,8 @@ import net.dv8tion.jda.api.entities.User;
 public class ProdigyCommand implements Command {
 
     /**
-     * This command retrieves the prodigy percentage from the database. This percentage will tell your chances of being a
-     * prodigy.
+     * This command retrieves the prodigy percentage from the database. This percentage will tell your chances of being
+     * a prodigy.
      *
      * @param  user     The user object.
      * @param  guild    The guild object, the user belongs to.

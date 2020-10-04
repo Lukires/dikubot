@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class LoveCalcCommand implements Command {
 
     /**
-     * A child of a command which calculate a "love percentage" based on two strings. The input will be of the form
+     * A command which calculates a "love percentage" based on two strings. The input will be of the form
      * "!lovecalc string0; string1". The strings chars will be turned into integers and the sum of them will be
      * calculated. This sum will be used to generate a random number from 0 to 100 for the love percentage.
      *

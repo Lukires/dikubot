@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.entities.User;
 public class HelpCommand implements Command {
 
     /**
-     * The help command will take argument of from "!help !command" where "!command" is some command. If no command is
+     * The help command can be used like so "!help !command" where "!command" is some command. If no command is
      * given then it will return a list of all the commands.
      *
      * @param  user     The user object.

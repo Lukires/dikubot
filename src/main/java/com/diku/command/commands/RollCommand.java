@@ -11,7 +11,7 @@ import java.util.Random;
 public class RollCommand implements Command {
 
     /**
-     * This command makes a dice roll from 1 to a given number
+     * This command makes a dice roll from 1 to a given number.
      *
      * @param  user     The user object.
      * @param  guild    The guild object, the user belongs to.

@@ -11,7 +11,7 @@ import java.util.Random;
 public class PrimeCommand implements Command {
 
     /**
-     * This command will return a prime
+     * This command will return a prime.
      *
      * @param  user     The user object.
      * @param  guild    The guild object, the user belongs to.
