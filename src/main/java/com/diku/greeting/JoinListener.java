@@ -23,6 +23,7 @@ public class JoinListener extends ListenerAdapter {
             channel.sendMessage(mb.build()).queue();
             GuildConversation.addConversation(new GuildConversation(member.getUser(), channel, e.getGuild()));
         });
+        e.getGuild().addRoleToMember(member, e.getGuild().getRolesByName("Guest", true).get(0)).queue();
     }
 
 }

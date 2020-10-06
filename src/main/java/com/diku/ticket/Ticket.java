@@ -75,10 +75,10 @@ public abstract class Ticket {
         }));
 
         MessageBuilder messageBuilder = new MessageBuilder();
-        messageBuilder.append("==========================================\n");
+        messageBuilder.append("```");
         messageBuilder.append(comment).append("\n");
         messageBuilder.append(getCloseDisplay().getMessage().getContentRaw()).append("\n");
-        messageBuilder.append("==========================================");
+        messageBuilder.append("```");
         getClosedTicketChannel().sendMessage(messageBuilder.build()).queue();
     }
 
