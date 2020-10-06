@@ -4,12 +4,13 @@ import com.diku.command.Command;
 import com.diku.main.Util;
 import net.dv8tion.jda.api.entities.*;
 
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class ClearCommand implements Command {
 
     // Should be using a database
-    private static ArrayList<Long> clearable = new ArrayList<>();
+    private static Set<Long> clearable = new HashSet<>();
 
     /**
      * A command which can clear a chat if typed by one with mod rank. "!clear add" will make the chat clearable,
@@ -26,34 +27,37 @@ public class ClearCommand implements Command {
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         String[] args = getArgs(message);
-        if (Util.isMod(user, guild)) {
-            if (args.length == 1) {
-                if (!clearable.contains(channel.getIdLong())) {
-                    channel.sendMessage("I denne channel kan !clear ikke bruges.").queue();
-                } else {
-                    MessageHistory.getHistoryFromBeginning(channel).queue(messageHistory -> {
-                        channel.purgeMessages(messageHistory.getRetrievedHistory());
-                    });
-                }
-            } else if (args.length == 2) {
-                if (args[1].equals("add")) {
-                    if (!clearable.contains(channel.getIdLong())) {
-                        clearable.add(channel.getIdLong());
-                    }
-                    channel.sendMessage("!clear kan nu bruges i denne channel.").queue();
-                } else if (args[1].equals("remove")) {
-                    clearable.remove(channel.getIdLong());
-                    channel.sendMessage("!clear kan ikke længere bruges i denne channel.").queue();
-                } else {
-                    channel.sendMessage("Et invalid input var givet.").queue();
-                }
-            } else {
-                channel.sendMessage("Et invalid input var givet.").queue();
-            }
-        } else {
+
+        if (!Util.isMod(user, guild)) {
             channel.sendMessage("Du har ikke rettigheder til af bruge !clear.").queue();
+            return;
         }
 
+        if (args.length == 2 && args[1].equals("add")) {
+            clearable.add(channel.getIdLong());
+            channel.sendMessage("!clear kan nu bruges i denne channel.").queue();
+            return;
+        }
+
+        if (args.length == 2 && args[1].equals("remove")) {
+            clearable.remove(channel.getIdLong());
+            channel.sendMessage("!clear kan ikke længere bruges i denne channel.").queue();
+            return;
+        }
+
+        if (!clearable.contains(channel.getIdLong())) {
+            channel.sendMessage("!clear kan ikke bruges i den her channel.").queue();
+            return;
+        }
+
+        if (args.length == 1) {
+            MessageHistory.getHistoryFromBeginning(channel).queue(messageHistory -> {
+                channel.purgeMessages(messageHistory.getRetrievedHistory());
+            });
+            return;
+        }
+
+        channel.sendMessage("Et invalid input var givet.").queue();
         return;
     }
 
