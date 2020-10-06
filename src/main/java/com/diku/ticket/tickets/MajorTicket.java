@@ -59,7 +59,7 @@ public class MajorTicket extends Ticket {
         if(name==null) {
             name = member.getEffectiveName();
         }
-        mb.append(name).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
+        mb.append(name).append(" (").append(user.getAsMention()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
         builder.setMessage(mb.build());
         return builder.build();
     }
@@ -77,7 +77,7 @@ public class MajorTicket extends Ticket {
         if(name==null) {
             name = member.getEffectiveName();
         }
-        mb.append(name).append(" (").append(user.getAsTag()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
+        mb.append(name).append(" (").append(user.getAsMention()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
         mb.append("\nAccepter: ").append(":white_check_mark:").append(" Afvis: ").append(":x:");
         builder.setMessage(mb.build());
         return builder.build();

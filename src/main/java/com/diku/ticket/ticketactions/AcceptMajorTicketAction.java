@@ -13,6 +13,7 @@ public class AcceptMajorTicketAction implements TicketAction<MajorTicket> {
     public void execute(MajorTicket ticket, User executedBy) {
         User target = ticket.getUser();
         Guild guild = ticket.getGuild();
+        guild.removeRoleFromMember(target.getId(), guild.getRolesByName("KU", true).get(0)).queue();
         guild.addRoleToMember(target.getId(), guild.getRolesByName(ticket.getMajor().getRole().getRole(), true).get(0)).queue();
 
         target.openPrivateChannel().queue((channel) ->
