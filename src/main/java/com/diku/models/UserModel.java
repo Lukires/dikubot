@@ -82,7 +82,7 @@ public class UserModel extends Model<User> {
     }
 
     public void setEmail(String email) {
-        update("email", BCrypt.withDefaults().hashToString(12, email.toCharArray()));
+        update("email", BCrypt.withDefaults().hashToString(Constant.HASH_COST, email.toCharArray()));
     }
 
     public void setMajor(String major) {
