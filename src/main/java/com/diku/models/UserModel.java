@@ -1,7 +1,9 @@
 package com.diku.models;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.diku.database.Cache;
 import com.diku.database.Collections;
+import com.diku.main.Constant;
 import com.diku.main.Main;
 import com.mongodb.DBCollection;
 import com.mongodb.client.MongoCollection;
@@ -55,6 +57,7 @@ public class UserModel extends Model<User> {
     }
 
     public static boolean isEmailVerified(String email) {
+        email = BCrypt.withDefaults().hashToString(Constant.HASH_COST, email.toCharArray());
         return Collections.USERS.getCollection().find(Filters.and(Filters.eq("email", email), Filters.eq("verified", true))).limit(1).first() != null;
     }
 
@@ -79,7 +82,7 @@ public class UserModel extends Model<User> {
     }
 
     public void setEmail(String email) {
-        update("email", email);
+        update("email", BCrypt.withDefaults().hashToString(Constant.HASH_COST, email.toCharArray()));
     }
 
     public void setMajor(String major) {
