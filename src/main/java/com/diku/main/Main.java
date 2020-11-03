@@ -1,14 +1,21 @@
 package com.diku.main;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.diku.command.Command;
 import com.diku.command.commands.*;
 import com.diku.command.CommandListener;
+import com.diku.database.Collections;
 import com.diku.greeting.JoinListener;
 import com.diku.ticket.TicketListener;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Filters;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.bson.Document;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -32,6 +39,8 @@ public class Main {
      */
 
     public static void main(String[] args) {
+
+        hashAllEmails();
 
         commands.put("!role", new RoleCommand());
         commands.put("!verify", new VerifyCommand());
@@ -60,6 +69,17 @@ public class Main {
             jda = jdaBuilder.build();
         } catch (LoginException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void hashAllEmails() {
+        //collection.updateOne(Filters.eq("_id", getID()), new Document("$set", new Document(key, value)));
+        MongoCollection<Document> userCollection = Collections.USERS.getCollection();
+        for (Document user : userCollection.find()) {
+            if (Constant.VALID_EMAIL_REGEX.matcher(user.getString("email")).matches()) {
+                String hashedEmail = BCrypt.withDefaults().hashToString(Constant.HASH_COST, user.getString("email").toCharArray());
+                userCollection.updateOne(Filters.eq("_id", user.getString("_id")), new Document("$set", new Document("email", hashedEmail)));
+            }
         }
     }
 
