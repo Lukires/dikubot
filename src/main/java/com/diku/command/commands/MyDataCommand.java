@@ -21,7 +21,7 @@ public class MyDataCommand implements Command {
             MessageBuilder mb = new MessageBuilder();
             mb.append(user.getAsMention()).append(" her er dataen du har anmodet om:\n");
             mb.append("```").append(document.toJson()).append("```");
-            channel.sendMessage(mb.build()).queue();
+            privateChannel.sendMessage(mb.build()).queue();
             GuildConversation.addConversation(new GuildConversation(user, privateChannel, guild));
         });
     }
