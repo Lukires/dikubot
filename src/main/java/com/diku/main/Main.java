@@ -40,8 +40,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        hashAllEmails();
-
         commands.put("!role", new RoleCommand());
         commands.put("!verify", new VerifyCommand());
         commands.put("!major", new MajorCommand());
@@ -58,6 +56,7 @@ public class Main {
         commands.put("!quote", new QuoteCommand());
         commands.put("!prime", new PrimeCommand());
         commands.put("!clear", new ClearCommand());
+        commands.put("!mydata", new MyDataCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
