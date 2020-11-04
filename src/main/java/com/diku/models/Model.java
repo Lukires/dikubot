@@ -41,6 +41,11 @@ public abstract class Model<T> {
     }
 
     protected abstract Document init();
+
+    public Document getDocument() {
+        return this.document;
+    }
+
     public abstract MongoCollection<Document> getCollection();
     public abstract String getID();
 
