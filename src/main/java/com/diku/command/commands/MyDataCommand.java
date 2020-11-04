@@ -27,7 +27,7 @@ public class MyDataCommand implements Command {
             for (Document ticket : Collections.TICKETS.getCollection().find(Filters.eq("user", user.getId()))) {
                 mb.append(ticket.toJson()).append(",");
             }
-            mb.append("```}");
+            mb.append("}```");
             privateChannel.sendMessage(mb.build()).queue();
             GuildConversation.addConversation(new GuildConversation(user, privateChannel, guild));
         });
