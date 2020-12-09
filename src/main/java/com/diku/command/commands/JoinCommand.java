@@ -72,7 +72,7 @@ public class JoinCommand implements Command {
 
         String password = Util.generateString();
 
-        botEmail.sendEmail(new Email(args[2]), "DIKU Discord", new Content("text/plain", "Her er din kode til discord: "+ password));
+        botEmail.sendEmail(new Email(args[1]), "DIKU Discord", new Content("text/plain", "Her er din kode til discord: "+ password));
         GuildConversation.addConversation(new VerificationConversation(user, guild, password, args[1]));
 
         return;
