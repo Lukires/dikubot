@@ -58,8 +58,12 @@ public class JoinCommand implements Command {
             name.append(args[i]);
         }
 
-        Member member = guild.retrieveMember(user).complete();
-        member.modifyNickname(name.toString()).queue();
+        try {
+            Member member = guild.retrieveMember(user).complete();
+            member.modifyNickname(name.toString()).queue();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
 
         MessageBuilder mb = new MessageBuilder();
         mb.append(user.getAsMention()+" der er blevet sendt en kode til din KU-email: "+"skjult@" + args[1].split("@")[1]).append("\n");
