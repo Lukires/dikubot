@@ -69,7 +69,7 @@ public class RoleCommand implements Command {
             String password = Util.generateString();
 
             botEmail.sendEmail(new Email(args[2]), "DIKU Discord", new Content("text/plain", "Her er din kode til discord: "+ password));
-            GuildConversation.addConversation(new VerificationConversation(user, channel, guild, password, args[2]));
+            GuildConversation.addConversation(new VerificationConversation(user, guild, password, args[2]));
 
             return;
         }else if(args[1].equalsIgnoreCase("guest")) {

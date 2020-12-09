@@ -21,7 +21,7 @@ public class JoinListener extends ListenerAdapter {
             mb.append("For at få adgang til hele vores Discord server, kan du bruge kommandoen **!role ku [email]**\n");
             mb.append("Du bedes også ændre dit navn på Discord serveren til dit **fulde navn.**\n");
             channel.sendMessage(mb.build()).queue();
-            GuildConversation.addConversation(new GuildConversation(member.getUser(), channel, e.getGuild()));
+            GuildConversation.addConversation(new GuildConversation(member.getUser(), e.getGuild()));
         });
         e.getGuild().addRoleToMember(member, e.getGuild().getRolesByName("Guest", true).get(0)).queue();
     }

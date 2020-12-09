@@ -9,8 +9,8 @@ public class VerificationConversation extends GuildConversation {
 
     private String password;
     private String email;
-    public VerificationConversation(User user, MessageChannel channel, Guild guild, String password, String email) {
-        super(user, channel, guild);
+    public VerificationConversation(User user, Guild guild, String password, String email) {
+        super(user, guild);
         this.password=password;
         this.email=email;
     }

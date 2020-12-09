@@ -29,7 +29,7 @@ public class MyDataCommand implements Command {
             }
             mb.append("}```");
             privateChannel.sendMessage(mb.build()).queue();
-            GuildConversation.addConversation(new GuildConversation(user, privateChannel, guild));
+            GuildConversation.addConversation(new GuildConversation(user, guild));
         });
     }
 

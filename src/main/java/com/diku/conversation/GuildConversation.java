@@ -16,26 +16,22 @@ public class GuildConversation {
 
      */
 
-    private static HashMap<User, HashMap<MessageChannel, GuildConversation>> conversations = new HashMap<User, HashMap<MessageChannel, GuildConversation>>();
+    private static HashMap<User, GuildConversation> conversations = new HashMap<User, GuildConversation>();
 
     protected User user;
-    protected MessageChannel channel;
     protected Guild guild;
 
-    public GuildConversation(User user, MessageChannel channel, Guild guild) {
+    public GuildConversation(User user, Guild guild) {
         this.user = user;
-        this.channel=channel;
         this.guild=guild;
     }
 
     public void add() {
-        HashMap<MessageChannel, GuildConversation> channelConversationHashMap = conversations.containsKey(user)?conversations.get(user):new HashMap<MessageChannel, GuildConversation>();
-        channelConversationHashMap.put(channel, this);
-        conversations.put(user, channelConversationHashMap);
+        conversations.put(user, this);
     }
 
     public void end() {
-        conversations.get(user).remove(channel);
+        conversations.remove(user);
     }
 
 
@@ -51,19 +47,15 @@ public class GuildConversation {
         return user;
     }
 
-    public MessageChannel getChannel() {
-        return channel;
-    }
-
     public Guild getGuild() {
         return guild;
     }
 
-    public static boolean conversationExists(User user, MessageChannel channel) {
-        return conversations.containsKey(user)?conversations.get(user).containsKey(channel):false;
+    public static boolean conversationExists(User user) {
+        return conversations.containsKey(user);
     }
 
-    public static GuildConversation getConversation(User user, MessageChannel channel) {
-        return conversations.get(user).get(channel);
+    public static GuildConversation getConversation(User user) {
+        return conversations.get(user);
     }
 }

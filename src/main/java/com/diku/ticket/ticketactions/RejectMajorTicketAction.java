@@ -19,7 +19,7 @@ public class RejectMajorTicketAction implements TicketAction<MajorTicket> {
             MessageBuilder mb = new MessageBuilder();
             mb.append(target.getAsMention()).append(" din anmodning om !major ").append(ticket.getMajor().getName()).append(" er blevet afvist");
             channel.sendMessage(mb.build()).queue();
-            GuildConversation.addConversation(new GuildConversation(target, channel, guild));
+            GuildConversation.addConversation(new GuildConversation(target, guild));
         });
 
         ticket.close(":x: AFVIST");

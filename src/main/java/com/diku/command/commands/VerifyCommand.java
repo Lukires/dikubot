@@ -22,21 +22,27 @@ public class VerifyCommand implements Command {
 
 
         if(args.length < 2) {
-            channel.sendMessage(user.getAsMention()+" Invalid usage - !verify [password]").queue();
+            channel.sendMessage(user.getAsMention()+" Forkert brug - !verify [password]").queue();
             return;
         }
 
-        if(!GuildConversation.conversationExists(user, channel)) {
+        if(!GuildConversation.conversationExists(user)) {
             channel.sendMessage(user.getAsMention()+" du var for langsom til at verify til email. Skriv !role igen").queue();
             return;
         }
 
-        if (!(GuildConversation.getConversation(user,channel) instanceof VerificationConversation)) {
+        if (!(GuildConversation.getConversation(user) instanceof VerificationConversation)) {
             channel.sendMessage(user.getAsMention()+" du var for langsom til at verify til email. Skriv !role igen").queue();
             return;
         }
 
-        VerificationConversation conversation = (VerificationConversation) GuildConversation.getConversation(user,channel);
+        VerificationConversation conversation = (VerificationConversation) GuildConversation.getConversation(user);
+
+        if(!conversation.getGuild().equals(guild)) {
+            channel.sendMessage(user.getAsMention()+" du er allerede i gang med at verify din email på en anden server.").queue();
+            return;
+        }
+
         String password = conversation.getPassword();
         String email = conversation.getEmail();
 

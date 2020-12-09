@@ -41,8 +41,8 @@ public class CommandListener extends ListenerAdapter {
 
         if(e.getMessage().isFromGuild()) {
             guild = message.getGuild();
-        }else if(GuildConversation.conversationExists(user, channel)) {
-            guild = GuildConversation.getConversation(user, channel).getGuild();
+        }else if(GuildConversation.conversationExists(user)) {
+            guild = GuildConversation.getConversation(user).getGuild();
         }else{
             channel.sendMessage(user.getAsMention()+" jeg er ikke helt sikker hvilken discord server dette tilhører. Skriv kommandoen på en server").queue();
             return;
