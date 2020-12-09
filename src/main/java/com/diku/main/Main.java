@@ -7,9 +7,7 @@ import com.diku.command.CommandListener;
 import com.diku.database.Collections;
 import com.diku.greeting.JoinListener;
 import com.diku.ticket.TicketListener;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -40,7 +38,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        commands.put("!role", new RoleCommand());
+        commands.put("!join", new JoinCommand());
         commands.put("!verify", new VerifyCommand());
         commands.put("!major", new MajorCommand());
         commands.put("!reset", new ResetCommand());

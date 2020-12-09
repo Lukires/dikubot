@@ -27,12 +27,12 @@ public class VerifyCommand implements Command {
         }
 
         if(!GuildConversation.conversationExists(user)) {
-            channel.sendMessage(user.getAsMention()+" du var for langsom til at verify til email. Skriv !role igen").queue();
+            channel.sendMessage(user.getAsMention()+" du var for langsom til at verify til email. Skriv !join igen").queue();
             return;
         }
 
         if (!(GuildConversation.getConversation(user) instanceof VerificationConversation)) {
-            channel.sendMessage(user.getAsMention()+" du var for langsom til at verify til email. Skriv !role igen").queue();
+            channel.sendMessage(user.getAsMention()+" du var for langsom til at verify til email. Skriv !join igen").queue();
             return;
         }
 
@@ -55,7 +55,7 @@ public class VerifyCommand implements Command {
         args[1] = args[1].replace("[","").replace("]","");
 
         if (!args[1].equals(password)) {
-            channel.sendMessage(user.getAsMention()+" forkert kode! Koden er blevet resettet. Du skal skrive !role igen").queue();
+            channel.sendMessage(user.getAsMention()+" forkert kode! Koden er blevet resettet. Du skal skrive !join igen").queue();
             conversation.end();
             return;
         }
@@ -78,13 +78,13 @@ public class VerifyCommand implements Command {
 
         if(!machineLearningEmail && !datalogiEmail && !datalogiEconomicsEmail) {
             MessageBuilder mb = new MessageBuilder();
-            mb.append(user.getAsMention()+" din email er blevet verified. Vælg dit fag med !major [fag]\nHer er en liste af fag:\n");
+            mb.append(user.getAsMention()).append(" din email er blevet verified. Vælg dit fag med !major [fag]\nHer er en liste af fag:\n");
 
-            String subjects = "";
+            StringBuilder subjects = new StringBuilder("```");
             for(Major major : Major.values()) {
-                subjects+=major.getName()+"\n";
+                subjects.append(major.getName()).append("\n");
             }
-            mb.appendCodeLine(subjects);
+            mb.append(subjects).append("```");
             channel.sendMessage(mb.build()).queue();
             guild.addRoleToMember(user.getId(), guild.getRolesByName("KU", true).get(0)).queue();
             guild.removeRoleFromMember(user.getId(), guild.getRolesByName("Guest", true).get(0)).queue();
