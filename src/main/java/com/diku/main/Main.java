@@ -12,6 +12,8 @@ import com.mongodb.client.model.Filters;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.hooks.InterfacedEventManager;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.bson.Document;
 
@@ -20,6 +22,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
 
@@ -32,7 +36,7 @@ public class Main {
      * the hash map here. The main method is also were eventListeners is added, the bot activity is set and the bot is
      * initialized.
      *
-     * @param  String[]     Arguments on boot
+     * @param  args     Arguments on boot
      * @return      void
      */
 
@@ -62,10 +66,19 @@ public class Main {
         jdaBuilder.addEventListeners(new CommandListener());
         jdaBuilder.addEventListeners(new JoinListener());
         jdaBuilder.addEventListeners(new TicketListener());
+        jdaBuilder.setEventManager(new ThreadedEventManager());
         try {
             jda = jdaBuilder.build();
         } catch (LoginException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static class ThreadedEventManager extends InterfacedEventManager {
+        private final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
+
+        public void handle(Event e) {
+            threadPool.submit(() -> super.handle(e));
         }
     }
 
