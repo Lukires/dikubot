@@ -56,6 +56,9 @@ public class JoinCommand implements Command {
         StringBuilder name = new StringBuilder();
         for (int i = 2; i<args.length; i++) {
             name.append(String.join(" ", args[i].split("(?=\\p{Lu})")));
+            if (i<args.length) {
+                name.append(" ");
+            }
         }
 
         try {
