@@ -19,14 +19,28 @@ public enum Collections {
         collection=database.getCollection(collectionName);
     }
 
+    /**
+     * Get the database represented by the enum
+     * @see Database
+     * @return MongoDatabase
+     */
     public MongoDatabase getDatabase() {
         return database;
     }
 
+    /**
+     * Get the collection represented by the enum
+     * @see Database
+     * @return MongoCollection<Document>
+     */
     public MongoCollection<Document> getCollection() {
         return collection;
     }
 
+    /**
+     * Get the name of the collection represented by the enum
+     * @return String
+     */
     public String getCollectionName() {
         return collectionName;
     }

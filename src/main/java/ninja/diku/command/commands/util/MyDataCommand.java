@@ -13,6 +13,16 @@ import net.dv8tion.jda.api.entities.User;
 import org.bson.Document;
 
 public class MyDataCommand implements Command {
+    /**
+     * Will print all data we currently held on the user to the user
+     *
+     * @param  user     The user object.
+     * @param  guild    The guild object, the user belongs to.
+     * @param  channel  The channel object, the message was written in.
+     * @param  message  The message object, the user wrote.
+     * @return      void
+     * @see         Command
+     */
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         user.openPrivateChannel().queue(privateChannel ->

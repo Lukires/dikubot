@@ -17,15 +17,31 @@ public enum Major {
 
     Roles role;
     String name;
+    /**
+     * Majors are used to assign people the corrent roles on the discord server.
+     * @param role The role
+     * @param name Then name of the role
+     * @see Roles
+     */
     Major(Roles role, String name) {
         this.role=role;
         this.name=name;
     }
 
+    /**
+     * Returns the Role
+     * @return Roles
+     * @see Roles
+     */
     public Roles getRole() {
         return role;
     }
 
+    /**
+     * Returns the name
+     * @return String name
+     * @see Roles
+     */
     public String getName() {
         return name;
     }

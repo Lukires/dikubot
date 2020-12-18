@@ -16,6 +16,19 @@ public class JoinCommand implements Command {
 
     BotEmail botEmail = BotEmail.getInstance();
 
+
+    /**
+     * This command is used to verify an email address and set the user's name. If the name and email is valid, then a password is
+     * sent to the email, which has to be verified by the VerifyCommand
+     *
+     * @param  user     The user object.
+     * @param  guild    The guild object, the user belongs to.
+     * @param  channel  The channel object, the message was written in.
+     * @param  message  The message object, the user wrote.
+     * @return      void
+     * @see         Command
+     * @see         VerifyCommand
+     */
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         String[] args = getArgs(message);

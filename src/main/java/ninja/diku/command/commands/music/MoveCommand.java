@@ -2,10 +2,24 @@ package ninja.diku.command.commands.music;
 
 import net.dv8tion.jda.api.entities.*;
 import ninja.diku.command.Command;
+import ninja.diku.command.commands.introduction.VerifyCommand;
 import ninja.diku.music.audio.AudioContext;
 import ninja.diku.music.audio.AudioPlayer;
 
 public class MoveCommand implements MusicCommand {
+    /**
+     * Move the music bot to the specified voiceChannel and messageChannel
+     *
+     * @param  member   The member object.
+     * @param  guild    The guild object, the user belongs to.
+     * @param  messageChannel  The channel object, the message was written in.
+     * @param  voiceChannel  The voice channel object, which the user is in.
+     * @param  player        The audio player object, which is used to control the music in the given Guild.
+     * @param  message  The message object, the user wrote.
+     * @return      void
+     * @see         MusicCommand
+     * @see Command
+     */
     @Override
     public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
         if(player.getPlayingTrack() == null) {

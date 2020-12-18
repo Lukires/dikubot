@@ -11,7 +11,20 @@ public interface MusicCommand extends Command {
 
     AudioManager audioManager = AudioManager.getInstance();
 
+    /**
+     *
+     * @param  member   The member object.
+     * @param  guild    The guild object, the user belongs to.
+     * @param  messageChannel  The channel object, the message was written in.
+     * @param  voiceChannel  The voice channel object, which the user is in.
+     * @param  player        The audio player object, which is used to control the music in the given Guild.
+     * @param  message  The message object, the user wrote.
+     * @return      void
+     * @see MusicCommand
+     * @see Command
+     */
     void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message);
+
 
     @Override
     default void onCommand(User user, Guild guild, MessageChannel channel, Message message) {

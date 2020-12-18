@@ -22,6 +22,10 @@ public class BotEmail {
     private BotEmail() {
     }
 
+    /**
+     * Returns a singleton BotEmail reference
+     * @return BotEmail
+     */
     public static BotEmail getInstance() {
         if(instance==null) {
             instance=new BotEmail();
@@ -29,6 +33,14 @@ public class BotEmail {
         return instance;
     }
 
+    /**
+     * Used to send an email to the email with the subject and content specified. Used by the verification system to verify emails.
+     * @param to the email address which the email will be sent to
+     * @param subject the headline of the email
+     * @param content the content of the email
+     * @return void
+     * @see ninja.diku.command.commands.introduction.JoinCommand
+     */
     public void sendEmail(Email to, String subject, Content content) {
         Mail mail = new Mail(email, subject, to, content);
 

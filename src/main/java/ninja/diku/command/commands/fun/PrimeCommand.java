@@ -27,6 +27,12 @@ public class PrimeCommand implements Command {
         channel.sendMessage("Her er et primtal! "+prime).queue();
     }
 
+
+    /**
+     * Generates a pseudo random prime number
+     * @return long     Prime number
+     */
+
     private long getRandomPrime() {
         long i = 0;
         Random random = new Random();
@@ -42,6 +48,11 @@ public class PrimeCommand implements Command {
         }
         return i;
     }
+
+    /**
+     * Tells you whether or not the parameter is a prime number
+     * @return boolean
+     */
 
     private boolean isPrime(long n) {
         if (n <= 1) return false;
@@ -62,9 +73,6 @@ public class PrimeCommand implements Command {
         }
         return true;
     }
-
-
-
 
     @Override
     public String getDescription() {

@@ -42,6 +42,12 @@ public class RPNCommand implements Command {
         return "!rpn [Ligning]";
     }
 
+    /**
+     * Calculates a reverse polish notation string
+     *
+     * @param  calculation The string to be calculated
+     * @return double
+     */
     public static double calculate(String calculation){
         return calculate(calculation, null);
     }

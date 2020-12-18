@@ -20,15 +20,27 @@ public class Database {
         database = mongoClient.getDatabase(dbName);
     }
 
+    /**
+     * Returns a singleton database instance reference
+     * @return Database
+     */
     public static Database getInstance() {
         return instance;
     }
 
+    /**
+     * Get the mongodb client
+     * @return MongoClient
+     */
     public MongoClient getMongoClient() {
         return mongoClient;
-
     }
 
+    /**
+     * This is the "real" database. This is the instance you use to interact with the data in the mongo database.
+     * @return MongoDatabase
+     * @see Collections
+     */
     public MongoDatabase getDatabase() {
         return database;
     }

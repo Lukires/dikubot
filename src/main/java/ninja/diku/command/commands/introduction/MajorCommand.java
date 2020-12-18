@@ -10,6 +10,19 @@ import net.dv8tion.jda.api.entities.*;
 import java.util.UUID;
 
 public class MajorCommand implements Command {
+
+    /**
+     * This command is used to set your major after verifying your email.
+     *
+     * @param  user     The user object.
+     * @param  guild    The guild object, the user belongs to.
+     * @param  channel  The channel object, the message was written in.
+     * @param  message  The message object, the user wrote.
+     * @return      void
+     * @see         Command
+     * @see         VerifyCommand
+     * @see         Major
+     */
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         String[] args = getArgs(message);

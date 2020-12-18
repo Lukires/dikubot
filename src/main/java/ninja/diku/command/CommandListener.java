@@ -13,6 +13,14 @@ import java.util.Date;
 
 public class CommandListener extends ListenerAdapter {
 
+    /**
+     * Used to listen for !commands. Valid commands are then executed. See Command and MusicCommand
+     *
+     * @param  e    TheMessageReceived event
+     * @return      void
+     * @see         Command
+     * @see         ninja.diku.command.commands.music.MusicCommand
+     */
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {
 
