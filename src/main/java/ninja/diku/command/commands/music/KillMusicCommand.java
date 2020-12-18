@@ -7,17 +7,12 @@ import ninja.diku.music.audio.AudioPlayer;
 
 public class KillMusicCommand implements MusicCommand {
     @Override
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, Message message) {
+    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
         if (!Util.isMod(member, guild)) {
             messageChannel.sendMessage(member.getAsMention() + " kun mods kan bruge denne kommando").queue();
             return;
         }
-
-        AudioPlayer player = audioManager.getPlayer(new AudioContext(guild, voiceChannel, messageChannel));
-        player.getScheduler().clearQueue();
-        player.getScheduler().leaveVoiceChannel();
-        player.destroy();
-        audioManager.removePlayer(guild);
+        audioManager.purgePlayer(guild);
         messageChannel.sendMessage(member.getAsMention() + " you killed my jam :(").queue();
     }
 

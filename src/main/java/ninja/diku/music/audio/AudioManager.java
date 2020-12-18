@@ -26,15 +26,22 @@ public class AudioManager extends DefaultAudioPlayerManager {
         return player;
     }
 
-    public AudioPlayer getPlayer(AudioContext context) {
-        Guild guild = context.getGuild();
-        if (players.containsKey(guild)) {
-            return players.get(guild);
-        }
-        return createPlayer(context);
+    public AudioPlayer getPlayer(Guild guild) {
+        return players.get(guild);
+    }
+    public boolean playerExists(Guild guild) {
+        return players.containsKey(guild);
     }
 
     public void removePlayer(Guild guild) {
         players.remove(guild);
+    }
+
+    public void purgePlayer(Guild guild) {
+        AudioPlayer player = this.getPlayer(guild);
+        player.getScheduler().clearQueue();
+        player.getScheduler().leaveVoiceChannel();
+        player.destroy();
+        this.removePlayer(guild);
     }
 }

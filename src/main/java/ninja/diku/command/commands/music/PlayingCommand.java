@@ -9,8 +9,7 @@ import ninja.diku.music.audio.AudioPlayer;
 
 public class PlayingCommand implements MusicCommand {
     @Override
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, Message message) {
-        AudioPlayer player = audioManager.getPlayer(new AudioContext(guild, voiceChannel, messageChannel));
+    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
         AudioTrack playing = player.getPlayingTrack();
         if (playing==null) {
            messageChannel.sendMessage(":x: Der bliver ikke spillet noget lige nu").queue();

@@ -14,7 +14,7 @@ public class LoadAudioHandler implements AudioLoadResultHandler {
 
     @Override
     public void trackLoaded(AudioTrack track) {
-        player.getScheduler().queue(player, track);
+        player.getScheduler().queue(player, track, true);
     }
 
     @Override
@@ -23,9 +23,18 @@ public class LoadAudioHandler implements AudioLoadResultHandler {
             trackLoaded(playlist.getTracks().get(0));
             return;
         }
+
+        int added = 0;
         for (AudioTrack track : playlist.getTracks()) {
-            player.getScheduler().queue(player, track);
+            if (player.getScheduler().queue(player, track, false)) {
+                added++;
+            }
         }
+        if (added == playlist.getTracks().size()) {
+            player.getContext().getMessageChannel().sendMessage(":alarm_clock: Alle **" + added + "** sange er blevet tilføjet").queue();
+            return;
+        }
+        player.getContext().getMessageChannel().sendMessage(":timer: Kun **" + added + "/" + playlist.getTracks().size() + "** af sangene er blevet tilføjet").queue();
     }
 
     @Override
