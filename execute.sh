@@ -1,2 +1,2 @@
 mvn clean install
-mvn exec:java -Dexec.mainClass="com.diku.main.Main"
+mvn exec:java -Dexec.mainClass="ninja.diku.main.Main"

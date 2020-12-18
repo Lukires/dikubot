@@ -1,7 +1,7 @@
-/target
+target
 remote_setup.sh
-/.idea
-/.settings
-/javadocs
-/src/main/resources/apitoken.txt
-/src/main/resources/sendgridtoken.txt
+.idea
+.settings
+javadocs
+src/main/resources/apitoken.txt
+src/main/resources/sendgridtoken.txt
