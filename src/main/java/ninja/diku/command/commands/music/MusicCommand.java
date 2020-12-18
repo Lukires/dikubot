@@ -3,13 +3,15 @@ package ninja.diku.command.commands.music;
 import net.dv8tion.jda.api.entities.*;
 import ninja.diku.command.Command;
 import ninja.diku.models.UserModel;
+import ninja.diku.music.audio.AudioContext;
 import ninja.diku.music.audio.AudioManager;
+import ninja.diku.music.audio.AudioPlayer;
 
 public interface MusicCommand extends Command {
 
     AudioManager audioManager = AudioManager.getInstance();
 
-    void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, Message message);
+    void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message);
 
     @Override
     default void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
@@ -27,6 +29,10 @@ public interface MusicCommand extends Command {
             channel.sendMessage("Jeg kan ikke spille musik for dig hvis du ikke er i en voice channel :(").queue();
             return;
         }
-        onCommand(member, guild, channel, voiceState.getChannel(), message);
+
+        if(!audioManager.playerExists(guild)) {
+            audioManager.createPlayer(new AudioContext(guild, voiceState.getChannel(), channel));
+        }
+        onCommand(member, guild, channel, voiceState.getChannel(), audioManager.getPlayer(guild), message);
     }
 }

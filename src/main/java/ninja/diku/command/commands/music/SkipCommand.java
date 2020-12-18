@@ -6,8 +6,8 @@ import ninja.diku.music.audio.AudioPlayer;
 
 public class SkipCommand implements MusicCommand {
     @Override
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, Message message) {
-        AudioPlayer player = audioManager.getPlayer(new AudioContext(guild, voiceChannel, messageChannel));
+    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
+        messageChannel.sendMessage(":arrow_right_hook: Skipping " + player.getPlayingTrack().getInfo().title).queue();
         player.stopTrack();
     }
 

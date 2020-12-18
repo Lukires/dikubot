@@ -3,6 +3,7 @@ package ninja.diku.music.audio;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import net.dv8tion.jda.api.entities.Guild;
@@ -17,38 +18,43 @@ public class TrackScheduler extends AudioEventAdapter {
     
     private final Queue<AudioTrack> queue = new LinkedBlockingQueue<AudioTrack>();
     private final AudioContext context;
+    private final static AudioManager audioManager = AudioManager.getInstance();
     public TrackScheduler(AudioContext context) {
         this.context=context;
     }
 
-    public void queue(AudioPlayer player, AudioTrack track) {
+    public boolean queue(AudioPlayer player, AudioTrack track, boolean message) {
         if(player.getPlayingTrack() == null) {
             player.playTrack(track);
-            return;
+            return true;
         }
         for (AudioTrack exists : getQueue()) {
             if(exists.getIdentifier().equals(track.getIdentifier())) {
-                context.getMessageChannel().sendMessage(":x: " + track.getInfo().title + " er allerede i køen").queue();
-                return;
+                if (message) {
+                    context.getMessageChannel().sendMessage(":x: " + track.getInfo().title + " er allerede i køen").queue();
+                }
+                return true;
             }
         }
 
         if(queue.size() > 1000) {
             context.getMessageChannel().sendMessage(":x: Der er over tusinde sange i køen, lad os tage det lidt med ro").queue();
-            return;
+            return false;
         }
 
         queue.add(track);
         String time = Util.milisecondsToMinuteString(track.getDuration());
-        context.getMessageChannel().sendMessage(":alarm_clock: Tilføjet til køen: " + track.getInfo().title + " **Længde: " + time + "** min").queue();
+        if (message) {
+            context.getMessageChannel().sendMessage(":alarm_clock: Tilføjet til køen: " + track.getInfo().title + " **Længde: " + time + "** min").queue();
+        }
+        return true;
     }
 
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
         if (context.getVoiceChannel().getMembers().size() == 0) {
             context.getMessageChannel().sendMessage(":musical_note: Der er ingen til stede, stopper med at spille musik...").queue();
-            player.stopTrack();
-            leaveVoiceChannel();
+            audioManager.purgePlayer(context.getGuild());
             return;
         }
         joinVoiceChannel();
@@ -66,8 +72,7 @@ public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         if ((!endReason.equals(AudioTrackEndReason.STOPPED) && !endReason.mayStartNext) || queue.isEmpty()) {
-            clearQueue();
-            leaveVoiceChannel();
+            audioManager.purgePlayer(context.getGuild());
             return;
         }
         player.playTrack(queue.poll());

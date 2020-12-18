@@ -9,7 +9,7 @@ import ninja.diku.music.audio.*;
 public class PlayCommand implements MusicCommand {
 
     @Override
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, Message message) {
+    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
         String[] args = getArgs(message);
 
         if(args.length < 2) {
@@ -26,7 +26,6 @@ public class PlayCommand implements MusicCommand {
             search.insert(0, "ytsearch:");
         }
 
-        AudioPlayer player = audioManager.getPlayer(new AudioContext(guild, voiceChannel, messageChannel));
         audioManager.loadItemOrdered(guild, search.toString(), new LoadAudioHandler(player));
 
     }

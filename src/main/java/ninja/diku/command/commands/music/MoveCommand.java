@@ -7,8 +7,7 @@ import ninja.diku.music.audio.AudioPlayer;
 
 public class MoveCommand implements MusicCommand {
     @Override
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, Message message) {
-        AudioPlayer player = audioManager.getPlayer(new AudioContext(guild, voiceChannel, messageChannel));
+    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
         player.getContext().setMessageChannel(messageChannel);
         player.getContext().setVoiceChannel(voiceChannel);
         player.getScheduler().joinVoiceChannel();
