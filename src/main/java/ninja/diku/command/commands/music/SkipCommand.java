@@ -7,7 +7,20 @@ import ninja.diku.music.audio.AudioPlayer;
 public class SkipCommand implements MusicCommand {
     @Override
     public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
-        messageChannel.sendMessage(":arrow_right_hook: Skipping " + player.getPlayingTrack().getInfo().title).queue();
+        String[] args = getArgs(message);
+        int skips = 1;
+        if (args.length > 1) {
+            try {
+                skips = Integer.parseInt(args[1]);
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        String songs = skips == 1 ? "sang" : "sange";
+        messageChannel.sendMessage(":arrow_right_hook: Skipping " + skips + " " +songs).queue();
+
+        for(int i = 0; i < skips-1; i++) {
+            player.getScheduler().pollQueue();
+        }
         player.stopTrack();
     }
 

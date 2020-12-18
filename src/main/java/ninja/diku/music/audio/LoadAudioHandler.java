@@ -26,16 +26,15 @@ public class LoadAudioHandler implements AudioLoadResultHandler {
 
         int added = 0;
         for (AudioTrack track : playlist.getTracks()) {
-            if (!player.getScheduler().queue(player, track, false)) {
-                break;
+            if (player.getScheduler().queue(player, track, false)) {
+                added++;
             }
-            added++;
         }
         if (added == playlist.getTracks().size()) {
-            player.getContext().getMessageChannel().sendMessage(":alarm_clock: Alle **" + added + " sange er blevet tilføjet").queue();
+            player.getContext().getMessageChannel().sendMessage(":alarm_clock: Alle **" + added + "** sange er blevet tilføjet").queue();
             return;
         }
-        player.getContext().getMessageChannel().sendMessage(":timer: Kun **" + playlist.getTracks().size() + "/" + added + " af sangene er blevet tilføjet").queue();
+        player.getContext().getMessageChannel().sendMessage(":timer: Kun **" + added + "/" + playlist.getTracks().size() + "** af sangene er blevet tilføjet").queue();
     }
 
     @Override

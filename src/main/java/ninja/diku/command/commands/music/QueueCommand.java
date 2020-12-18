@@ -20,7 +20,6 @@ public class QueueCommand implements MusicCommand {
             try {
                 page = Integer.parseInt(args[1]);
             } catch (NumberFormatException ignored) {
-
             }
         }
 
@@ -29,9 +28,9 @@ public class QueueCommand implements MusicCommand {
             messageChannel.sendMessage("Køen er tom! :(").queue();
             return;
         }
-        StringBuilder queueString = new StringBuilder("Viser side: " + page + "/" + Math.ceil((double)queue.size() / (double)pageSize) + "\n```");
+        StringBuilder queueString = new StringBuilder("Viser side: " + page + "/" + (int) Math.ceil((double)queue.size() / (double)pageSize) + "\n```");
 
-        for (int i = pageSize*(page-1); i < queue.size(); i++) {
+        for (int i = pageSize*(page-1); i < queue.size() && i < pageSize*(page); i++) {
             AudioTrack track = queue.get(i);
             String time = Util.milisecondsToMinuteString(track.getDuration());
             queueString.append(track.getInfo().title).append(" - Længde: ").append(time).append(" min. \n\n");

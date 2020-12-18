@@ -8,9 +8,23 @@ import ninja.diku.music.audio.AudioPlayer;
 public class MoveCommand implements MusicCommand {
     @Override
     public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
+        if(player.getPlayingTrack() == null) {
+            messageChannel.sendMessage(":x: Du kan kun flytte mig når jeg spiller musik").queue();
+            return;
+        }
+
+        MessageChannel currentMessageChannel = player.getContext().getMessageChannel();
+        VoiceChannel currentVoiceChannel = player.getContext().getVoiceChannel();
         player.getContext().setMessageChannel(messageChannel);
         player.getContext().setVoiceChannel(voiceChannel);
-        player.getScheduler().joinVoiceChannel();
+
+        if (!player.getScheduler().joinVoiceChannel()) {
+            messageChannel.sendMessage(":x: Fejl, jeg har ikke adgang til at spille i din kanal. Jeg bliver hvor jeg er!").queue();
+            player.getContext().setMessageChannel(currentMessageChannel);
+            player.getContext().setVoiceChannel(currentVoiceChannel);
+            return;
+        }
+        messageChannel.sendMessage(":airplane: Du har flyttet mig til **voice channel: " + voiceChannel.getName() + "** og **message channel: " + messageChannel.getName()+ "**").queue();
     }
 
     @Override

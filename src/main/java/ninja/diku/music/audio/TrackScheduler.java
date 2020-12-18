@@ -7,6 +7,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import ninja.diku.main.Util;
 
 import java.text.DecimalFormat;
@@ -33,12 +34,14 @@ public class TrackScheduler extends AudioEventAdapter {
                 if (message) {
                     context.getMessageChannel().sendMessage(":x: " + track.getInfo().title + " er allerede i køen").queue();
                 }
-                return true;
+                return false;
             }
         }
 
         if(queue.size() > 1000) {
-            context.getMessageChannel().sendMessage(":x: Der er over tusinde sange i køen, lad os tage det lidt med ro").queue();
+            if (message) {
+                context.getMessageChannel().sendMessage(":x: Der er over tusinde sange i køen, lad os tage det lidt med ro").queue();
+            }
             return false;
         }
 
@@ -57,7 +60,11 @@ public class TrackScheduler extends AudioEventAdapter {
             audioManager.purgePlayer(context.getGuild());
             return;
         }
-        joinVoiceChannel();
+        if (!joinVoiceChannel()) {
+            context.getMessageChannel().sendMessage(":x: Fejl, jeg har ikke adgang til at spille i din kanal").queue();
+            purgePlayer();
+            return;
+        }
         String time = Util.milisecondsToMinuteString(track.getDuration());
         context.getMessageChannel().sendMessage(":musical_note: Spiller nu: " + track.getInfo().title + " **Længde: " + time + "** min").queue();
     }
@@ -81,27 +88,42 @@ public class TrackScheduler extends AudioEventAdapter {
 
     @Override
     public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
-        context.getMessageChannel().sendMessage(":x: Fejl, kan ikke spille " + track.getInfo().title).queue();
+        context.getMessageChannel().sendMessage(":x: Fejl, kan ikke spille " + track.getInfo().title + ". Skipper til næste sang").queue();
         player.stopTrack();
     }
 
     @Override
     public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
         if (thresholdMs > 5000) {
-            context.getMessageChannel().sendMessage(":x: Fejl, kan ikke spille " + track.getInfo().title).queue();
+            context.getMessageChannel().sendMessage(":x: Fejl, kan ikke spille " + track.getInfo().title + ". Skipper til næste sang").queue();
             player.stopTrack();
         }
     }
 
-    public void joinVoiceChannel() {
-        context.getGuild().getAudioManager().openAudioConnection(context.getVoiceChannel());
+    public boolean joinVoiceChannel() {
+        try {
+            context.getGuild().getAudioManager().openAudioConnection(context.getVoiceChannel());
+            context.getGuild().getAudioManager().setAutoReconnect(true);
+            return true;
+        }catch (InsufficientPermissionException ignored) {
+
+        }
+        return false;
     }
     public void leaveVoiceChannel() {
         context.getGuild().getAudioManager().closeAudioConnection();
     }
 
+    public AudioTrack pollQueue() {
+        return queue.poll();
+    }
+
     public void clearQueue() {
         queue.clear();
+    }
+
+    public void purgePlayer() {
+        audioManager.purgePlayer(context.getGuild());
     }
 
     public ArrayList<AudioTrack> getQueue() {
