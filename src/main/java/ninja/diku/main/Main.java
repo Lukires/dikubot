@@ -7,6 +7,7 @@ import ninja.diku.command.commands.fun.*;
 import ninja.diku.command.commands.introduction.JoinCommand;
 import ninja.diku.command.commands.introduction.MajorCommand;
 import ninja.diku.command.commands.introduction.VerifyCommand;
+import ninja.diku.command.commands.math.WFCommand;
 import ninja.diku.command.commands.music.*;
 import ninja.diku.command.commands.util.*;
 import ninja.diku.database.Collections;
@@ -70,6 +71,7 @@ public class Main {
         commands.put("!queue", new QueueCommand());
         commands.put("!killmusic", new KillMusicCommand());
         commands.put("!playing", new PlayingCommand());
+        commands.put("!wf", new WFCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
