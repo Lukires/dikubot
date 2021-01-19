@@ -6,7 +6,7 @@ import java.util.Map;
 public enum Roles {
 
     DATALOG("Datalog", false), DIKU("DIKU", false), KU("KU", false),
-    MACHINETEACHER("Machine Teachers",false), CBS_PROGRAMMING("CBS-Programming", false),
+    MACHINETEACHER("Machine Learning",false), CBS_PROGRAMMING("Datalogi-Økonomi", false),
     WEEB("Weeb", true), GAMER("Gamer", true), DND("DND", true), RUS("Rus", true);
 
     public static final Map<String, Roles> nameIndex = new HashMap<>(Roles.values().length);
