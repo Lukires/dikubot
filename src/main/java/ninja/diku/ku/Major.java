@@ -11,6 +11,7 @@ public enum Major {
     MATEMATIK(Roles.KU, "Matematik"),
     ECONOMICS(Roles.KU, "Økonomi"),
     FYSIK(Roles.KU, "Fysik"),
+    SUNDHED_IT(Roles.SUNDHED_IT, "Sundhed-It"),
     OTHER(Roles.KU, "Andet");
 
 
