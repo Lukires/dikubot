@@ -38,12 +38,8 @@ public class MajorCommand implements Command {
         String majorInput = args[1].replace("[","").replace("]","");;
         for(Major major : Major.values()) {
             if(major.getName().equalsIgnoreCase(majorInput)) {
-                channel.sendMessage(user.getAsMention()+" du har anmodet om at få sat din major til  "+major.getName()+ ". En moderator vil tage et kig på din anmodning").queue();
-
-                //userModel.setMajor(major.getName());
-                //guild.addRoleToMember(user.getId(), guild.getRolesByName(major.getRole().getRole(), true).get(0)).queue();
-
-                //THIS IS TESTING
+                channel.sendMessage(user.getAsMention()+" du har anmodet om at få sat din major til  "+major.getName()+ ". En moderator vil tage et kig på din anmodning\n" +
+                        "I mellem tiden kan du vælge et hold ved brug af !group\nF.eks: !group join Hold-7").queue();
                 UUID uuid = UUID.randomUUID();
                 new MajorTicket(guild, user, uuid, major).activate();
                 System.out.printf("%s %s %s %s%n", guild.toString(), user.getId(), uuid.toString(), major.name());
