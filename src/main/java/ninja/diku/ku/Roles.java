@@ -13,7 +13,7 @@ public enum Roles {
     HOLD_7("Hold-7", true), HOLD_8("Hold-8", true), HOLD_9("Hold-9", true),
     HOLD_10("Hold-10", true), HOLD_11("Hold-11", true), HOLD_12("Hold-12", true),
     HOLD_13("Hold-13", true), HOLD_14("Hold-14", true), HOLD_15("Hold-15", true),
-    HOLD_16("Hold-16", true),;
+    HOLD_16("Hold-16", true);
 
     public static final Map<String, Roles> nameIndex = new HashMap<>(Roles.values().length);
 
