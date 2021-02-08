@@ -61,6 +61,8 @@ public class JoinCommand implements Command {
             }
         }
 
+        name = new StringBuilder(name.toString().replace("[","").replace("]",""));
+
         try {
             Member member = guild.retrieveMember(user).complete();
             member.modifyNickname(name.toString()).queue();
