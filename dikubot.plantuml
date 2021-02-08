@@ -1,0 +1,491 @@
+@startuml
+
+title __DIKUBOT's Class Diagram__\n
+
+  namespace ninja.diku.command {
+    interface ninja.diku.command.Command {
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    class ninja.diku.command.CommandListener {
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.fun {
+      class ninja.diku.command.commands.fun.LoveCalcCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.fun {
+      class ninja.diku.command.commands.fun.Magic8BallCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.fun {
+      class ninja.diku.command.commands.fun.PingCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.fun {
+      class ninja.diku.command.commands.fun.PrimeCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.fun {
+      class ninja.diku.command.commands.fun.ProdigyCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.fun {
+      class ninja.diku.command.commands.fun.QuoteCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.fun {
+      class ninja.diku.command.commands.fun.RPNCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.fun {
+      class ninja.diku.command.commands.fun.RollCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.introduction {
+      class ninja.diku.command.commands.introduction.JoinCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.introduction {
+      class ninja.diku.command.commands.introduction.MajorCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.introduction {
+      class ninja.diku.command.commands.introduction.VerifyCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.music {
+      class ninja.diku.command.commands.music.KillMusicCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.music {
+      class ninja.diku.command.commands.music.MoveCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.music {
+      interface ninja.diku.command.commands.music.MusicCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.music {
+      class ninja.diku.command.commands.music.PlayCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.music {
+      class ninja.diku.command.commands.music.PlayingCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.music {
+      class ninja.diku.command.commands.music.QueueCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.music {
+      class ninja.diku.command.commands.music.SkipCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.util {
+      class ninja.diku.command.commands.util.ClearCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.util {
+      class ninja.diku.command.commands.util.GroupCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.util {
+      class ninja.diku.command.commands.util.HelpCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.util {
+      class ninja.diku.command.commands.util.MyDataCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.util {
+      class ninja.diku.command.commands.util.ResetCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.command {
+    namespace commands.util {
+      class ninja.diku.command.commands.util.TicketCommand {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.conversation {
+    class ninja.diku.conversation.GuildConversation {
+    }
+  }
+  
+
+  namespace ninja.diku.conversation {
+    namespace conversations {
+      class ninja.diku.conversation.conversations.VerificationConversation {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.cronjob {
+    class ninja.diku.cronjob.CronJob {
+    }
+  }
+  
+
+  namespace ninja.diku.cronjob {
+    namespace cronjobs {
+      class ninja.diku.cronjob.cronjobs.DailyScheduleReminder {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.database {
+    class ninja.diku.database.Cache {
+    }
+  }
+  
+
+  namespace ninja.diku.database {
+    enum Collections {
+    }
+  }
+  
+
+  namespace ninja.diku.database {
+    class ninja.diku.database.Database {
+    }
+  }
+  
+
+  namespace ninja.diku.email {
+    class ninja.diku.email.BotEmail {
+    }
+  }
+  
+
+  namespace ninja.diku.greeting {
+    class ninja.diku.greeting.JoinListener {
+    }
+  }
+  
+
+  namespace ninja.diku.ku {
+    enum Major {
+    }
+  }
+  
+
+  namespace ninja.diku.ku {
+    enum Roles {
+    }
+  }
+  
+
+  namespace ninja.diku.ku {
+    enum Teams {
+    }
+  }
+  
+
+  namespace ninja.diku.main {
+    class ninja.diku.main.Constant {
+    }
+  }
+  
+
+  namespace ninja.diku.main {
+    class ninja.diku.main.Main {
+    }
+  }
+  
+
+  namespace ninja.diku.main {
+    class ninja.diku.main.Util {
+    }
+  }
+  
+
+  namespace ninja.diku.models {
+    abstract class ninja.diku.models.Model {
+    }
+  }
+  
+
+  namespace ninja.diku.models {
+    class ninja.diku.models.TicketModel {
+    }
+  }
+  
+
+  namespace ninja.diku.models {
+    class ninja.diku.models.UserModel {
+    }
+  }
+  
+
+  namespace ninja.diku.models {
+    namespace exceptions {
+      class ninja.diku.models.exceptions.TicketNotFoundException {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.music.audio {
+    class ninja.diku.music.audio.AudioContext {
+    }
+  }
+  
+
+  namespace ninja.diku.music.audio {
+    class ninja.diku.music.audio.AudioManager {
+    }
+  }
+  
+
+  namespace ninja.diku.music.audio {
+    class ninja.diku.music.audio.AudioPlayer {
+    }
+  }
+  
+
+  namespace ninja.diku.music.audio {
+    class ninja.diku.music.audio.AudioPlayerSendHandler {
+    }
+  }
+  
+
+  namespace ninja.diku.music.audio {
+    class ninja.diku.music.audio.LoadAudioHandler {
+    }
+  }
+  
+
+  namespace ninja.diku.music.audio {
+    class ninja.diku.music.audio.TrackScheduler {
+    }
+  }
+  
+
+  namespace ninja.diku.ticket {
+    abstract class ninja.diku.ticket.Ticket {
+    }
+  }
+  
+
+  namespace ninja.diku.ticket {
+    interface ninja.diku.ticket.TicketAction {
+    }
+  }
+  
+
+  namespace ninja.diku.ticket {
+    class ninja.diku.ticket.TicketDisplay {
+    }
+  }
+  
+
+  namespace ninja.diku.ticket {
+    class ninja.diku.ticket.TicketFactory {
+    }
+  }
+  
+
+  namespace ninja.diku.ticket {
+    class ninja.diku.ticket.TicketListener {
+    }
+  }
+  
+
+  namespace ninja.diku.ticket {
+    namespace exceptions {
+      class ninja.diku.ticket.exceptions.MessageNotFoundException {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.ticket {
+    namespace ticketactions {
+      class ninja.diku.ticket.ticketactions.AcceptMajorTicketAction {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.ticket {
+    namespace ticketactions {
+      class ninja.diku.ticket.ticketactions.RejectMajorTicketAction {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.ticket {
+    namespace tickets {
+      class ninja.diku.ticket.tickets.GenericTicket {
+      }
+    }
+  }
+  
+
+  namespace ninja.diku.ticket {
+    namespace tickets {
+      class ninja.diku.ticket.tickets.MajorTicket {
+      }
+    }
+  }
+  
+
+  ninja.diku.command.CommandListener -up-|> net.dv8tion.jda.api.hooks.ListenerAdapter
+  ninja.diku.command.commands.fun.LoveCalcCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.fun.Magic8BallCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.fun.PingCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.fun.PrimeCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.fun.ProdigyCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.fun.QuoteCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.fun.RPNCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.fun.RollCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.introduction.JoinCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.introduction.JoinCommand o-- ninja.diku.email.BotEmail : botEmail
+  ninja.diku.command.commands.introduction.MajorCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.introduction.VerifyCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.music.KillMusicCommand .up.|> ninja.diku.command.commands.music.MusicCommand
+  ninja.diku.command.commands.music.MoveCommand .up.|> ninja.diku.command.commands.music.MusicCommand
+  ninja.diku.command.commands.music.PlayCommand .up.|> ninja.diku.command.commands.music.MusicCommand
+  ninja.diku.command.commands.music.PlayingCommand .up.|> ninja.diku.command.commands.music.MusicCommand
+  ninja.diku.command.commands.music.QueueCommand .up.|> ninja.diku.command.commands.music.MusicCommand
+  ninja.diku.command.commands.music.SkipCommand .up.|> ninja.diku.command.commands.music.MusicCommand
+  ninja.diku.command.commands.util.ClearCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.util.GroupCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.util.HelpCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.util.MyDataCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.util.ResetCommand .up.|> ninja.diku.command.Command
+  ninja.diku.command.commands.util.TicketCommand .up.|> ninja.diku.command.Command
+  ninja.diku.conversation.conversations.VerificationConversation -up-|> ninja.diku.conversation.GuildConversation
+  ninja.diku.database.Cache -up-|> java.util.HashMap
+  ninja.diku.greeting.JoinListener -up-|> net.dv8tion.jda.api.hooks.ListenerAdapter
+  ninja.diku.ku.Major o-- ninja.diku.ku.Roles : role
+  ninja.diku.models.Model o-- T : object
+  ninja.diku.models.TicketModel -up-|> ninja.diku.models.Model
+  ninja.diku.models.UserModel -up-|> ninja.diku.models.Model
+  ninja.diku.music.audio.AudioManager -up-|> com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
+  ninja.diku.music.audio.AudioPlayer -up-|> com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayer
+  ninja.diku.music.audio.AudioPlayer o-- ninja.diku.music.audio.AudioContext : context
+  ninja.diku.music.audio.AudioPlayer o-- ninja.diku.music.audio.TrackScheduler : scheduler
+  ninja.diku.music.audio.AudioPlayerSendHandler .up.|> net.dv8tion.jda.api.audio.AudioSendHandler
+  ninja.diku.music.audio.LoadAudioHandler .up.|> com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
+  ninja.diku.music.audio.LoadAudioHandler o-- ninja.diku.music.audio.AudioPlayer : player
+  ninja.diku.music.audio.TrackScheduler -up-|> com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter
+  ninja.diku.music.audio.TrackScheduler o-- ninja.diku.music.audio.AudioContext : context
+  ninja.diku.ticket.TicketListener -up-|> net.dv8tion.jda.api.hooks.ListenerAdapter
+  ninja.diku.ticket.ticketactions.AcceptMajorTicketAction .up.|> ninja.diku.ticket.TicketAction
+  ninja.diku.ticket.ticketactions.RejectMajorTicketAction .up.|> ninja.diku.ticket.TicketAction
+  ninja.diku.ticket.tickets.GenericTicket -up-|> ninja.diku.ticket.Ticket
+  ninja.diku.ticket.tickets.MajorTicket -up-|> ninja.diku.ticket.Ticket
+  ninja.diku.ticket.tickets.MajorTicket o-- ninja.diku.ku.Major : major
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
