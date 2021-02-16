@@ -40,9 +40,10 @@ public class HelpCommand implements Command {
         mb.append(user.getAsMention()).append(" brug for hjælp? Her er en liste af alle mine kommandoer! \n");
         StringBuilder commands = new StringBuilder();
         for(String command : Main.commands.keySet()) {
-            commands.append(command).append(" - ").append(Main.commands.get(command).getDescription()).append("\n");
+            String commandUpper = command.substring(1, 2).toUpperCase() + command.substring(2);
+            commands.append(commandUpper).append(" - '").append(Main.commands.get(command).getDescription().toLowerCase()).append("'\n");
         }
-        mb.append("```").append(String.valueOf(commands)).append("```");
+        mb.append("```prolog\n").append(String.valueOf(commands)).append("```");
         channel.sendMessage(mb.build()).queue();
     }
 

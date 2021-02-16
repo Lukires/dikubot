@@ -22,7 +22,7 @@ public class MyDataCommand implements Command {
 
             MessageBuilder mb = new MessageBuilder();
             mb.append(user.getAsMention()).append(" her er dataen du har anmodet om:\n");
-            mb.append("```{user: ").append(userDocument.toJson()).append(",");
+            mb.append("```json\n{user: ").append(userDocument.toJson()).append(",");
             mb.append("tickets: ");
             for (Document ticket : Collections.TICKETS.getCollection().find(Filters.eq("user", user.getId()))) {
                 mb.append(ticket.toJson()).append(",");
