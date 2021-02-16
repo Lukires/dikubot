@@ -40,7 +40,7 @@ public class HelpCommand implements Command {
         mb.append(user.getAsMention()).append(" brug for hjælp? Her er en liste af alle mine kommandoer! \n");
         StringBuilder commands = new StringBuilder();
         for(String command : Main.commands.keySet()) {
-            String commandUpper = command.substring(1, 2).toUpperCase() + command.substring(2);
+            String commandUpper = command.substring(0, 2).toUpperCase() + command.substring(2);
             commands.append(commandUpper).append(" - '").append(Main.commands.get(command).getDescription().toLowerCase()).append("'\n");
         }
         mb.append("```prolog\n").append(String.valueOf(commands)).append("```");
