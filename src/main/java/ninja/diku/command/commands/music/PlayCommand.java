@@ -6,7 +6,7 @@ import ninja.diku.models.UserModel;
 import net.dv8tion.jda.api.entities.*;
 import ninja.diku.music.audio.*;
 
-public class PlayCommand implements DJCommand {
+public class PlayCommand implements MusicCommand {
 
     @Override
     public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
