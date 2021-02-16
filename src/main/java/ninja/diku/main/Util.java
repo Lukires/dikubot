@@ -23,9 +23,9 @@ public class Util {
 
 
     public static boolean isRole(User user, Guild guild, String role) {
-        Role modRole = guild.getRolesByName(role, true).get(0);
-        Member member = guild.retrieveMember(user).complete();
         try {
+            Role modRole = guild.getRolesByName(role, true).get(0);
+            Member member = guild.retrieveMember(user).complete();
             List<Role> Roles = member.getRoles();
             return Roles.contains(modRole);
         } catch (Exception e) { // A user may have no roles so this exception makes sure false get returned.
