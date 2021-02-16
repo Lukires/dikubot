@@ -6,10 +6,14 @@ import ninja.diku.models.UserModel;
 import net.dv8tion.jda.api.entities.*;
 import ninja.diku.music.audio.*;
 
-public class PlayCommand implements MusicCommand {
+public class PlayCommand implements DJCommand {
 
     @Override
     public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
+        onCommand(member, guild, messageChannel, voiceChannel, player, message, false);
+    }
+
+    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message, boolean playTop) {
         String[] args = getArgs(message);
 
         if(args.length < 2) {
@@ -26,8 +30,7 @@ public class PlayCommand implements MusicCommand {
             search.insert(0, "ytsearch:");
         }
 
-        audioManager.loadItemOrdered(guild, search.toString(), new LoadAudioHandler(player));
-
+        audioManager.loadItemOrdered(guild, search.toString(), new LoadAudioHandler(player, playTop));
     }
 
     @Override

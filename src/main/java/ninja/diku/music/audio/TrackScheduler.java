@@ -12,19 +12,21 @@ import ninja.diku.main.Util;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.Queue;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrackScheduler extends AudioEventAdapter {
     
-    private final Queue<AudioTrack> queue = new LinkedBlockingQueue<AudioTrack>();
+    private final Deque<AudioTrack> queue = new LinkedBlockingDeque<>();
     private final AudioContext context;
     private final static AudioManager audioManager = AudioManager.getInstance();
     public TrackScheduler(AudioContext context) {
         this.context=context;
     }
 
-    public boolean queue(AudioPlayer player, AudioTrack track, boolean message) {
+    public boolean queue(AudioPlayer player, AudioTrack track, boolean message, boolean queueTop) {
         if(player.getPlayingTrack() == null) {
             player.playTrack(track);
             return true;
@@ -45,8 +47,16 @@ public class TrackScheduler extends AudioEventAdapter {
             return false;
         }
 
-        queue.add(track);
         String time = Util.milisecondsToMinuteString(track.getDuration());
+        if(queueTop) {
+            queue.addFirst(track);
+            if (message) {
+                context.getMessageChannel().sendMessage(":alarm_clock: Tilføjet til toppen af køen: " + track.getInfo().title + " **Længde: " + time + "** min").queue();
+            }
+            return true;
+        }
+
+        queue.addLast(track);
         if (message) {
             context.getMessageChannel().sendMessage(":alarm_clock: Tilføjet til køen: " + track.getInfo().title + " **Længde: " + time + "** min").queue();
         }

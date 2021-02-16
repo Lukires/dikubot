@@ -8,13 +8,19 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 public class LoadAudioHandler implements AudioLoadResultHandler {
 
     private AudioPlayer player;
+    private boolean queueTop;
+
     public LoadAudioHandler(AudioPlayer player) {
+        this(player, false);
+    }
+    public LoadAudioHandler(AudioPlayer player, boolean queueTop) {
         this.player=player;
+        this.queueTop=queueTop;
     }
 
     @Override
     public void trackLoaded(AudioTrack track) {
-        player.getScheduler().queue(player, track, true);
+        player.getScheduler().queue(player, track, true, queueTop);
     }
 
     @Override
@@ -26,7 +32,7 @@ public class LoadAudioHandler implements AudioLoadResultHandler {
 
         int added = 0;
         for (AudioTrack track : playlist.getTracks()) {
-            if (player.getScheduler().queue(player, track, false)) {
+            if (player.getScheduler().queue(player, track, false, queueTop)) {
                 added++;
             }
         }

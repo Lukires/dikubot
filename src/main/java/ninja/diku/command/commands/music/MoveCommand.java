@@ -5,7 +5,7 @@ import ninja.diku.command.Command;
 import ninja.diku.music.audio.AudioContext;
 import ninja.diku.music.audio.AudioPlayer;
 
-public class MoveCommand implements MusicCommand {
+public class MoveCommand implements DJCommand {
     @Override
     public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
         if(player.getPlayingTrack() == null) {

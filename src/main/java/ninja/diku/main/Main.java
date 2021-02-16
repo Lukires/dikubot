@@ -65,11 +65,15 @@ public class Main {
         commands.put("!clear", new ClearCommand());
         commands.put("!mydata", new MyDataCommand());
         commands.put("!play", new PlayCommand());
+        commands.put("!pl", new PlayCommand());
+        commands.put("!playtop", new PlayTopCommand());
+        commands.put("!pltop", new PlayTopCommand());
         commands.put("!move", new MoveCommand());
         commands.put("!skip", new SkipCommand());
         commands.put("!queue", new QueueCommand());
         commands.put("!killmusic", new KillMusicCommand());
         commands.put("!playing", new PlayingCommand());
+        commands.put("!djmode", new DJModeCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);

@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.entities.*;
 import ninja.diku.music.audio.AudioContext;
 import ninja.diku.music.audio.AudioPlayer;
 
-public class SkipCommand implements MusicCommand {
+public class SkipCommand implements DJCommand {
     @Override
     public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
         String[] args = getArgs(message);

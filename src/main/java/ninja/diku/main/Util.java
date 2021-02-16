@@ -21,6 +21,18 @@ public class Util {
         return salt.toString();
     }
 
+
+    public static boolean isRole(User user, Guild guild, String role) {
+        Role modRole = guild.getRolesByName(role, true).get(0);
+        Member member = guild.retrieveMember(user).complete();
+        try {
+            List<Role> Roles = member.getRoles();
+            return Roles.contains(modRole);
+        } catch (NullPointerException e) { // A user may have no roles so this exception makes sure false get returned.
+            return false;
+        }
+    }
+
     /**
      * This function checks if a user is a mod. True if they are mod, False if they are not.
      *
@@ -29,14 +41,7 @@ public class Util {
      * @return      bool
      */
     public static boolean isMod(User user, Guild guild) {
-        Role modRole = guild.getRolesByName("mod", true).get(0);
-        Member member = guild.retrieveMember(user).complete();
-        try {
-            List<Role> Roles = member.getRoles();
-            return Roles.contains(modRole);
-        } catch (NullPointerException e) { // A user may have no roles so this exception makes sure false get returned.
-            return false;
-        }
+        return isRole(user, guild, "mod");
     }
 
     /**

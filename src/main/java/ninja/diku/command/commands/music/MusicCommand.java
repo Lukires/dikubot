@@ -2,6 +2,7 @@ package ninja.diku.command.commands.music;
 
 import net.dv8tion.jda.api.entities.*;
 import ninja.diku.command.Command;
+import ninja.diku.main.Util;
 import ninja.diku.models.UserModel;
 import ninja.diku.music.audio.AudioContext;
 import ninja.diku.music.audio.AudioManager;
@@ -19,20 +20,30 @@ public interface MusicCommand extends Command {
 
         UserModel userModel = new UserModel(user);
         if (userModel.isMusicBanned()) {
-            channel.sendMessage("Du kan ikke spille musik. Din musiksmag har åbenbart fået dig banned.").queue();
+            channel.sendMessage(":x: Du kan ikke spille musik. Din musiksmag har åbenbart fået dig banned.").queue();
             return;
         }
 
         GuildVoiceState voiceState = member.getVoiceState();
         assert voiceState != null;
         if(!voiceState.inVoiceChannel()) {
-            channel.sendMessage("Jeg kan ikke spille musik for dig hvis du ikke er i en voice channel :(").queue();
+            channel.sendMessage(":x: Jeg kan ikke spille musik for dig hvis du ikke er i en voice channel :(").queue();
             return;
         }
 
         if(!audioManager.playerExists(guild)) {
             audioManager.createPlayer(new AudioContext(guild, voiceState.getChannel(), channel));
         }
-        onCommand(member, guild, channel, voiceState.getChannel(), audioManager.getPlayer(guild), message);
+
+        AudioPlayer player = audioManager.getPlayer(guild);
+
+
+        if (this instanceof DJCommand && player.getContext().isDjMode() && !DJCommand.isDJ(member, player)) {
+            channel.sendMessage(":x: Jeg er i DJmode. Kun DJs kan bruge denne kommando.").queue();
+            return;
+        }
+
+        onCommand(member, guild, channel, voiceState.getChannel(), player, message);
     }
 }
+

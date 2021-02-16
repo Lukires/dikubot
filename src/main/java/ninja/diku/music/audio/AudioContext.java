@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 
 public class AudioContext {
     private Guild guild;
+    private boolean DJMode = false;
     private VoiceChannel voiceChannel;
     private MessageChannel messageChannel;
     public AudioContext(Guild guild, VoiceChannel voiceChannel, MessageChannel messageChannel) {
@@ -21,6 +22,14 @@ public class AudioContext {
 
     public VoiceChannel getVoiceChannel() {
         return voiceChannel;
+    }
+
+    public boolean isDjMode() {
+        return DJMode;
+    }
+
+    public void setDjMode(boolean djMode) {
+        this.DJMode = djMode;
     }
 
     public void setVoiceChannel(VoiceChannel voiceChannel) {
