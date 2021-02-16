@@ -28,7 +28,7 @@ public class Util {
         try {
             List<Role> Roles = member.getRoles();
             return Roles.contains(modRole);
-        } catch (NullPointerException e) { // A user may have no roles so this exception makes sure false get returned.
+        } catch (Exception e) { // A user may have no roles so this exception makes sure false get returned.
             return false;
         }
     }
