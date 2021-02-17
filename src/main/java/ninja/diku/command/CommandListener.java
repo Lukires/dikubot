@@ -22,7 +22,7 @@ public class CommandListener extends ListenerAdapter {
             return;
         }
 
-        String command = messageContent.split(" ")[0];
+        String command = messageContent.split(" ")[0].toLowerCase();
 
         if (!Main.commands.containsKey(command)) {
             return;
