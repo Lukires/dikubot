@@ -23,8 +23,11 @@ public class QuoteCommand implements Command {
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         TextChannel quoteChannel = guild.getTextChannelById("753287293606821913");
         if(quoteChannel == null) {
-            channel.sendMessage("There seems to be an error, contact a Moderator!").queue();
-            return;
+            quoteChannel = guild.getTextChannelById("789268505152716831");
+            if(quoteChannel == null) {
+                channel.sendMessage("There seems to be an error, contact a Moderator!").queue();
+                return;
+            }
         }
         MessageHistory.getHistoryFromBeginning(quoteChannel).queue(messageHistory -> {
             List<Message> quotes = messageHistory.getRetrievedHistory();
