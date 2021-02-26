@@ -22,8 +22,10 @@ public class QuoteCommand implements Command {
     @Override
     public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
         TextChannel quoteChannel = guild.getTextChannelById("753287293606821913");
-        if(quoteChannel == null) {
+        if (guild.getId().toString() == "758330864651862066") {
             quoteChannel = guild.getTextChannelById("789268505152716831");
+        } 
+        if(quoteChannel == null) {
             if(quoteChannel == null) {
                 channel.sendMessage("There seems to be an error, contact a Moderator!").queue();
                 return;
