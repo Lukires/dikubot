@@ -50,7 +50,7 @@ public class QuoteCommand implements Command {
 
         int emotes = message.getReactions().stream().mapToInt(value -> value.getCount()).sum();
 
-        if (random.nextInt(101) + (lastSeen.containsKey(message)?current-lastSeen.get(message):0)*2< rerollChance - emotes*2) {
+        if (random.nextInt(101) + (lastSeen.containsKey(message)?current-lastSeen.get(message):0)< rerollChance - emotes*2) {
             return pickMessage(messages);
         }
 
