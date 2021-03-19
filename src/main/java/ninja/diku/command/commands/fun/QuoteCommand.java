@@ -40,7 +40,7 @@ public class QuoteCommand implements Command {
 
     Random random = new Random();
     public static HashMap<Message, Integer> lastSeen = new HashMap<Message, Integer>();
-    public static int current = 0;
+    public static int current = 100;
     private final static int rerollChance = 99;
 
     private Message pickMessage(List<Message> messages) {
