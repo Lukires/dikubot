@@ -43,14 +43,14 @@ public class QuoteCommand implements Command {
     public static HashMap<Message, Integer> lastSeen = new HashMap<Message, Integer>();
     public static int current = 0;
 
-    private final static int rerollChance = 95;
+    private final static int rerollChance = 99;
     private Message pickMessage(List<Message> messages) {
         int index = random.nextInt(messages.size()-1);
         Message message = messages.get(index);
 
         int emotes = message.getReactions().stream().mapToInt(value -> value.getCount()).sum();
 
-        if (random.nextInt(100) + (lastSeen.containsKey(message)?current-lastSeen.get(message):0)< rerollChance - emotes) {
+        if (random.nextInt(101) + (lastSeen.containsKey(message)?current-lastSeen.get(message):0)*2< rerollChance - emotes*2) {
             return pickMessage(messages);
         }
 
