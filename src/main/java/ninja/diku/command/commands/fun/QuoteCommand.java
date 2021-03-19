@@ -3,6 +3,7 @@ package ninja.diku.command.commands.fun;
 import ninja.diku.command.Command;
 import net.dv8tion.jda.api.entities.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -33,9 +34,29 @@ public class QuoteCommand implements Command {
         }
         MessageHistory.getHistoryFromBeginning(quoteChannel).queue(messageHistory -> {
             List<Message> quotes = messageHistory.getRetrievedHistory();
-            int number = new Random().nextInt(quotes.size()-1);
-            channel.sendMessage(quotes.get(number)).queue();
+            channel.sendMessage(pickMessage(quotes)).queue();
         });
+    }
+
+    Random random = new Random();
+
+    public static HashMap<Message, Integer> lastSeen = new HashMap<Message, Integer>();
+    public static int current = 0;
+
+    private final static int rerollChance = 95;
+    private Message pickMessage(List<Message> messages) {
+        int index = random.nextInt(messages.size()-1);
+        Message message = messages.get(index);
+
+        int emotes = message.getReactions().stream().mapToInt(value -> value.getCount()).sum();
+
+        if (random.nextInt(100) + (lastSeen.containsKey(message)?current-lastSeen.get(message):0)< rerollChance - emotes) {
+            return pickMessage(messages);
+        }
+
+        lastSeen.put(message, current);
+        current++;
+        return message;
     }
 
     @Override
