@@ -40,21 +40,22 @@ public class QuoteCommand implements Command {
 
     Random random = new Random();
     public static HashMap<Message, Integer> lastSeen = new HashMap<Message, Integer>();
-    public static int current = 100;
+    public static int current = 0;
     private final static int rerollChance = 99;
 
     private Message pickMessage(List<Message> messages) {
         int index = random.nextInt(messages.size()-1);
         Message message = messages.get(index);
 
-        int emotes = message.getReactions().stream().mapToInt(value -> value.getCount()).sum();
-
-        if (random.nextInt(101) - (lastSeen.containsKey(message) ? (100 - current - lastSeen.get(message)) : 0)< Math.max(rerollChance - emotes*2, 0)) {
-            return pickMessage(messages);
+        if (lastSeen.containsKey(message)) {
+            if (Math.abs(current - lastSeen.get(message)) <= messages.size() * 0.2) {
+                return pickMessage(messages);
+            }
         }
 
         lastSeen.put(message, current);
-        current++;
+        // While definitely never reach 2.1 billion quotes in 1 running instance, I'm taking no chances!
+        current = (current+1)%(Integer.MAX_VALUE-1);
         return message;
     }
 
