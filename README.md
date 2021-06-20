@@ -1,4 +1,4 @@
-# dikubot
+# (Discontinued version) dikubot
 
 This bot is the Discord bot of The Department of Computer Science at The University of Copenhagen, also known as "DIKU"'s unofficial Discord Server
 
