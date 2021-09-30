@@ -53,7 +53,7 @@ public class Main {
         //commands.put("!reset", new ResetCommand());
         //commands.put("!amiaprodigy", new ProdigyCommand());
         //commands.put("!ping", new PingCommand());
-        //commands.put("!help", new HelpCommand());
+        commands.put("?help", new HelpCommand());
         //commands.put("!lovecalc", new LoveCalcCommand());
         //commands.put("!magic8ball", new Magic8BallCommand());
         //commands.put("!rpn", new RPNCommand());
@@ -77,7 +77,7 @@ public class Main {
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
         jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
-        jdaBuilder.setActivity(Activity.playing("banger music"));
+        jdaBuilder.setActivity(Activity.playing("Use ? to play"));
         jdaBuilder.addEventListeners(new CommandListener());
         //jdaBuilder.addEventListeners(new JoinListener());
         //jdaBuilder.addEventListeners(new TicketListener());
