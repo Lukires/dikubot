@@ -18,7 +18,7 @@ public class CommandListener extends ListenerAdapter {
 
         Message message = e.getMessage();
         String messageContent = message.getContentRaw();
-        if(!messageContent.startsWith("!")) {
+        if(!messageContent.startsWith("?")) {
             return;
         }
 
