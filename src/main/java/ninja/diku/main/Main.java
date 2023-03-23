@@ -82,6 +82,7 @@ public class Main {
         //jdaBuilder.addEventListeners(new JoinListener());
         //jdaBuilder.addEventListeners(new TicketListener());
         jdaBuilder.setEventManager(new ThreadedEventManager());
+        jdaBuilder.enableIntents(GatewayIntent.MESSAGE_CONTENT)
         jda = jdaBuilder.build();
     }
 
