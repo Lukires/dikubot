@@ -1,9 +1,9 @@
 package ninja.diku.command.commands.fun;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.command.Command;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class RPNCommand implements Command {
      */
 
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         Double result = calculate(removeCommand(message));
         if(result == null) {
             channel.sendMessage("Den ligning kan jeg ikke finde ud af :(").queue();

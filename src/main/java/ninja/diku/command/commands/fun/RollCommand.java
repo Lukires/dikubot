@@ -1,9 +1,9 @@
 package ninja.diku.command.commands.fun;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.command.Command;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.Random;
@@ -22,7 +22,7 @@ public class RollCommand implements Command {
      */
 
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         String[] args = getArgs(message);
         try {
             Random random = new Random();

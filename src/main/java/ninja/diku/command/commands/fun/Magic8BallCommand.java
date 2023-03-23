@@ -1,9 +1,9 @@
 package ninja.diku.command.commands.fun;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.command.Command;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.Random;
@@ -44,7 +44,7 @@ public class Magic8BallCommand implements Command {
      */
 
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
 
         if (getArgs(message).length > 1) {
             Random rand = new Random();

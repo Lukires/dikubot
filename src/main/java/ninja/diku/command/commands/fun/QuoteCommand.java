@@ -1,5 +1,7 @@
 package ninja.diku.command.commands.fun;
 
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.command.Command;
 import net.dv8tion.jda.api.entities.*;
 
@@ -21,7 +23,7 @@ public class QuoteCommand implements Command {
      */
 
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         TextChannel quoteChannel = guild.getTextChannelById("753287293606821913");
         if (guild.getId().toString() == "758330864651862066") {
             quoteChannel = guild.getTextChannelById("789268505152716831");
@@ -34,7 +36,7 @@ public class QuoteCommand implements Command {
         }
         MessageHistory.getHistoryFromBeginning(quoteChannel).queue(messageHistory -> {
             List<Message> quotes = messageHistory.getRetrievedHistory();
-            channel.sendMessage(pickMessage(quotes)).queue();
+            channel.sendMessage(pickMessage(quotes).getContentRaw()).queue();
         });
     }
 

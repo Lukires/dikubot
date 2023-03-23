@@ -1,6 +1,8 @@
 package ninja.diku.command.commands.music;
 
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.command.Command;
 import ninja.diku.main.Util;
 import ninja.diku.models.UserModel;
@@ -12,10 +14,10 @@ public interface MusicCommand extends Command {
 
     AudioManager audioManager = AudioManager.getInstance();
 
-    void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message);
+    void onCommand(Member member, Guild guild, MessageChannelUnion messageChannel, AudioChannelUnion voiceChannel, AudioPlayer player, Message message);
 
     @Override
-    default void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    default void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         Member member = guild.retrieveMember(user).complete();
 
         UserModel userModel = new UserModel(user);
@@ -26,7 +28,7 @@ public interface MusicCommand extends Command {
 
         GuildVoiceState voiceState = member.getVoiceState();
         assert voiceState != null;
-        if(!voiceState.inVoiceChannel()) {
+        if(!voiceState.inAudioChannel()) {
             channel.sendMessage(":x: Jeg kan ikke spille musik for dig hvis du ikke er i en voice channel :(").queue();
             return;
         }

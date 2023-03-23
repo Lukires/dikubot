@@ -1,5 +1,7 @@
 package ninja.diku.command.commands.introduction;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import ninja.diku.command.Command;
 import ninja.diku.conversation.GuildConversation;
 import ninja.diku.conversation.conversations.VerificationConversation;
@@ -7,15 +9,13 @@ import ninja.diku.ku.Major;
 import ninja.diku.ku.Roles;
 import ninja.diku.main.Constant;
 import ninja.diku.models.UserModel;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class VerifyCommand implements Command {
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         String[] args = getArgs(message);
 
 
@@ -68,42 +68,42 @@ public class VerifyCommand implements Command {
         boolean dikuEmail = Constant.DIKU_EMAILS.contains(email);
 
         if(dikuEmail) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName("DIKU", true).get(0)).queue();
+            guild.addRoleToMember(user, guild.getRolesByName("DIKU", true).get(0)).queue();
             channel.sendMessage(user.getAsMention()+" din email er verified og du er blevet tilføjet til gruppen: DIKU").queue();
             UserModel.getUserModel(user).setMajor("DIKU");
             return;
         }
 
         if(!machineLearningEmail && !datalogiEmail && !datalogiEconomicsEmail) {
-            MessageBuilder mb = new MessageBuilder();
-            mb.append(user.getAsMention()).append(" din email er blevet verified. Vælg dit fag med !major [fag]\nHer er en liste af fag:\n");
+            MessageCreateBuilder mb = new MessageCreateBuilder();
+            mb.addContent(user.getAsMention()).addContent(" din email er blevet verified. Vælg dit fag med !major [fag]\nHer er en liste af fag:\n");
 
             StringBuilder subjects = new StringBuilder("```");
             for(Major major : Major.values()) {
                 subjects.append(major.getName()).append("\n");
             }
-            mb.append(subjects).append("```");
+            mb.addContent(subjects.toString()).addContent("```");
             channel.sendMessage(mb.build()).queue();
-            guild.addRoleToMember(user.getId(), guild.getRolesByName("KU", true).get(0)).queue();
-            guild.removeRoleFromMember(user.getId(), guild.getRolesByName("Guest", true).get(0)).queue();
+            guild.addRoleToMember(user, guild.getRolesByName("KU", true).get(0)).queue();
+            guild.removeRoleFromMember(user, guild.getRolesByName("Guest", true).get(0)).queue();
             return;
         }
 
         if(datalogiEmail) {
 
-            guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.DATALOG.getRole(), true).get(0)).queue();
+            guild.addRoleToMember(user, guild.getRolesByName(Roles.DATALOG.getRole(), true).get(0)).queue();
             channel.sendMessage(user.getAsMention()+" din email er verified og du er blevet tilføjet til gruppen: Datalog").queue();
             UserModel.getUserModel(user).setMajor("Datalogi-2020");
 
         }
         if(machineLearningEmail) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.MACHINETEACHER.getRole(), true).get(0)).queue();
+            guild.addRoleToMember(user, guild.getRolesByName(Roles.MACHINETEACHER.getRole(), true).get(0)).queue();
             channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: Machine Teachers").queue();
             UserModel.getUserModel(user).setMajor("MachineLearning-2020");
         }
 
         if(datalogiEconomicsEmail) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName(Roles.CBS_PROGRAMMING.getRole(), true).get(0)).queue();
+            guild.addRoleToMember(user, guild.getRolesByName(Roles.CBS_PROGRAMMING.getRole(), true).get(0)).queue();
             channel.sendMessage(user.getAsMention() + " din email er verified og du er blevet tilføjet til gruppen: CBS-Programming").queue();
             UserModel.getUserModel(user).setMajor("Datalogi-Økonomi-2020");
         }

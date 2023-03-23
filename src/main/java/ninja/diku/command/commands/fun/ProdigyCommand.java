@@ -1,10 +1,10 @@
 package ninja.diku.command.commands.fun;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.command.Command;
 import ninja.diku.models.UserModel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class ProdigyCommand implements Command {
@@ -22,7 +22,7 @@ public class ProdigyCommand implements Command {
      */
 
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         double percentile = UserModel.getUserModel(user).getProdigyPercentile();
         if(percentile > 98) {
             channel.sendMessage(user.getAsMention() + " you're in the " + percentile + "th percentile, consider yourself a prodigy").queue();

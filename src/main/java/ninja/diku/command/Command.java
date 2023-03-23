@@ -2,12 +2,12 @@ package ninja.diku.command;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 
 public interface Command {
 
-    void onCommand(User user, Guild guild, MessageChannel channel, Message message);
+    void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message);
 
     String getDescription();
 

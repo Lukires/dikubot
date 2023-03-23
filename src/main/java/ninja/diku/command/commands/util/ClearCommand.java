@@ -1,5 +1,6 @@
 package ninja.diku.command.commands.util;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.command.Command;
 import ninja.diku.main.Util;
 import net.dv8tion.jda.api.entities.*;
@@ -25,7 +26,7 @@ public class ClearCommand implements Command {
      */
 
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         String[] args = getArgs(message);
 
         if (!Util.isMod(user, guild)) {

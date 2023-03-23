@@ -2,6 +2,8 @@ package ninja.diku.command.commands.music;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.main.Util;
 import ninja.diku.music.audio.AudioContext;
 import ninja.diku.music.audio.AudioPlayer;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 
 public class QueueCommand implements MusicCommand {
     @Override
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
+    public void onCommand(Member member, Guild guild, MessageChannelUnion messageChannel, AudioChannelUnion voiceChannel, AudioPlayer player, Message message) {
         String[] args = getArgs(message);
 
         int page = 1;

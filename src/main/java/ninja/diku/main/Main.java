@@ -82,11 +82,7 @@ public class Main {
         //jdaBuilder.addEventListeners(new JoinListener());
         //jdaBuilder.addEventListeners(new TicketListener());
         jdaBuilder.setEventManager(new ThreadedEventManager());
-        try {
-            jda = jdaBuilder.build();
-        } catch (LoginException e) {
-            e.printStackTrace();
-        }
+        jda = jdaBuilder.build();
     }
 
     private static class ThreadedEventManager extends InterfacedEventManager {

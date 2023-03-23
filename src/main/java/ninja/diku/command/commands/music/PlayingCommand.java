@@ -2,6 +2,8 @@ package ninja.diku.command.commands.music;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.main.Constant;
 import ninja.diku.main.Util;
 import ninja.diku.music.audio.AudioContext;
@@ -9,7 +11,7 @@ import ninja.diku.music.audio.AudioPlayer;
 
 public class PlayingCommand implements MusicCommand {
     @Override
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
+    public void onCommand(Member member, Guild guild, MessageChannelUnion messageChannel, AudioChannelUnion voiceChannel, AudioPlayer player, Message message) {
         AudioTrack playing = player.getPlayingTrack();
         if (playing==null) {
            messageChannel.sendMessage(":x: Der bliver ikke spillet noget lige nu").queue();

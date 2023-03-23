@@ -1,9 +1,13 @@
 package ninja.diku.ticket;
 
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import ninja.diku.models.TicketModel;
 import ninja.diku.models.exceptions.TicketNotFoundException;
 import ninja.diku.ticket.tickets.MajorTicket;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.*;
 
 import java.util.UUID;
@@ -56,38 +60,38 @@ public abstract class Ticket {
     abstract public TicketDisplay getDisplay();
     abstract public TicketDisplay getCloseDisplay();
     abstract public String getContext();
-    abstract public MessageChannel getOpenTicketChannel();
-    abstract public MessageChannel getClosedTicketChannel();
+    abstract public TextChannel getOpenTicketChannel();
+    abstract public TextChannel getClosedTicketChannel();
 
     public void close(String comment) {
         TicketModel ticketModel = new TicketModel(this);
         String messageID = ticketModel.getMessageId();
         ticketModel.setOpen(false);
 
-        MessageChannel channel = getOpenTicketChannel();
+        TextChannel channel = getOpenTicketChannel();
         channel.retrieveMessageById(messageID).queue((message -> {
             message.delete().queue();
         }));
 
-        MessageBuilder messageBuilder = new MessageBuilder();
-        messageBuilder.append("```");
-        messageBuilder.append(comment).append("\n");
-        messageBuilder.append(getCloseDisplay().getMessage().getContentRaw()).append("\n");
-        messageBuilder.append("```");
+        MessageCreateBuilder messageBuilder = new MessageCreateBuilder();
+        messageBuilder.addContent("```");
+        messageBuilder.addContent(comment).addContent("\n");
+        messageBuilder.addContent(getCloseDisplay().getMessage().getContent()).addContent("\n");
+        messageBuilder.addContent("```");
         getClosedTicketChannel().sendMessage(messageBuilder.build()).queue();
     }
 
     public void activate() {
         TicketDisplay display = getDisplay();
         TicketModel ticketModel = new TicketModel(this);
-        MessageBuilder messageBuilder = new MessageBuilder();
-        messageBuilder.append(display.getMessage().getContentRaw());
-        Message message = messageBuilder.build();
+        MessageCreateBuilder messageBuilder = new MessageCreateBuilder();
+        messageBuilder.addContent(display.getMessage().getContent());
+        MessageCreateData message = messageBuilder.build();
 
         getOpenTicketChannel().sendMessage(message).queue((sentMessage) ->
         {
             for(String emote : display.getActions().keySet()) {
-                sentMessage.addReaction(emote).queue();
+                sentMessage.addReaction(Emoji.fromUnicode(emote)).queue();
             }
             ticketModel.setMessage(sentMessage);
         });

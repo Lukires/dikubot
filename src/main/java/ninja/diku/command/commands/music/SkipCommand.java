@@ -1,12 +1,14 @@
 package ninja.diku.command.commands.music;
 
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.music.audio.AudioContext;
 import ninja.diku.music.audio.AudioPlayer;
 
 public class SkipCommand implements DJCommand {
     @Override
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
+    public void onCommand(Member member, Guild guild, MessageChannelUnion messageChannel, AudioChannelUnion voiceChannel, AudioPlayer player, Message message) {
         String[] args = getArgs(message);
         int skips = 1;
         if (args.length > 1) {

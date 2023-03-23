@@ -1,14 +1,15 @@
 package ninja.diku.ticket.tickets;
 
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import ninja.diku.ku.Major;
 import ninja.diku.ticket.Ticket;
 import ninja.diku.ticket.TicketDisplay;
 import ninja.diku.ticket.ticketactions.AcceptMajorTicketAction;
 import ninja.diku.ticket.ticketactions.RejectMajorTicketAction;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class MajorTicket extends Ticket {
@@ -35,12 +36,12 @@ public class MajorTicket extends Ticket {
     }
 
     @Override
-    public MessageChannel getClosedTicketChannel() {
+    public TextChannel getClosedTicketChannel() {
         return guild.getTextChannelById("756603513177374771");
     }
 
     @Override
-    public MessageChannel getOpenTicketChannel() {
+    public TextChannel getOpenTicketChannel() {
         return guild.getTextChannelById("756470614323101736");
     }
 
@@ -49,13 +50,14 @@ public class MajorTicket extends Ticket {
         TicketDisplay.Builder builder = new TicketDisplay.Builder();
         builder.setUser(getUser());
 
-        MessageBuilder mb = new MessageBuilder();
+        MessageCreateBuilder mb = new MessageCreateBuilder();
         Member member = guild.retrieveMember(user).complete();
         String name = member.getNickname();
         if(name==null) {
             name = member.getEffectiveName();
         }
-        mb.append(name).append(" (").append(user.getAsMention()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
+        mb.addContent(name).addContent(" (").addContent(user.getAsMention()).addContent(") har anmodet at deres !major bliver sat til ")
+                .addContent(getMajor().getRole().getRole());
         builder.setMessage(mb.build());
         return builder.build();
     }
@@ -67,14 +69,15 @@ public class MajorTicket extends Ticket {
         builder.addAction("U+274c", new RejectMajorTicketAction());
         builder.setUser(getUser());
 
-        MessageBuilder mb = new MessageBuilder();
+        MessageCreateBuilder mb = new MessageCreateBuilder();
         Member member = guild.retrieveMember(user).complete();
         String name = member.getNickname();
         if(name==null) {
             name = member.getEffectiveName();
         }
-        mb.append(name).append(" (").append(user.getAsMention()).append(") har anmodet at deres !major bliver sat til ").append(getMajor().getRole().getRole());
-        mb.append("\nAccepter: ").append(":white_check_mark:").append(" Afvis: ").append(":x:");
+        mb.addContent(name).addContent(" (").addContent(user.getAsMention()).addContent(") har anmodet at deres !major bliver sat til ")
+                .addContent(getMajor().getRole().getRole());
+        mb.addContent("\nAccepter: ").addContent(":white_check_mark:").addContent(" Afvis: ").addContent(":x:");
         builder.setMessage(mb.build());
         return builder.build();
     }

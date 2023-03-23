@@ -1,5 +1,7 @@
 package ninja.diku.command.commands.introduction;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import ninja.diku.command.Command;
 import ninja.diku.conversation.GuildConversation;
 import ninja.diku.conversation.conversations.VerificationConversation;
@@ -8,7 +10,6 @@ import ninja.diku.main.Util;
 import ninja.diku.models.UserModel;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.*;
 
 public class JoinCommand implements Command {
@@ -17,7 +18,7 @@ public class JoinCommand implements Command {
     BotEmail botEmail = BotEmail.getInstance();
 
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         String[] args = getArgs(message);
 
         UserModel userModel = UserModel.getUserModel(user);
@@ -70,9 +71,9 @@ public class JoinCommand implements Command {
             e.printStackTrace();
         }
 
-        MessageBuilder mb = new MessageBuilder();
-        mb.append(user.getAsMention()+" der er blevet sendt en kode til din KU-email: "+"skjult@" + args[1].split("@")[1]).append("\n");
-        mb.appendCodeLine("Når du har fundet koden, skal du skrive: !verify [Kode]");
+        MessageCreateBuilder mb = new MessageCreateBuilder();
+        mb.addContent(user.getAsMention()+" der er blevet sendt en kode til din KU-email: "+"skjult@" + args[1].split("@")[1]).addContent("\n");
+        mb.addContent("Når du har fundet koden, skal du skrive: !verify [Kode]");
         channel.sendMessage(mb.build()).queue();
 
         String password = Util.generateString();

@@ -1,9 +1,9 @@
 package ninja.diku.ticket.tickets;
 
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import ninja.diku.ticket.Ticket;
 import ninja.diku.ticket.TicketDisplay;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class GenericTicket extends Ticket {
@@ -32,12 +32,12 @@ public class GenericTicket extends Ticket {
     }
 
     @Override
-    public MessageChannel getClosedTicketChannel() {
+    public TextChannel getClosedTicketChannel() {
         return guild.getTextChannelById("756470614323101736");
     }
 
     @Override
-    public MessageChannel getOpenTicketChannel() {
+    public TextChannel getOpenTicketChannel() {
         return guild.getTextChannelById("756603513177374771");
     }
 }

@@ -2,6 +2,8 @@ package ninja.diku.ticket;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.HashMap;
 
@@ -10,7 +12,7 @@ public class TicketDisplay {
 
 
         private User user;
-        private Message message;
+        private MessageCreateData message;
 
         private HashMap<String, TicketAction> actions = new HashMap<String, TicketAction>();
         public void addAction(String emote, TicketAction action) {
@@ -21,7 +23,7 @@ public class TicketDisplay {
             this.user=user;
         }
 
-        public void setMessage(Message message) {
+        public void setMessage(MessageCreateData message) {
             this.message=message;
         }
 
@@ -29,7 +31,7 @@ public class TicketDisplay {
             return user;
         }
 
-        public Message getMessage() {
+        public MessageCreateData getMessage() {
             return message;
         }
 
@@ -43,7 +45,7 @@ public class TicketDisplay {
     }
 
     private User user;
-    private Message message;
+    private MessageCreateData message;
     private HashMap<String, TicketAction> actions = new HashMap<String, TicketAction>();
 
 
@@ -57,7 +59,7 @@ public class TicketDisplay {
         return user;
     }
 
-    public Message getMessage() {
+    public MessageCreateData getMessage() {
         return message;
     }
 

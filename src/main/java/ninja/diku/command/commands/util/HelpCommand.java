@@ -1,11 +1,11 @@
 package ninja.diku.command.commands.util;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import ninja.diku.command.Command;
 import ninja.diku.main.Main;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class HelpCommand implements Command {
@@ -23,7 +23,7 @@ public class HelpCommand implements Command {
      */
 
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         String[] args = getArgs(message);
         if(args.length>1) {
             String command = args[1];
@@ -36,14 +36,14 @@ public class HelpCommand implements Command {
             return;
         }
 
-        MessageBuilder mb = new MessageBuilder();
-        mb.append(user.getAsMention()).append(" brug for hjælp? Her er en liste af alle mine kommandoer! \n");
+        MessageCreateBuilder mb = new MessageCreateBuilder();
+        mb.addContent(user.getAsMention()).addContent(" brug for hjælp? Her er en liste af alle mine kommandoer! \n");
         StringBuilder commands = new StringBuilder();
         for(String command : Main.commands.keySet()) {
             String commandUpper = command.substring(0, 2).toUpperCase() + command.substring(2);
             commands.append(commandUpper).append(" - '").append(Main.commands.get(command).getDescription().toLowerCase()).append("'\n");
         }
-        mb.append("```prolog\n").append(String.valueOf(commands)).append("```");
+        mb.addContent("```prolog\n").addContent(String.valueOf(commands)).addContent("```");
         channel.sendMessage(mb.build()).queue();
     }
 

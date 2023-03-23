@@ -1,11 +1,13 @@
 package ninja.diku.command.commands.music;
 
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.music.audio.AudioPlayer;
 
 public class DJModeCommand implements DJCommand {
     @Override
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
+    public void onCommand(Member member, Guild guild, MessageChannelUnion messageChannel, AudioChannelUnion voiceChannel, AudioPlayer player, Message message) {
         if (!DJCommand.isDJ(member, player)) {
             messageChannel.sendMessage(":x: Kun DJs kan slå DJ Mode til og fra").queue();
             return;

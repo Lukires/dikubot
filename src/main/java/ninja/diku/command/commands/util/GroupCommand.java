@@ -1,17 +1,17 @@
 package ninja.diku.command.commands.util;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import ninja.diku.command.Command;
 import ninja.diku.ku.Roles;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class GroupCommand implements Command {
 
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         String[] args = getArgs(message);
 
         if(args.length<2) {
@@ -53,29 +53,29 @@ public class GroupCommand implements Command {
         boolean joinOrLeave = args[1].equalsIgnoreCase("join") || (!args[1].equalsIgnoreCase("leave"));
 
         if(joinOrLeave) {
-            guild.addRoleToMember(user.getId(), guild.getRolesByName(role.getRole(), true).get(0)).queue();
+            guild.addRoleToMember(user, guild.getRolesByName(role.getRole(), true).get(0)).queue();
             channel.sendMessage(user.getAsMention() + " du er blevet tilføjet til "+args[2]).queue();
         }else{
             if (role.equals(Roles.WEEB)) {
                 channel.sendMessage(user.getAsMention() + " du kan ikke forlade weeb gruppen. Once a weeb, always a weeb").queue();
                 return;
             }
-            guild.removeRoleFromMember(user.getId(), guild.getRolesByName(role.getRole(), true).get(0)).queue();
+            guild.removeRoleFromMember(user, guild.getRolesByName(role.getRole(), true).get(0)).queue();
             channel.sendMessage(user.getAsMention() + " du er blevet fjernet fra "+args[2]).queue();
         }
 
     }
 
-    private void sendGroups(User user, MessageChannel channel) {
-        MessageBuilder mb = new MessageBuilder();
-        mb.append("Liste af vores grupper\n");
+    private void sendGroups(User user, MessageChannelUnion channel) {
+        MessageCreateBuilder mb = new MessageCreateBuilder();
+        mb.addContent("Liste af vores grupper\n");
         StringBuilder roles = new StringBuilder();
         for(Roles role : Roles.values()) {
             if (role.isSelectable()) {
                 roles.append(" - ").append(role.getRole().toUpperCase()).append("\n");
             }
         }
-        mb.appendCodeLine(roles.toString());
+        mb.addContent(roles.toString());
         channel.sendMessage(mb.build()).queue();
     }
 

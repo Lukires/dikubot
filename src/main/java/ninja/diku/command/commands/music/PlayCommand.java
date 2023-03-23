@@ -1,5 +1,7 @@
 package ninja.diku.command.commands.music;
 
+import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import ninja.diku.command.Command;
 import ninja.diku.main.Constant;
 import ninja.diku.models.UserModel;
@@ -9,11 +11,11 @@ import ninja.diku.music.audio.*;
 public class PlayCommand implements MusicCommand {
 
     @Override
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message) {
+    public void onCommand(Member member, Guild guild, MessageChannelUnion messageChannel, AudioChannelUnion voiceChannel, AudioPlayer player, Message message) {
         onCommand(member, guild, messageChannel, voiceChannel, player, message, false);
     }
 
-    public void onCommand(Member member, Guild guild, MessageChannel messageChannel, VoiceChannel voiceChannel, AudioPlayer player, Message message, boolean playTop) {
+    public void onCommand(Member member, Guild guild, MessageChannelUnion messageChannel, AudioChannelUnion voiceChannel, AudioPlayer player, Message message, boolean playTop) {
         String[] args = getArgs(message);
 
         if(args.length < 2) {

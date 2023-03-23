@@ -1,29 +1,30 @@
 package ninja.diku.command.commands.introduction;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import ninja.diku.command.Command;
 import ninja.diku.ku.Major;
 import ninja.diku.models.UserModel;
 import ninja.diku.ticket.tickets.MajorTicket;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.*;
 
 import java.util.UUID;
 
 public class MajorCommand implements Command {
     @Override
-    public void onCommand(User user, Guild guild, MessageChannel channel, Message message) {
+    public void onCommand(User user, Guild guild, MessageChannelUnion channel, Message message) {
         String[] args = getArgs(message);
 
 
         if(args.length < 2) {
-            MessageBuilder mb = new MessageBuilder();
-            mb.append(user.getAsMention()).append(" Invalid usage - !major [fag]\"\n");
+            MessageCreateBuilder mb = new MessageCreateBuilder();
+            mb.addContent(user.getAsMention()).addContent(" Invalid usage - !major [fag]\"\n");
 
             StringBuilder subjects = new StringBuilder("Fag:\n");
             for(Major major : Major.values()) {
                 subjects.append(major.getName()).append("\n");
             }
-            mb.append("```").append(subjects.toString()).append("```");
+            mb.addContent("```").addContent(subjects.toString()).addContent("```");
             channel.sendMessage(mb.build()).queue();
             return;
         }
@@ -47,14 +48,14 @@ public class MajorCommand implements Command {
             }
         }
 
-        MessageBuilder mb = new MessageBuilder();
-        mb.append(user.getAsMention()).append(" Det indtastede fag findes ikke - !major [fag]\"\n");
+        MessageCreateBuilder mb = new MessageCreateBuilder();
+        mb.addContent(user.getAsMention()).addContent(" Det indtastede fag findes ikke - !major [fag]\"\n");
 
         StringBuilder subjects = new StringBuilder("Fag:\n");
         for(Major major : Major.values()) {
             subjects.append(major.getName()).append("\n");
         }
-        mb.appendCodeLine(subjects.toString());
+        mb.addContent(subjects.toString());
         channel.sendMessage(mb.build()).queue();
     }
 
