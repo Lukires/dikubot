@@ -1,6 +1,7 @@
 package ninja.diku.main;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import ninja.diku.command.Command;
 import ninja.diku.command.CommandListener;
 import ninja.diku.command.commands.fun.*;
@@ -76,13 +77,16 @@ public class Main {
         commands.put("?djmode", new DJModeCommand());
 
         jdaBuilder = JDABuilder.createDefault(getAPIKey());
-        jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
+        jdaBuilder.enableIntents(GatewayIntent.GUILD_MESSAGES,
+                GatewayIntent.MESSAGE_CONTENT,
+                GatewayIntent.GUILD_MEMBERS,
+                GatewayIntent.GUILD_VOICE_STATES);
+        jdaBuilder.setMemberCachePolicy(MemberCachePolicy.ALL);
         jdaBuilder.setActivity(Activity.playing("Use ? to play"));
         jdaBuilder.addEventListeners(new CommandListener());
         //jdaBuilder.addEventListeners(new JoinListener());
         //jdaBuilder.addEventListeners(new TicketListener());
         jdaBuilder.setEventManager(new ThreadedEventManager());
-        jdaBuilder.enableIntents(GatewayIntent.MESSAGE_CONTENT)
         jda = jdaBuilder.build();
     }
 
