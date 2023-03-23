@@ -1,10 +1,6 @@
-# dikubot
+# music bot branch
 
-This bot is the Discord bot of The Department of Computer Science at The University of Copenhagen, also known as "DIKU"'s unofficial Discord Server
-
-The bot's core features consist of university email confirmation and an internal support ticket system. It also contains a bunch of miscellaneous and fun features. Everyone is allowed to contribute to the bot, either by completing existing issues or by creating their own issues.
-
-The bot is programmed in Java using JDA, a Java Discord Api (https://github.com/DV8FromTheWorld/JDA), as Java is an easy to learn language, meaning lesser experienced students at DIKU will be able to contribute.
+This branch only has music bot features enabled.
 
 ## How to run
 
