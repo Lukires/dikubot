@@ -1,3 +1,4 @@
+## Music bot only version can be found at: https://github.com/Lukires/dikubot/tree/version/musicbot
 # (Discontinued version) dikubot
 
 This bot is the Discord bot of The Department of Computer Science at The University of Copenhagen, also known as "DIKU"'s unofficial Discord Server
